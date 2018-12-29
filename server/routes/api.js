@@ -14,6 +14,22 @@ mongoose.connect(config.database, {useNewUrlParser: true}, err => {
     console.log('connected to mongodb');
 });
 
+function verifyToken(req, res, next) {
+  if (!req.headers.authorization)
+    return res.sendStatus(401);
+
+  let token = req.headers.authorization.split(' ')[1];
+  if (token === 'null')
+    return res.sendStatus(401);
+
+  let payload = jwt.verify(token, config.secret);
+  if (!payload)
+    return res.sendStatus(401);
+
+  req.userId = payload.subject;
+  next();
+}
+
 router.get('/', (req, res) => {
   res.send('From API route')
 });
@@ -71,7 +87,7 @@ router.get('/events', (req, res) => {
   res.json(events);
 });
 
-router.get('/special', (req, res) => {
+router.get('/special', verifyToken, (req, res) => {
   let specialEvents = [
     {
       "_id": "1",
