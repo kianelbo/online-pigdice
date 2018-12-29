@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const mongoose = require('mongoose');
 
@@ -22,8 +23,11 @@ router.post('/register', (req, res) => {
   user.save((err, registeredUser) => {
     if (err)
       console.log(err);
-    else
-      res.status(200).send(registeredUser);
+    else {
+      let payload = {subject: registeredUser._id};
+      let token = jwt.sign(payload, config.secret);
+      res.status(200).send({token});
+    }
   });
 });
 
@@ -36,8 +40,11 @@ router.post('/login', (req, res) => {
 
     if (!user || user.password !== userData.password)
       res.sendStatus(401);
-    else
-      res.status(200).send(user);
+    else {
+      let payload = {subject: user._id};
+      let token = jwt.sign(payload, config.secret);
+      res.status(200).send({token});
+    }
   });
 });
 
