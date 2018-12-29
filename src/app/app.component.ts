@@ -7,7 +7,6 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Online Pig Dice';
 
   constructor(private authService: AuthService) {}
 }

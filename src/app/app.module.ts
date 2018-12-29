@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { IndexComponent } from './index/index.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { EventsComponent } from './events/events.component';
@@ -18,6 +19,7 @@ import {AuthGuard} from './guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
+    IndexComponent,
     RegisterComponent,
     LoginComponent,
     EventsComponent,
