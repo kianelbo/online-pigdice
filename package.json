@@ -21,6 +21,7 @@
     "@angular/router": "~7.1.0",
     "body-parser": "latest",
     "core-js": "^2.5.4",
+    "cors": "^2.8.5",
     "express": "latest",
     "mongoose": "^5.4.1",
     "rxjs": "~6.3.3",
