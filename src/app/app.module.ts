@@ -12,6 +12,7 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
 
 import {AuthService} from './services/auth.service';
 import { EventService } from './services/event.service';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { EventService } from './services/event.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService, EventService],
+  providers: [AuthService, AuthGuard, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
