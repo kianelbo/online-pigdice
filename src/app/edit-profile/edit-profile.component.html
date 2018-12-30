@@ -1,0 +1,71 @@
+<div class="container">
+  <form>
+    <div class="col-md-6 mx-auto pt-2">
+      <legend>Edit your profile
+        <button type="button" class="btn btn-outline-danger float-right">Cancel</button>
+      </legend>
+      <div class="card border-primary mb-3"><div class="card-body">
+        <fieldset>
+          <!-- name -->
+          <div class="form-group">
+            <label for="nameInput">name:</label>
+            <input type="text" class="form-control" id="nameInput">
+          </div>
+          <!-- gender -->
+          <fieldset class="form-group">
+            <span class="pr-4">gender: </span>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label pr-4">
+                <input type="radio" class="form-check-input" name="genderRadios" id="maleRadios" value="male"
+                       checked="">♂
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label pr-4">
+                <input type="radio" class="form-check-input" name="genderRadios" id="optionsRadios2" value="female">♀
+              </label>
+            </div>
+          </fieldset>
+          <!-- birth date -->
+          <div class="form-group">
+            <label for="dateInput">birth date:</label>
+            <input type="date" class="form-control" id="dateInput">
+          </div>
+          <button type="submit" class="btn btn-success float-right">Save</button>
+        </fieldset>
+      </div></div>
+
+      <div class="card border-primary mb-3"><div class="card-body">
+        <fieldset>
+          <!-- profile picture -->
+          <div class="form-group">
+            <label for="pictureInput">profile picture:</label>
+            <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
+          </div>
+          <button type="submit" class="btn btn-success float-right">Save</button>
+        </fieldset>
+      </div></div>
+
+      <div class="card border-primary mb-3"><div class="card-body">
+        <fieldset>
+          <!-- email -->
+          <div class="form-group">
+            <label for="emailInput">email:</label>
+            <input type="email" class="form-control" id="emailInput">
+          </div>
+          <!-- username -->
+          <div class="form-group">
+            <label for="usernameInput">username:</label>
+            <input type="text" class="form-control" id="usernameInput">
+          </div>
+          <!-- password -->
+          <div class="form-group">
+            <label for="passwordInput">password:</label>
+            <input type="password" class="form-control" id="passwordInput">
+          </div>
+          <button type="submit" class="btn btn-success float-right">Save</button>
+        </fieldset>
+      </div></div>
+    </div>
+  </form>
+</div>

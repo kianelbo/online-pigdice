@@ -1,0 +1,39 @@
+<form>
+  <fieldset>
+    <legend>Make your own custom rules!</legend>
+    <div class="form-group">
+      <label for="winScoreInput">Winning score:</label>
+      <input type="number" class="form-control" id="winScoreInput" min="10" value="100">
+      <small id="winScoreHelp" class="form-text text-muted">The player wins when he/she reaches this score.</small>
+    </div>
+    <div class="form-group">
+      <label for="blackDicesInput">Black dices:</label>
+      <select multiple="" class="form-control" id="blackDicesInput">
+        <option selected>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+      <small id="blackDicesHelp" class="form-text text-muted">Dices which ends your turn.</small>
+    </div>
+    <div class="form-group">
+      <label for="diceCount">Number of dices:</label>
+      <select class="form-control" id="diceCount">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </select>
+      <small id="diceCountHelp" class="form-text text-muted">How many dices are rolled per turn.</small>
+    </div>
+    <div class="form-group">
+      <label for="limitInput">Roll limit:</label>
+      <input type="number" class="form-control" id="limitInput" placeholder="leave empty for unlimited rolls">
+      <small id="limitHelp" class="form-text text-muted">How many times a player can roll the dice per turn.</small>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-outline-danger" (click)="onCancelClick()">Cancel</button>
+  </fieldset>
+</form>

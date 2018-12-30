@@ -1,0 +1,40 @@
+<div class="container">
+  <!-- sort panel -->
+  <div class="row">
+    <div class="col-md-6 mx-auto pt-4">
+      <ol class="breadcrumb">
+        <li class="pr-3">Sort By:</li>
+        <li class="breadcrumb-item active"><a href="/leaderboard">Most Games</a></li>
+        <li class="breadcrumb-item active"><a href="/leaderboard">Most Wins</a></li>
+        <li class="breadcrumb-item active"><a href="/leaderboard">Player's Rating</a></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- the list -->
+  <div class="row">
+    <div class="col-md-6 mx-auto pt-4">
+      <table class="table table-hover">
+        <thead>
+        <tr class="table-info">
+          <th scope="col">#</th>
+          <th scope="col">username</th>
+          <th scope="col">games(wins)</th>
+          <th scope="col">player's rating</th>
+          <th scope="col">status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light" *ngFor="let user of users; index as i;">
+          <th scope="row">{{i + 1}}</th>
+          <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
+          <td><strong>{{user.games}}</strong>({{user.wins}})</td>
+          <td>★{{user.playerRating}}</td>
+          <td><span *ngIf="user.online" class="badge badge-success badge-pill">online</span>
+            <span *ngIf="!user.online" class="badge badge-danger badge-pill">offline</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

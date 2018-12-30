@@ -1,0 +1,77 @@
+<div class="container">
+
+  <div class="row pt-3">
+    <!-- top left : personal details -->
+    <div class="col-md-6">
+      <div class="card border-primary mb-3">
+        <div class="card-header">
+          <img class="rounded-circle img-thumbnail" alt="profile picture" width="200" height="200"
+               src="http://cdn.shopify.com/s/files/1/0891/8314/products/Poker_Face_Decal_4f0383be00a99_grande.png?v=1459054442">
+          <button *ngIf="!selfProfile" class="btn btn-primary float-right">friend request</button>
+          <button *ngIf="selfProfile" class="btn btn-info float-right" (click)="gotoEdit()">edit profile</button>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">@{{username}}<span class="badge badge-success badge-pill float-right">online</span></h4>
+          <p class="card-text">Name: <span class="badge badge-dark badge-pill float-right">♂</span></p>
+          <p class="card-text">Birth date: </p>
+        </div>
+      </div>
+    </div>
+    <!-- top right : friends details -->
+    <div class="col-md-6">
+      <h2>Friends</h2>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let friend of friends">
+          {{friend.name}}
+          <span *ngIf="friend.online" class="badge badge-success badge-pill">online</span>
+          <span *ngIf="!friend.online" class="badge badge-danger badge-pill">offline</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <!-- bottom left : play details -->
+    <div class="col-md-4">
+      <h3>Play Statistics</h3>
+      <table class="table">
+        <tr class="table-light">
+          <th scope="col">Total games:</th>
+          <td>17</td>
+        </tr>
+        <tr class="table-light">
+          <th scope="col">Total wins:</th>
+          <td>10</td>
+        </tr>
+        <tr class="table-light">
+          <th scope="col">Player's rating:</th>
+          <td>4.2</td>
+        </tr>
+      </table>
+    </div>
+    <!-- bottom center : that fucking slider -->
+    <div class="col-md-4" style="background-color: blueviolet">
+      <h3>Matches</h3>
+      that fucking slider -__-
+    </div>
+    <!-- bottom right : design details -->
+    <div class="col-md-4">
+      <h3>Games Designed</h3>
+      <table class="table">
+        <tr class="table-light">
+          <th scope="col">Games created:</th>
+          <td>2</td>
+        </tr>
+        <tr class="table-light">
+          <th scope="col">Total play times:</th>
+          <td>6</td>
+        </tr>
+        <tr class="table-light">
+          <th scope="col">Rating:</th>
+          <td>4.4</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
