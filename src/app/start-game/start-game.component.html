@@ -1,3 +1,58 @@
-<p>
-  start-game works!
-</p>
+<div class="row mt-4">
+  <!-- game select -->
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-sm-4 mb-3" *ngFor="let game of games;">
+        <div class="card text-center" [class.bg-light]="selectedGame==game">
+          <div class="card-body">
+            <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.rating}}</strong></h5>
+            <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
+            <p class="card-text">created by <a target="_blank" routerLink="/users/{{game.creator}}">{{game.creator}}</a> <br>
+              on {{game.createDate | date:'shortDate'}}</p>
+            <a href="" data-toggle="modal" data-target="#commentsModal" (click)="updateComments(game.comments)">comments</a>
+            <button class="btn btn-success" (click)="selectGame(game)">select</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- opponent select -->
+  <div class="col-md-4">
+    <div class="card border-primary text-center">
+      <div class="card-body">
+        <div class="alert alert-dismissible alert-info">
+          <strong>Win score:</strong>{{selectedGame.rules.winScore}}<br>
+          <strong>Dices:</strong>{{selectedGame.rules.diceCount}}
+        </div>
+        <button class="btn btn-primary">Random Opponent</button>
+
+        <div class="list-group">
+          <h6 class="text-muted pt-3">or play against:</h6>
+          <button class="btn list-group-item list-group-item-action" *ngFor="let user of users">{{user}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- comments modal -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-labelledby="commentsModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-dismissible alert-info" *ngFor="let comment of comments">
+          <strong>{{comment.username}}:</strong> {{comment.text}} <strong class="text-warning">★{{comment.rating}}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
