@@ -12,6 +12,7 @@ import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {StartGameComponent} from './start-game/start-game.component';
+import {GameoverComponent} from './gameover/gameover.component';
 
 import {AuthGuard} from './guards/auth.guard';
 
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'users', component: LeaderboardComponent },
   { path: 'users/:username', component: ProfilePageComponent },
   { path: 'editprofile', component: EditProfileComponent },
-  { path: 'start', component: StartGameComponent}
+  { path: 'start', component: StartGameComponent },
+  { path: 'gameover', component: GameoverComponent }
 ];
 
 @NgModule({

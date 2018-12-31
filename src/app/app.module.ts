@@ -16,6 +16,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { StartGameComponent } from './start-game/start-game.component';
+import { GameoverComponent } from './gameover/gameover.component';
 
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -35,7 +36,8 @@ import {AuthGuard} from './guards/auth.guard';
     LeaderboardComponent,
     ProfilePageComponent,
     EditProfileComponent,
-    StartGameComponent
+    StartGameComponent,
+    GameoverComponent
   ],
   imports: [
     BrowserModule,
