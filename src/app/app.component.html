@@ -8,25 +8,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/events" routerLinkActive="active">Events</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/special" routerLinkActive="active">Members</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" routerLink="/start" routerLinkActive="active">PLAY</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/users" routerLinkActive="active">Leaderboard</a>
+        <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/users" routerLinkActive="active">Leaderboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/design" routerLinkActive="active">Design Game</a>
+        <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/design" routerLinkActive="active">Design Game</a>
       </li>
     </ul>
     <ul class="navbar-nav">
-      <a *ngIf="!authService.loggedIn()" class="nav-link" routerLink="/editprofile" routerLinkActive="active">Profile</a>
       <a *ngIf="!authService.loggedIn()" class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
       <a *ngIf="!authService.loggedIn()" class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+      <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/editprofile" routerLinkActive="active">Profile</a>
       <a *ngIf="authService.loggedIn()" class="nav-link" style="cursor:pointer" (click)="authService.logoutUser()">Logout</a>
     </ul>
   </div>

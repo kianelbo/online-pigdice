@@ -22,7 +22,7 @@ import { PlayPageComponent } from './play-page/play-page.component';
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EventService } from './services/event.service';
-import {AuthGuard} from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
