@@ -1,0 +1,135 @@
+.game-window {
+  position: absolute;
+  left: 20%;
+  top: 15%;
+  width: 60%;
+  height: 70%;
+  text-align: center;
+}
+
+.panel {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 50%;
+}
+
+.panel-selected {
+  background-color: whitesmoke;
+}
+
+.panel-selected .red-dot {
+  display: inline;
+}
+
+.rules-bar {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  width: 100%;
+}
+
+.rules-bar span {
+  padding-right: 10%;
+}
+
+#goal-span {
+  color: crimson;
+  font-weight: bolder;
+}
+
+.mini-dice {
+  width: 5%;
+  height: 5%;
+  padding-left: 1%;
+}
+
+.transparent-btn {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  color: black;
+  font-size: 18px;
+  padding: 12px 24px;
+  border: none;
+}
+
+.transparent-btn:hover {
+  box-shadow: 10px 10px 50px lightgray;
+}
+
+.transparent-btn img {
+  height: 10%;
+  color: red;
+  fill: red;
+}
+
+#roll-btn {
+  top: 70%;
+}
+
+#hold-btn {
+  top: 80%;
+}
+
+.dices-div {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, 0%);
+  width: 20%;
+  border: solid crimson;
+  border-radius: 5%;
+}
+
+.dice {
+  width: 50%;
+  height: 50%;
+  padding: 10%;
+}
+
+#dice-img1 {
+  top: 30%;
+}
+
+#dice-img2 {
+  top: 50%;
+}
+
+.score-big {
+  color: red;
+  font-size: 72px;
+}
+
+.score-small {
+  color: white;
+}
+
+.player-name {
+  font-size: 48px;
+}
+
+.red-dot {
+  display: none;
+  position: absolute;
+  color: red;
+  font-size: 28px;
+  top: 20%;
+  left: 75%;
+}
+
+.global-score-div {
+  padding-top: 20%;
+}
+
+.current-score-div {
+  display: inline-block;
+  background-color: crimson;
+  margin-top: 20%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+

@@ -1,0 +1,41 @@
+<div class="game-window shadow-lg p-3 mb-5 bg-white rounded">
+
+  <div class="panel" id="left-panel">
+    <div class="global-score-div">
+      <h2 class="player-name">PLAYER 1</h2>
+      <span id="left-dot" class="red-dot">●</span>
+      <h1 class="score-big">66</h1>
+    </div>
+    <div class="current-score-div">
+      <h5>current</h5>
+      <h2 class="score-small">6</h2>
+    </div>
+  </div>
+
+  <div class="panel" id="right-panel">
+    <div class="global-score-div">
+      <h2 class="player-name">PLAYER 2</h2>
+      <span id="right-dot" class="red-dot">●</span>
+      <h1 class="score-big">44</h1>
+    </div>
+    <div class="current-score-div">
+      <h5>current</h5>
+      <h2 class="score-small">4</h2>
+    </div>
+  </div>
+
+  <span class="rules-bar">
+    <span *ngIf="limit!=0">rolls: {{limit}}</span> <span *ngIf="limit==0">unlimited</span>
+    Goal: <span id="goal-span">{{goal}}</span>
+    Black Dices: <span id="black-dices-span"><img *ngFor="let d of blackDices" class="mini-dice"
+                                                  src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
+  </span>
+
+  <div class="dices-div">
+    <img *ngFor="let i of diceCountArray" class="dice" src="assets/img/dice3.png" alt="a dice"/>
+  </div>
+  <button id="roll-btn" class="transparent-btn"><img src="assets/img/roll.svg" alt="roll"/> ROLL DICE</button>
+  <br>
+  <button id="hold-btn" class="transparent-btn"><img src="assets/img/hold.svg" alt="hold"/> HOLD</button>
+
+</div>

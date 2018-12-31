@@ -13,6 +13,7 @@ import {ProfilePageComponent} from './profile-page/profile-page.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {StartGameComponent} from './start-game/start-game.component';
 import {GameoverComponent} from './gameover/gameover.component';
+import {PlayPageComponent} from './play-page/play-page.component';
 
 import {AuthGuard} from './guards/auth.guard';
 
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: 'users/:username', component: ProfilePageComponent },
   { path: 'editprofile', component: EditProfileComponent },
   { path: 'start', component: StartGameComponent },
-  { path: 'gameover', component: GameoverComponent }
+  { path: 'gameover', component: GameoverComponent },
+  { path: 'play', component: PlayPageComponent }
 ];
 
 @NgModule({
