@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -8,20 +9,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ProfilePageComponent implements OnInit {
   username: String;
-  selfProfile = true;
+  selfProfile: Boolean;
   friends = [
     {name: 'Abbass', online: true},
     {name: 'Javat', online: false}
   ];
 
   constructor(private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username');
-  }
-
-  gotoEdit() {
-    this.router.navigate(['/editprofile']);
+    this.selfProfile = (this.username === this.authService.getSelfUsername());
   }
 }

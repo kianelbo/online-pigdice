@@ -8,7 +8,7 @@
           <img class="rounded-circle img-thumbnail" alt="profile picture" width="200" height="200"
                src="http://cdn.shopify.com/s/files/1/0891/8314/products/Poker_Face_Decal_4f0383be00a99_grande.png?v=1459054442">
           <button *ngIf="!selfProfile" class="btn btn-primary float-right">friend request</button>
-          <button *ngIf="selfProfile" class="btn btn-info float-right" (click)="gotoEdit()">edit profile</button>
+          <button *ngIf="selfProfile" class="btn btn-info float-right" routerLink="/editprofile">edit profile</button>
         </div>
         <div class="card-body">
           <h4 class="card-title">@{{username}}<span class="badge badge-success badge-pill float-right">online</span></h4>

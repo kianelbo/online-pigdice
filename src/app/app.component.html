@@ -20,7 +20,7 @@
     <ul class="navbar-nav">
       <a *ngIf="!authService.loggedIn()" class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
       <a *ngIf="!authService.loggedIn()" class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-      <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/editprofile" routerLinkActive="active">Profile</a>
+      <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="{{myProfile}}" routerLinkActive="active">Profile</a>
       <a *ngIf="authService.loggedIn()" class="nav-link" style="cursor:pointer" (click)="authService.logoutUser()">Logout</a>
     </ul>
   </div>
