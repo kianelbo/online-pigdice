@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-profile',
@@ -6,11 +9,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  selfData = {name: 'Gholi', email: 'gh@gh.com', username: 'Gholi'};
+  _genders = ['male', 'female'];
+  newPersonalData = {};
+  curPersonalData = {};
+  currentUsername: String;
 
-  constructor() { }
+  constructor(private router: Router,
+              private datePipe: DatePipe,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.currentUsername = this.authService.getSelfUsername();
+    this.authService.getPersonal().subscribe(
+      res => {
+        res.birthdate = this.datePipe.transform(res.birthdate, 'yyyy-MM-dd');
+        return this.curPersonalData = res;
+      },
+      err => console.error(err));
   }
 
+  onCancel() {
+    this.router.navigate(['/index']);
+  }
+
+  updatePersonal() {
+    this.authService.updatePersonal(this.newPersonalData).subscribe(
+      res => {
+        console.log(res);
+        this.router.navigate(['/users/' + this.authService.getSelfUsername()]);
+      },
+      err => console.error(err));
+  }
+
+  genderHandler(event: any) {
+    this.newPersonalData['gender'] = event.target.value;
+  }
 }

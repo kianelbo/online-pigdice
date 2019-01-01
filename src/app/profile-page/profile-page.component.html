@@ -12,8 +12,11 @@
         </div>
         <div class="card-body">
           <h4 class="card-title">@{{username}}<span class="badge badge-success badge-pill float-right">online</span></h4>
-          <p class="card-text">Name: <span class="badge badge-dark badge-pill float-right">♂</span></p>
-          <p class="card-text">Birth date: </p>
+          <p class="card-text">Name: {{personal.name}}
+            <span *ngIf="personal.gender=='male'" class="badge badge-dark badge-pill float-right">♂</span>
+            <span *ngIf="personal.gender!='male'" class="badge badge-dark badge-pill float-right">♀</span>
+          </p>
+          <p class="card-text">Birth date: {{personal.birthdate}}</p>
         </div>
       </div>
     </div>

@@ -60,6 +60,36 @@ router.post('/login', (req, res) => {
   });
 });
 
+router.get('/personal-settings/:username' , (req, res) => {
+  User.findOne({username: req.params.username}, (err, user) => {
+    if (err)
+      return console.error(err);
+
+    res.json(user);
+  })
+});
+
+router.post('/personal-settings' , (req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err)
+      return console.error(err);
+
+    let newData = req.body.newData;
+    if (newData.name)
+      user.name = newData.name;
+    if (newData.birthdate)
+      user.birthdate = newData.birthdate;
+    user.gender = newData.gender;
+
+    user.save((err, updatedUser) => {
+      if (err)
+        console.log(err);
+      else
+        res.json(updatedUser);
+    });
+  })
+});
+
 router.get('/events', (req, res) => {
   let events = [
     {

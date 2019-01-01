@@ -2,35 +2,28 @@
   <form>
     <div class="col-md-6 mx-auto pt-2">
       <legend>Edit your profile
-        <button type="button" class="btn btn-outline-danger float-right">Cancel</button>
+        <button type="button" (click)="onCancel()" class="btn btn-outline-danger float-right">Cancel</button>
       </legend>
       <div class="card border-primary mb-3"><div class="card-body">
         <fieldset>
           <!-- name -->
           <div class="form-group">
             <label for="nameInput">name:</label>
-            <input type="text" class="form-control" id="nameInput">
+            <input type="text" [(ngModel)]="newPersonalData.name" name="name" class="form-control" id="nameInput" value="{{curPersonalData.name}}">
           </div>
           <!-- gender -->
           <fieldset class="form-group">
             <span class="pr-4">gender: </span>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label pr-4">
-                <input type="radio" class="form-check-input" name="genderRadios" id="maleRadios" value="male" checked="">♂
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label pr-4">
-                <input type="radio" class="form-check-input" name="genderRadios" id="femaleRadios" value="female">♀
-              </label>
+            <div class="form-check form-check-inline" *ngFor="let g of _genders">
+              <input type="radio" class="form-check-input" name="genderRadios" value="{{g}}" (change)="genderHandler($event)" [checked]="curPersonalData.gender==g">{{g}}
             </div>
           </fieldset>
           <!-- birth date -->
           <div class="form-group">
             <label for="dateInput">birth date:</label>
-            <input type="date" class="form-control" id="dateInput">
+            <input type="date" [(ngModel)]="newPersonalData.birthdate" name="birthdate" class="form-control" id="dateInput" value="{{curPersonalData.birthdate}}">
           </div>
-          <button type="submit" class="btn btn-success float-right">Save</button>
+          <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
         </fieldset>
       </div></div>
 

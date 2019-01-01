@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private _registerURL = 'http://localhost:3000/users/register';
   private _loginURL = 'http://localhost:3000/users/login';
+  private _upadtePersonalURL = 'http://localhost:3000/users/personal-settings/';
 
   constructor(private  http: HttpClient,
               private router: Router) { }
@@ -36,5 +37,15 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  updatePersonal(newSettings) {
+    const newData = {username: this.getSelfUsername(), newData: newSettings};
+    console.log(newData);
+    return this.http.post<any>(this._upadtePersonalURL, newData);
+  }
+
+  getPersonal() {
+    return this.http.get<any>(this._upadtePersonalURL + this.getSelfUsername());
   }
 }
