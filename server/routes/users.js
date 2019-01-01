@@ -59,7 +59,7 @@ router.post('/login', (req, res) => {
     else {
       let payload = {subject: user._id};
       let token = jwt.sign(payload, config.secret);
-      res.status(200).send({token});
+      res.status(200).send({token: token, username: user.username});
     }
   });
 });

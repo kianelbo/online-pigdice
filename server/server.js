@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const usersRoute = require('./routes/users');
+const customsRoute = require('./routes/customs');
 
 const PORT = 3000;
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/users', usersRoute);
+app.use('/customs', customsRoute);
 app.get('/', function (req, res) {
   res.send('Hello');
 });
