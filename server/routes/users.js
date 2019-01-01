@@ -30,15 +30,34 @@ function verifyToken(req, res, next) {
   next();
 }
 
+router.get('/all', (req, res) => {
+  User.find({}, 'username totalGames totalWins avgRating isOnline', (err, users) => {
+    if (err)
+      console.error(err);
+    else
+      res.send(users);
+  });
+});
+
+router.get('/online-only', (req, res) => {
+  User.find({'isOnline': 'online'}, 'username', (err, users) => {
+    if (err)
+      console.error(err);
+    else
+      res.send(users);
+  });
+});
+
 router.post('/register', (req, res) => {
   let user = new User(req.body);
+  user.isOnline = 'online';
   user.save((err, registeredUser) => {
     if (err)
       console.log(err);
     else {
       let payload = {subject: registeredUser._id};
       let token = jwt.sign(payload, config.secret);
-      res.status(200).send({token});
+      res.status(200).send({token: token, username: user.username});
     }
   });
 });
@@ -53,10 +72,27 @@ router.post('/login', (req, res) => {
     if (!user || user.password !== userData.password)
       res.sendStatus(401);
     else {
+      user.isOnline = 'online';
+      user.save((err, updatedUser) => {
+        if (err) console.error(err);
+      });
       let payload = {subject: user._id};
       let token = jwt.sign(payload, config.secret);
       res.status(200).send({token: token, username: user.username});
     }
+  });
+});
+
+router.post('/logout', (req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err)
+      return console.error(err);
+
+    user.isOnline = 'offline';
+    user.save((err, updatedUser) => {
+      if (err) console.error(err);
+      else res.sendStatus(200);
+    });
   });
 });
 
@@ -79,7 +115,8 @@ router.post('/personal-settings' , (req, res) => {
       user.name = newData.name;
     if (newData.birthdate)
       user.birthdate = newData.birthdate;
-    user.gender = newData.gender;
+    if (newData.gender)
+      user.gender = newData.gender;
 
     user.save((err, updatedUser) => {
       if (err)

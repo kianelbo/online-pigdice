@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-leaderboard',
@@ -6,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
-  users = [
-    {username: 'Abbass', games: 17, wins: 10, playerRating: 4.2, online: true},
-    {username: 'Javat', games: 17, wins: 10, playerRating: 4.2, online: true},
-    {username: 'Gholi', games: 17, wins: 10, playerRating: 4.2, online: false},
-    ];
+  users = [];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.getAllUsers().subscribe(
+      res => this.users = res,
+      err => console.error(err));
   }
 
 }

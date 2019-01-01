@@ -9,17 +9,8 @@
     <!-- left column : online users -->
     <div class="col-md-6">
       <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Abbass
-          <span class="badge badge-success badge-pill">online</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Javat
-          <span class="badge badge-success badge-pill">online</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Gholi
-          <span class="badge badge-success badge-pill">online</span>
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
+          {{user.username}}<span class="badge badge-success badge-pill">online</span>
         </li>
       </ul>
     </div>

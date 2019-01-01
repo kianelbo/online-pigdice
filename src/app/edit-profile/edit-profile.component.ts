@@ -34,10 +34,7 @@ export class EditProfileComponent implements OnInit {
 
   updatePersonal() {
     this.authService.updatePersonal(this.newPersonalData).subscribe(
-      res => {
-        console.log(res);
-        this.router.navigate(['/users/' + this.authService.getSelfUsername()]);
-      },
+      res => this.router.navigate(['/users/' + this.authService.getSelfUsername()]),
       err => console.error(err));
   }
 
