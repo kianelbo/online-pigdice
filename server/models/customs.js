@@ -6,6 +6,8 @@ const CustomSchema = mongoose.Schema({
   nowPlaying: {type: Number, default: 0},
   creator: {type: String, required: true},
   createDate: {type: Date, default: Date.now},
+  ratedTimes: {type: Number, default: 0},
+  avgRating: {type: Number, default: 0},
   rules: {
     winScore: {type: Number, required: true},
     diceCount: {type: Number, required: true},
@@ -15,8 +17,7 @@ const CustomSchema = mongoose.Schema({
   comments: [{
     commenter: {type: String, required: true},
     text: String,
-    rating: Number,
-    ratedTimes: {type: Number, default: 0}
+    rating: Number
   }]
 });
 

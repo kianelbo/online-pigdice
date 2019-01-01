@@ -30,10 +30,6 @@ function verifyToken(req, res, next) {
   next();
 }
 
-router.get('/', (req, res) => {
-  res.send('From USERS route')
-});
-
 router.post('/register', (req, res) => {
   let user = new User(req.body);
   user.save((err, registeredUser) => {
