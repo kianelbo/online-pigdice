@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const mongoose = require('mongoose');
 
-const config = require('../../config/configs');
-
 const User = require('../models/users');
+
+const config = require('../../config/configs');
 
 mongoose.connect(config.database, {useNewUrlParser: true}, err => {
   if (err)
@@ -31,7 +31,7 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-  res.send('From API route')
+  res.send('From USERS route')
 });
 
 router.post('/register', (req, res) => {

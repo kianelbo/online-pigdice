@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private _registerURL = 'http://localhost:3000/api/register';
-  private _loginURL = 'http://localhost:3000/api/login';
+  private _registerURL = 'http://localhost:3000/users/register';
+  private _loginURL = 'http://localhost:3000/users/login';
 
   constructor(private  http: HttpClient,
               private router: Router) { }
@@ -26,7 +26,7 @@ export class AuthService {
 
   logoutUser() {
     localStorage.removeItem('token');
-    this.router.navigate(['/events']);
+    this.router.navigate(['/index']);
   }
 
   getToken() {
