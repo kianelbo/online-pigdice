@@ -11,7 +11,10 @@
           <button *ngIf="selfProfile" class="btn btn-info float-right" routerLink="/editprofile">edit profile</button>
         </div>
         <div class="card-body">
-          <h4 class="card-title">@{{username}}<span class="badge badge-success badge-pill float-right">online</span></h4>
+          <h4 class="card-title">@{{username}}
+            <span *ngIf="personal.online=='online'" class="badge badge-success badge-pill float-right">online</span>
+            <span *ngIf="personal.online=='offline'" class="badge badge-danger badge-pill float-right">offline</span>
+          </h4>
           <p class="card-text">Name: {{personal.name}}
             <span *ngIf="personal.gender=='male'" class="badge badge-dark badge-pill float-right">♂</span>
             <span *ngIf="personal.gender!='male'" class="badge badge-dark badge-pill float-right">♀</span>

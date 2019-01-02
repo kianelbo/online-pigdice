@@ -25,7 +25,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username');
     this.selfProfile = (this.username === this.authService.getSelfUsername());
-    this.authService.getPersonal().subscribe(
+    this.authService.getPersonal(this.username).subscribe(
       res => {
         res.birthdate = this.datePipe.transform(res.birthdate, 'yyyy-MM-dd');
         return this.personal = res;

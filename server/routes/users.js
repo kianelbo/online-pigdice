@@ -97,7 +97,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/personal-settings/:username' , (req, res) => {
-  User.findOne({username: req.params.username}, (err, user) => {
+  User.findOne({username: req.params.username}, 'username isOnline name birthdate gender', (err, user) => {
     if (err)
       return console.error(err);
 

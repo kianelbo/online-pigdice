@@ -9,7 +9,7 @@ export class AuthService {
   private _registerURL = 'http://localhost:3000/users/register';
   private _loginURL = 'http://localhost:3000/users/login';
   private _logoutURL = 'http://localhost:3000/users/logout';
-  private _updatePersonalURL = 'http://localhost:3000/users/personal-settings/';
+  private _personalURL = 'http://localhost:3000/users/personal-settings/';
   private _getAllURL = 'http://localhost:3000/users/all';
   private _getOnlinesURL = 'http://localhost:3000/users/online-only';
 
@@ -56,10 +56,10 @@ export class AuthService {
 
   updatePersonal(newSettings) {
     const newData = {username: this.getSelfUsername(), newData: newSettings};
-    return this.http.post<any>(this._updatePersonalURL, newData);
+    return this.http.post<any>(this._personalURL, newData);
   }
 
-  getPersonal() {
-    return this.http.get<any>(this._updatePersonalURL + this.getSelfUsername());
+  getPersonal(username = this.getSelfUsername()) {
+    return this.http.get<any>(this._personalURL + username);
   }
 }
