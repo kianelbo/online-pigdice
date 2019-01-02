@@ -12,7 +12,7 @@ export class IndexComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.getAllUsers().subscribe(
+    this.authService.getOnlineUsers().subscribe(
       res => this.onlineUsers = res,
       err => console.error(err));
   }

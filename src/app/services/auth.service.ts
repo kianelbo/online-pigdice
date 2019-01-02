@@ -39,6 +39,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('me');
     this.router.navigate(['/index']);
+    window.location.reload();
   }
 
   getToken() {
