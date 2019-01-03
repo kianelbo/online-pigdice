@@ -1,18 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const mongoose = require('mongoose');
 
 const User = require('../models/users');
 
-const config = require('../../config/configs');
-
-mongoose.connect(config.database, {useNewUrlParser: true}, err => {
-  if (err)
-    console.error('ERROR! ' + err);
-  else
-    console.log('connected to mongodb');
-});
 
 function verifyToken(req, res, next) {
   if (!req.headers.authorization)

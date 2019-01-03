@@ -22,8 +22,7 @@ const UserSchema = mongoose.Schema({
     game: String,
     result: String,
     hasWon: Boolean
-  }],
-  friends: [String]
+  }]
 });
 
 module.exports = mongoose.model('User', UserSchema, 'users');
