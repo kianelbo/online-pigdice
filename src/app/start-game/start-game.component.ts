@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomGameService } from '../services/custom-game.service';
+import { AuthService } from '../services/auth.service';
+import { FriendshipService } from '../services/friendship.service';
 
 @Component({
   selector: 'app-start-game',
@@ -6,38 +9,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./start-game.component.css']
 })
 export class StartGameComponent implements OnInit {
-  games = [
-    {
-      '_id': '1',
-      'name': 'default',
-      'rating': 3.4,
-      'totalPlayed': 32,
-      'nowPlaying': 2,
-      'creator': 'Gholi',
-      'createDate': '2012-04-23T18:25:43.511Z',
-      'comments': [{'username': 'Sughra', 'text': 'awful', 'rating': 2.4}, {'username': 'Kubra', 'text': 'awsum', 'rating': 4.2}],
-      'rules': {'winScore': 100, 'blackDices': [1], 'diceCount': 1, 'limit': 0}
-    },
-    {
-      '_id': '2',
-      'name': 'custom1',
-      'rating': 3.4,
-      'totalPlayed': 32,
-      'nowPlaying': 2,
-      'creator': 'Abbass',
-      'createDate': '2012-04-23T18:25:43.511Z',
-      'comments': [{'username': 'lili', 'text': 'ah ah', 'rating': 1.0}, {'username': 'gigi', 'text': 'bah bah', 'rating': 5.0}],
-      'rules': {'winScore': 120, 'blackDices': [1, 6], 'diceCount': 2, 'limit': 0}
-    }
-  ];
-  users = ['Gholam', 'Javat'];
+  games = [];
+  onlineUsers = [];
   comments = [];
   selectedGame = {};
 
-  constructor() { }
+  constructor(private customGameService: CustomGameService,
+              private authService: AuthService,
+              private friendshipService: FriendshipService) { }
 
   ngOnInit() {
-    this.selectedGame = this.games[0];
+    this.customGameService.getAllGames().subscribe(res => {
+      this.games = res;
+      this.selectedGame = this.games[0];
+    }, err => console.error(err));
+
+    if (this.authService.loggedIn()) {
+      const selfUsername = this.authService.getSelfUsername();
+      this.authService.getOnlineUsers().subscribe(
+        res => {
+          const removeIndex = res.map(function(p) { return p.username; }).indexOf(selfUsername);
+          res.splice(removeIndex, 1);
+          this.onlineUsers = res;
+          this.onlineUsers.forEach((u) =>
+            this.friendshipService.getRelation(selfUsername, u.username).subscribe(
+              rel => u['isFriend'] = (rel === 'isFriend'),
+              err => console.error(err)));
+        },
+        err => console.error(err));
+    }
   }
 
   updateComments(comments) {
@@ -46,5 +46,16 @@ export class StartGameComponent implements OnInit {
 
   selectGame(game) {
     this.selectedGame = game;
+  }
+
+  diceSymbole(i) {
+    switch (i) {
+      case 1: return '\u2680';
+      case 2: return '\u2681';
+      case 3: return '\u2682';
+      case 4: return '\u2683';
+      case 5: return '\u2684';
+      case 6: return '\u2685';
+    }
   }
 }

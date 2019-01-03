@@ -1,3 +1,16 @@
 a {
   margin-right: 5px
 }
+
+.red-bold {
+  font-weight: bolder;
+  color: red;
+}
+
+.black-normal {
+  color: black;
+}
+
+#rules-panel strong {
+  margin-left: 10%;
+}

@@ -5,11 +5,13 @@
       <div class="col-sm-4 mb-3" *ngFor="let game of games;">
         <div class="card text-center" [class.bg-light]="selectedGame==game">
           <div class="card-body">
-            <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.rating}}</strong></h5>
+            <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.avgRating}}</strong></h5>
             <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
-            <p class="card-text">created by <a target="_blank" routerLink="/users/{{game.creator}}">{{game.creator}}</a> <br>
+            <p class="card-text">created by <a target="_blank" routerLink="/users/{{game.creator}}">{{game.creator}}</a>
+              <br>
               on {{game.createDate | date:'shortDate'}}</p>
-            <a href="" data-toggle="modal" data-target="#commentsModal" (click)="updateComments(game.comments)">comments</a>
+            <a href="" data-toggle="modal" data-target="#commentsModal"
+               (click)="updateComments(game.comments)">comments</a>
             <button class="btn btn-success" (click)="selectGame(game)">select</button>
           </div>
         </div>
@@ -21,15 +23,18 @@
   <div class="col-md-4">
     <div class="card border-primary text-center">
       <div class="card-body">
-        <div class="alert alert-dismissible alert-info">
-          <strong>Win score:</strong>{{selectedGame.rules.winScore}}<br>
-          <strong>Dices:</strong>{{selectedGame.rules.diceCount}}
+        <div class="alert alert-dismissible alert-info" id="rules-panel">
+          <strong>Goal: </strong>{{selectedGame.rules.winScore}}
+          <strong>roll limit: </strong><span>{{selectedGame.rules.limit == 0 ? '∞' : selectedGame.rules.limit}}</span>
+          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.rules.blackDices">{{diceSymbole(d)}}</span>
+          <strong>🎲: </strong>{{selectedGame.rules.diceCount}}
         </div>
         <button class="btn btn-primary">Random Opponent</button>
 
-        <div class="list-group">
+        <div class="list-group" *ngIf="authService.loggedIn()">
           <h6 class="text-muted pt-3">or play against:</h6>
-          <button class="btn list-group-item list-group-item-action" *ngFor="let user of users">{{user}}</button>
+          <button class="btn list-group-item list-group-item-action" *ngFor="let user of onlineUsers"
+                  [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</button>
         </div>
       </div>
     </div>
@@ -49,8 +54,12 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="alert alert-dismissible alert-secondary" *ngIf="comments.length == 0">No comments on this game
+          yet!
+        </div>
         <div class="alert alert-dismissible alert-info" *ngFor="let comment of comments">
-          <strong>{{comment.username}}:</strong> {{comment.text}} <strong class="text-warning">★{{comment.rating}}</strong>
+          <strong>{{comment.commenter}}:</strong> {{comment.text}} <strong
+          class="text-warning">★{{comment.rating}}</strong>
         </div>
       </div>
     </div>

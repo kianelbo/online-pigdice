@@ -19,7 +19,7 @@ router.get('/all', (req, res) => {
     if (err)
       console.error(err);
     else
-      res.json(games);
+      res.send(games);
   })
 });
 
