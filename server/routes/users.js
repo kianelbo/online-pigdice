@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const config = require('../../config/configs');
 
 const User = require('../models/users');
 
@@ -37,6 +38,15 @@ router.get('/online-only', (req, res) => {
     else
       res.send(users);
   });
+});
+
+router.get('/check-online/:username', (req, res) => {
+  User.find({username: req.params.username}, 'isOnline', (err, result) => {
+    if (err)
+      return console.error(err);
+    if (result.length > 0)
+      res.send(result[0].isOnline === 'online');
+  })
 });
 
 router.post('/register', (req, res) => {

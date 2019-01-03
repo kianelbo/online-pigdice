@@ -13,10 +13,14 @@ router.post('/request', (req, res) => {
 });
 
 router.post('/confirm', (req, res) => {
+  console.log("fuck");
+  console.log(req.body.toUser);
+  console.log(req.body.fromUser);
   Friendship.findOne({toUser: req.body.toUser, fromUser: req.body.fromUser}, (err, friendship) => {
     if (err)
       return console.error(err);
 
+    console.log(friendship);
     friendship.pending = false;
     friendship.save((err, confirmed) => {
       if (err) console.log(err);
@@ -25,13 +29,10 @@ router.post('/confirm', (req, res) => {
   })
 });
 
-router.post('/decline', (req, res) => {
-  Friendship.removeOne({
-    $or: [{toUser: req.body.toUser, fromUser: req.body.fromUser}, {
-      toUser: req.body.toUser,
-      fromUser: req.body.fromUser
-    }]
-  }, (err, result) => {
+router.post('/unfriend', (req, res) => {
+  Friendship.remove({
+    $or: [{toUser: req.body.user1, fromUser: req.body.user2}, {toUser: req.body.user2, fromUser: req.body.user1}]},
+    (err, result) => {
     if (err)
       console.error(err);
     res.send('not friend any longer');
@@ -43,7 +44,10 @@ router.get('/pending/:username', (req, res) => {
     if (err)
       return console.error(err);
 
-    res.json(users);
+    let completeList = [];
+    if (users.length > 0)
+      users.forEach((u) => completeList.push(u.fromUser));
+    res.send(completeList);
   })
 });
 
@@ -65,16 +69,16 @@ router.get('/list/:username', (req, res) => {
 });
 
 router.post('/check', (req, res) => {
-  Friendship.countDocuments({
-      $or: [{toUser: req.body.toUser, fromUser: req.body.fromUser}, {
-        toUser: req.body.fromUser,
-        fromUser: req.body.toUser
-      }], pending: false
-    },
-    (err, count) => {
+  Friendship.findOne({
+      $or: [{toUser: req.body.user1, fromUser: req.body.user2}, {toUser: req.body.user2, fromUser: req.body.user1}]
+    }, (err, user) => {
       if (err)
         console.error(err);
-      res.send(count !== 0);
+
+      if (user)
+        res.json(user.pending ? 'pending' : 'isFriend');
+      else
+        res.json('notFriend');
     });
 });
 

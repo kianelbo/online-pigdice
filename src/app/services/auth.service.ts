@@ -12,8 +12,9 @@ export class AuthService {
   private _personalURL = 'http://localhost:3000/users/personal-settings/';
   private _getAllURL = 'http://localhost:3000/users/all';
   private _getOnlinesURL = 'http://localhost:3000/users/online-only';
+  private _checkOnlineURL = 'http://localhost:3000/users/check-online/';
 
-  constructor(private  http: HttpClient,
+  constructor(private http: HttpClient,
               private router: Router) { }
 
   registerUser(user) {
@@ -54,12 +55,17 @@ export class AuthService {
     return this.http.get<any>(this._getOnlinesURL);
   }
 
+  isOnline(username) {
+    this.http.get<any>(this._checkOnlineURL + username).subscribe(
+      res => res, err => console.error(err));
+  }
+
   updatePersonal(newSettings) {
     const newData = {username: this.getSelfUsername(), newData: newSettings};
     return this.http.post<any>(this._personalURL, newData);
   }
 
-  getPersonal(username = this.getSelfUsername()) {
+  getPersonal(username: String = this.getSelfUsername()) {
     return this.http.get<any>(this._personalURL + username);
   }
 }

@@ -23,6 +23,7 @@ import { PlayPageComponent } from './play-page/play-page.component';
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EventService } from './services/event.service';
+import { FriendshipService } from './services/friendship.service';
 import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AuthGuard } from './guards/auth.guard';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [DatePipe, AuthService, AuthGuard, EventService, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
+  providers: [DatePipe, AuthService, AuthGuard, FriendshipService, EventService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

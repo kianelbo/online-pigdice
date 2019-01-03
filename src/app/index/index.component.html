@@ -13,7 +13,8 @@
         <div class="card-body">
           <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
-              {{user.username}}<span class="badge badge-success badge-pill">online</span>
+              <a target="_blank" routerLink="/users/{{user.username}}">{{user.username}}</a>
+              <span class="badge badge-success badge-pill">online</span>
             </li>
           </ul>
         </div>
