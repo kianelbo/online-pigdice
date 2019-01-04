@@ -26,6 +26,7 @@ import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { EventService } from './services/event.service';
 import { FriendshipService } from './services/friendship.service';
+import { CommentService } from './services/comment.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 
@@ -54,7 +55,7 @@ import { AdminGuard } from './guards/admin.guard';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [DatePipe, AuthService, FriendshipService, EventService,
+  providers: [DatePipe, AuthService, FriendshipService, EventService, CommentService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
     AuthGuard, AdminGuard],
   bootstrap: [AppComponent]

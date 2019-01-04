@@ -15,7 +15,7 @@ const CustomSchema = mongoose.Schema({
     blackDices: [Number]
   },
   comments: [{
-    commenter: {type: String, required: true},
+    commenter: String,
     text: String,
     rating: Number
   }]

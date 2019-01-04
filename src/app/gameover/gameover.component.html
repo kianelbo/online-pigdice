@@ -5,7 +5,7 @@
       <div class="card border-primary mb-3">
         <div class="card-header">Game Over!</div>
         <div class="card-body">
-          <h2 class="card-title"><strong>Gholi</strong> - <strong>Javat</strong></h2>
+          <h2 class="card-title"><strong>{{myself}}</strong> - <strong>{{opponent}}</strong></h2>
           <h1 class="card-title"><strong>120</strong> : <strong>80</strong></h1>
         </div>
       </div>
@@ -15,16 +15,17 @@
   <div class="row">
     <!-- comment on game -->
     <div class="col-md-4 mx-auto">
-      <div class="card border-warning mb-3">
+      <div class="card border-info mb-3">
+        <div class="card-header">Review the Game!</div>
         <div class="card-body">
           <fieldset>
             <div class="form-group">
               <label for="gameRatingInput">star rating:</label>
-              <input type="text" class="form-control" id="gameRatingInput">
+              <input type="text" class="form-control" id="gameRatingInput" [(ngModel)]="gameComment.rating">
             </div>
             <div class="form-group">
-              <label for="gameCommentInput">add a comment</label>
-              <textarea class="form-control" id="gameCommentInput" rows="3"></textarea>
+              <textarea class="form-control" id="gameCommentInput" rows="3" placeholder="add a comment!"
+                        [disabled]="!gameComment.rating" [(ngModel)]="gameComment.text"></textarea>
             </div>
           </fieldset>
         </div>
@@ -34,25 +35,48 @@
     <div class="col-md-4 mx-auto text-center d-flex align-items-center">
       <div class="container">
         <button class="btn btn-primary btn-lg">PLAY AGAIN</button>
-        <br><hr>
-        <button class="btn btn-secondary btn-lg">send feedback</button>
+        <br>
+        <hr>
+        <button class="btn btn-secondary btn-lg" id="feedback-btn" [disabled]="!playerComment.rating && !gameComment.rating"
+                (click)="sendFeedback()" data-toggle="modal" data-target="#messageModal">send feedback
+        </button>
       </div>
     </div>
     <!-- comment on player -->
     <div class="col-md-4 mx-auto">
       <div class="card border-warning mb-3">
+        <div class="card-header">Review Your Opponent!</div>
         <div class="card-body">
           <fieldset>
             <div class="form-group">
               <label for="playerRatingInput">star rating:</label>
-              <input type="text" class="form-control" id="playerRatingInput">
+              <input type="text" class="form-control" id="playerRatingInput" [(ngModel)]="playerComment.rating">
             </div>
             <div class="form-group">
-              <label for="playerCommentInput">add a comment</label>
-              <textarea class="form-control" id="playerCommentInput" rows="3"></textarea>
+              <textarea class="form-control" id="playerCommentInput" rows="3" placeholder="add a comment!"
+                        [disabled]="!playerComment.rating" [(ngModel)]="playerComment.text"></textarea>
             </div>
           </fieldset>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- message modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageModalLabel">Sent successfully</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="disableButton()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-dismissible alert-success">Thanks for your feedback. It will help us improve the game.</div>
       </div>
     </div>
   </div>

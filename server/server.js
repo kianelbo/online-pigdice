@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const usersRoute = require('./routes/users');
 const customsRoute = require('./routes/customs');
 const friendshipsRoute = require('./routes/friendships');
+const commentsRoute = require('./routes/comments');
 
 
 const config = require('../config/configs');
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use('/users', usersRoute);
 app.use('/customs', customsRoute);
 app.use('/friendships', friendshipsRoute);
+app.use('/comments', commentsRoute);
 
 
 app.listen(PORT, function () {
