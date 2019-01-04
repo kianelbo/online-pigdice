@@ -49,6 +49,15 @@ router.get('/check-online/:username', (req, res) => {
   })
 });
 
+// router.get('/exists/:username', (req, res) => {
+//   User.find({username: req.params.username}, (err, result) => {
+//     if (err)
+//       return console.error(err);
+//     if (result.length > 0)
+//       res.json(true);
+//   })
+// });
+
 router.post('/register', (req, res) => {
   let user = new User(req.body);
   user.isOnline = 'online';

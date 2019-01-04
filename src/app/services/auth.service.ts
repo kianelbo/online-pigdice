@@ -29,6 +29,10 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  isAdmin() {
+    return localStorage.getItem('me')  === 'admin';
+  }
+
   getSelfUsername() {
     return localStorage.getItem('me');
   }

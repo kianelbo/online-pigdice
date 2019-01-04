@@ -10,11 +10,14 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/start" routerLinkActive="active">PLAY</a>
       </li>
-      <li class="nav-item">
-        <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/users" routerLinkActive="active">Leaderboard</a>
+      <li class="nav-item" *ngIf="authService.loggedIn()">
+        <a class="nav-link" routerLink="/users" routerLinkActive="active">Leaderboard</a>
       </li>
-      <li class="nav-item">
-        <a *ngIf="authService.loggedIn()" class="nav-link" routerLink="/design" routerLinkActive="active">Design Game</a>
+      <li class="nav-item" *ngIf="authService.loggedIn()">
+        <a class="nav-link" routerLink="/design" routerLinkActive="active">Design Game</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.isAdmin()">
+        <a class="nav-link" routerLink="/admin-page" routerLinkActive="active">Admin's Panel</a>
       </li>
     </ul>
     <ul class="navbar-nav">

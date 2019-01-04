@@ -1,0 +1,12 @@
+<div class="row mt-5">
+  <div class="col-md-6 mx-auto">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-body text-center">
+        <h4 class="card-title">401 - Unauthorized!</h4>
+        <p class="card-text">Unfortunately you are not authorized to access this page :(</p>
+        <br><a routerLink="/index">Go to index page</a>
+        <br><a *ngIf="!authService.loggedIn()" routerLink="/login">Go to login page</a>
+      </div>
+    </div>
+  </div>
+</div>

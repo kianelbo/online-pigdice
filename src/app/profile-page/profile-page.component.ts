@@ -22,7 +22,12 @@ export class ProfilePageComponent implements OnInit {
               private friendshipService: FriendshipService) { }
 
   ngOnInit() {
+    // obtains the profile's owner from url
     this.username = this.route.snapshot.paramMap.get('username');
+
+    // checks if this users exists
+
+    // get the relation of the client and the profile's owner
     if (this.username === this.authService.getSelfUsername()) {
       this.relation = 'myself';
     } else {
@@ -30,12 +35,14 @@ export class ProfilePageComponent implements OnInit {
         err => console.error(err));
     }
 
+    // get personal information and reformat the date
     this.authService.getPersonal(this.username).subscribe(
       res => {
         res.birthdate = this.datePipe.transform(res.birthdate, 'yyyy-MM-dd');
         this.personal = res;
       }, err => console.error(err));
 
+    // list of friends and request
     if (this.relation) {
       this.friendshipService.getFriendsPending(this.username).subscribe(
         res => res.forEach((f) => this.friends.push({username: f, pending: true, isOnline: this.authService.isOnline(f)})),
