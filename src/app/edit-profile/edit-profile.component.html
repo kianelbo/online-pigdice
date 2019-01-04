@@ -1,63 +1,79 @@
 <div class="container">
   <form>
-    <div class="col-md-6 mx-auto pt-2">
-      <legend>Edit your profile
-        <button type="button" (click)="onCancel()" class="btn btn-outline-danger float-right">Cancel</button>
-      </legend>
-      <div class="card border-primary mb-3"><div class="card-body">
-        <fieldset>
-          <!-- name -->
-          <div class="form-group">
-            <label for="nameInput">name:</label>
-            <input type="text" [(ngModel)]="newPersonalData.name" name="name" class="form-control" id="nameInput" value="{{curPersonalData.name}}">
-          </div>
-          <!-- gender -->
-          <fieldset class="form-group">
-            <span class="pr-4">gender: </span>
-            <div class="form-check form-check-inline" *ngFor="let g of _genders">
-              <input type="radio" class="form-check-input" name="genderRadios" value="{{g}}" (change)="genderHandler($event)" [checked]="curPersonalData.gender==g">{{g}}
-            </div>
-          </fieldset>
-          <!-- birth date -->
-          <div class="form-group">
-            <label for="dateInput">birth date:</label>
-            <input type="date" [(ngModel)]="newPersonalData.birthdate" name="birthdate" class="form-control" id="dateInput" value="{{curPersonalData.birthdate}}">
-          </div>
-          <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
-        </fieldset>
-      </div></div>
+    <div class="row">
+      <div class="col-md-6 mx-auto pt-2">
 
-      <div class="card border-primary mb-3"><div class="card-body">
-        <fieldset>
-          <!-- profile picture -->
-          <div class="form-group">
-            <label for="pictureInput">profile picture:</label>
-            <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
+        <legend>Edit your profile
+          <button type="button" (click)="onCancel()" class="btn btn-outline-danger float-right">Cancel</button>
+        </legend>
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <fieldset>
+              <!-- name -->
+              <div class="form-group">
+                <label for="nameInput">name:</label>
+                <input type="text" [(ngModel)]="newPersonalData.name" name="name" class="form-control" id="nameInput"
+                       value="{{curPersonalData.name}}">
+              </div>
+              <!-- gender -->
+              <fieldset class="form-group">
+                <span class="pr-4">gender: </span>
+                <div class="form-check form-check-inline" *ngFor="let g of _genders">
+                  <input type="radio" class="form-check-input" name="genderRadios" value="{{g}}"
+                         (change)="genderHandler($event)" [checked]="curPersonalData.gender==g">{{g}}
+                </div>
+              </fieldset>
+              <!-- birth date -->
+              <div class="form-group">
+                <label for="dateInput">birth date:</label>
+                <input type="date" [(ngModel)]="newPersonalData.birthdate" name="birthdate" class="form-control"
+                       id="dateInput" value="{{curPersonalData.birthdate}}">
+              </div>
+              <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
+            </fieldset>
           </div>
-          <button type="submit" class="btn btn-success float-right">Save</button>
-        </fieldset>
-      </div></div>
+        </div>
 
-      <div class="card border-primary mb-3"><div class="card-body">
-        <fieldset>
-          <!-- email -->
-          <div class="form-group">
-            <label for="emailInput">email:</label>
-            <input type="email" class="form-control" id="emailInput">
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <fieldset>
+              <!-- profile picture -->
+              <div class="form-group">
+                <label for="pictureInput">profile picture:</label>
+                <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
+              </div>
+              <button type="submit" class="btn btn-success float-right">Save</button>
+            </fieldset>
           </div>
-          <!-- username -->
-          <div class="form-group">
-            <label for="usernameInput">username:</label>
-            <input type="text" class="form-control" id="usernameInput">
+        </div>
+
+      </div>
+
+      <div class="col-md-6 mx-auto pt-2">
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <fieldset>
+              <!-- email -->
+              <div class="form-group">
+                <label for="emailInput">email:</label>
+                <input type="email" class="form-control" id="emailInput">
+              </div>
+              <!-- username -->
+              <div class="form-group">
+                <label for="usernameInput">username:</label>
+                <input type="text" class="form-control" id="usernameInput">
+              </div>
+              <!-- password -->
+              <div class="form-group">
+                <label for="passwordInput">password:</label>
+                <input type="password" class="form-control" id="passwordInput">
+              </div>
+              <button type="submit" class="btn btn-success float-right">Save</button>
+            </fieldset>
           </div>
-          <!-- password -->
-          <div class="form-group">
-            <label for="passwordInput">password:</label>
-            <input type="password" class="form-control" id="passwordInput">
-          </div>
-          <button type="submit" class="btn btn-success float-right">Save</button>
-        </fieldset>
-      </div></div>
+        </div>
+      </div>
+
     </div>
   </form>
 </div>

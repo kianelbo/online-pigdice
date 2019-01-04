@@ -27,7 +27,7 @@
           <strong>Goal: </strong>{{selectedGame.rules.winScore}}
           <strong>roll limit: </strong><span>{{selectedGame.rules.limit == 0 ? '∞' : selectedGame.rules.limit}}</span>
           <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.rules.blackDices">{{diceSymbole(d)}}</span>
-          <strong>🎲: </strong>{{selectedGame.rules.diceCount}}
+          <strong>#🎲: </strong>{{selectedGame.rules.diceCount}}
         </div>
         <button class="btn btn-primary">Random Opponent</button>
 

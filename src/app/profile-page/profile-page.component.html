@@ -6,7 +6,7 @@
       <div class="card border-primary mb-3">
         <div class="card-header">
           <img class="rounded-circle img-thumbnail" alt="profile picture" width="200" height="200"
-               src="http://cdn.shopify.com/s/files/1/0891/8314/products/Poker_Face_Decal_4f0383be00a99_grande.png?v=1459054442">
+               src="assets/img/pokerface.jpg">
           <button *ngIf="relation == 'notFriend'" (click)="requestFriend()" class="btn btn-primary float-right">friend request</button>
           <button *ngIf="relation == 'isFriend'" (click)="unfriend(username)" class="btn btn-outline-success float-right">friend</button>
           <button *ngIf="relation == 'pending'" (click)="unfriend(username)" class="btn btn-secondary float-right">requested</button>
@@ -27,39 +27,47 @@
     </div>
     <!-- top right : friends details -->
     <div class="col-md-6">
-      <h2>Friends</h2>
-      <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let friend of friends">
-          <a routerLink="/users/{{friend.username}}" (click)="window.location.reload()">{{friend.username}}</a>
-          <span *ngIf="friend.isOnline" class="badge badge-success badge-pill">online</span>
-          <span *ngIf="!friend.isOnline" class="badge badge-danger badge-pill">offline</span>
-          <span *ngIf="friend.pending" id="decision-span">
+      <div class="card border-success mb-3">
+        <div class="card-header"><h5>Friends</h5></div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let friend of friends">
+              <a routerLink="/users/{{friend.username}}" (click)="window.location.reload()">{{friend.username}}</a>
+              <span *ngIf="friend.isOnline" class="badge badge-success badge-pill">online</span>
+              <span *ngIf="!friend.isOnline" class="badge badge-danger badge-pill">offline</span>
+              <span *ngIf="friend.pending" id="decision-span">
             <button class="btn btn-success" (click)="confirmFriend(friend.username)">accept</button>
             <button class="btn btn-danger" (click)="unfriend(friend.username)">decline</button>
           </span>
-        </li>
-      </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row pt-3">
     <!-- bottom left : play details -->
     <div class="col-md-4">
-      <h3>Play Statistics</h3>
-      <table class="table">
-        <tr class="table-light">
-          <th scope="col">Total games:</th>
-          <td>17</td>
-        </tr>
-        <tr class="table-light">
-          <th scope="col">Total wins:</th>
-          <td>10</td>
-        </tr>
-        <tr class="table-light">
-          <th scope="col">Player's rating:</th>
-          <td>4.2</td>
-        </tr>
-      </table>
+      <div class="card border-info mb-3">
+        <div class="card-header"><h5>Play Statistics</h5></div>
+        <div class="card-body">
+          <table class="table">
+            <tr class="table-light">
+              <th scope="col">Total games:</th>
+              <td>17</td>
+            </tr>
+            <tr class="table-light">
+              <th scope="col">Total wins:</th>
+              <td>10</td>
+            </tr>
+            <tr class="table-light">
+              <th scope="col">Player's rating:</th>
+              <td>4.2</td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
     <!-- bottom center : that fucking slider -->
     <div class="col-md-4" style="background-color: blueviolet">
@@ -68,21 +76,25 @@
     </div>
     <!-- bottom right : design details -->
     <div class="col-md-4">
-      <h3>Games Designed</h3>
-      <table class="table">
-        <tr class="table-light">
-          <th scope="col">Games created:</th>
-          <td>2</td>
-        </tr>
-        <tr class="table-light">
-          <th scope="col">Total play times:</th>
-          <td>6</td>
-        </tr>
-        <tr class="table-light">
-          <th scope="col">Rating:</th>
-          <td>4.4</td>
-        </tr>
-      </table>
+      <div class="card border-info mb-3">
+        <div class="card-header"><h5>Games Designed</h5></div>
+        <div class="card-body">
+          <table class="table">
+            <tr class="table-light">
+              <th scope="col">Games created:</th>
+              <td>2</td>
+            </tr>
+            <tr class="table-light">
+              <th scope="col">Total play times:</th>
+              <td>6</td>
+            </tr>
+            <tr class="table-light">
+              <th scope="col">Rating:</th>
+              <td>4.4</td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 
