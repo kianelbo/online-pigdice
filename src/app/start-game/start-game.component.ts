@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomGameService } from '../services/custom-game.service';
 import { AuthService } from '../services/auth.service';
 import { FriendshipService } from '../services/friendship.service';
+import { MatchMakingService } from '../services/match-making.service';
 
 @Component({
   selector: 'app-start-game',
@@ -16,7 +17,8 @@ export class StartGameComponent implements OnInit {
 
   constructor(private customGameService: CustomGameService,
               private authService: AuthService,
-              private friendshipService: FriendshipService) { }
+              private friendshipService: FriendshipService,
+              private matchMakingService: MatchMakingService) { }
 
   ngOnInit() {
     this.customGameService.getAllGames().subscribe(res => {
@@ -57,5 +59,9 @@ export class StartGameComponent implements OnInit {
       case 5: return '\u2684';
       case 6: return '\u2685';
     }
+  }
+
+  enqueue() {
+    // this.matchMakingService.enqueue(this.authService.getSelfUsername())
   }
 }
