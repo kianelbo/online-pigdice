@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomGameService } from '../services/custom-game.service';
 import { AuthService } from '../services/auth.service';
 import { FriendshipService } from '../services/friendship.service';
-import { MatchMakingService } from '../services/match-making.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-start-game',
@@ -18,7 +18,7 @@ export class StartGameComponent implements OnInit {
   constructor(private customGameService: CustomGameService,
               private authService: AuthService,
               private friendshipService: FriendshipService,
-              private matchMakingService: MatchMakingService) { }
+              private appComponent: AppComponent) { }
 
   ngOnInit() {
     this.customGameService.getAllGames().subscribe(res => {
@@ -50,7 +50,7 @@ export class StartGameComponent implements OnInit {
     this.selectedGame = game;
   }
 
-  diceSymbole(i) {
+  diceSymbol(i) {
     switch (i) {
       case 1: return '\u2680';
       case 2: return '\u2681';
@@ -61,7 +61,7 @@ export class StartGameComponent implements OnInit {
     }
   }
 
-  enqueue() {
-    // this.matchMakingService.enqueue(this.authService.getSelfUsername())
+  findRandom() {
+    this.appComponent.createMatchMakerModal('enqueue', this.selectedGame['name']);
   }
 }

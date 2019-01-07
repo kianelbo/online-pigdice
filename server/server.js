@@ -29,7 +29,7 @@ app.use('/users', usersRoute);
 app.use('/customs', customsRoute);
 app.use('/friendships', friendshipsRoute);
 app.use('/comments', commentsRoute);
-app.use('match-making', matchMakingRoute.router);
+app.use('/match-making', matchMakingRoute.router);
 
 
 app.listen(PORT, function () {

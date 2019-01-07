@@ -1,0 +1,19 @@
+<div class="card bg-light mb-3 text-center">
+  <div class="card-body" *ngIf="mode=='enqueue'">
+    <h6 class="card-title">Finding Game...</h6>
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="mode=='accept'">
+    <h6 class="card-title">Game's Ready!</h6>
+    <div class="btn-group-vertical">
+      <button class="btn btn-success">Accept</button>
+      <button class="btn btn-danger">Decline</button>
+    </div>
+  </div>
+  <div class="card-body" *ngIf="mode=='not-found'">
+    <h6>No match available :(</h6>
+    <p>Try again later</p>
+  </div>
+</div>

@@ -26,10 +26,10 @@
         <div class="alert alert-dismissible alert-info" id="rules-panel">
           <strong>Goal: </strong>{{selectedGame.rules.winScore}}
           <strong>roll limit: </strong><span>{{selectedGame.rules.limit == 0 ? '∞' : selectedGame.rules.limit}}</span>
-          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.rules.blackDices">{{diceSymbole(d)}}</span>
+          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.rules.blackDices">{{diceSymbol(d)}}</span>
           <strong>#🎲: </strong>{{selectedGame.rules.diceCount}}
         </div>
-        <button class="btn btn-primary" (click)="enqueue()">Random Opponent</button>
+        <button class="btn btn-primary" (click)="findRandom()">Random Opponent</button>
 
         <div class="list-group" *ngIf="authService.loggedIn()">
           <h6 class="text-muted pt-3">or play against:</h6>

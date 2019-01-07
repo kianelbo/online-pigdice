@@ -19,6 +19,7 @@ import { GameoverComponent } from './gameover/gameover.component';
 import { PlayPageComponent } from './play-page/play-page.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MatchMakerComponent } from './match-maker/match-maker.component';
 
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -43,7 +44,8 @@ import { AdminGuard } from './guards/admin.guard';
     GameoverComponent,
     PlayPageComponent,
     UnauthorizedComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MatchMakerComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,7 @@ import { AdminGuard } from './guards/admin.guard';
   providers: [DatePipe, AuthService, FriendshipService, CommentService, MatchMakingService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true},
     AuthGuard, AdminGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MatchMakerComponent]
 })
 export class AppModule { }
