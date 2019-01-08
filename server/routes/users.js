@@ -23,7 +23,7 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/all', (req, res) => {
-  User.find({}, 'username totalGames totalWins avgRating isOnline', (err, users) => {
+  User.find({username : {$ne: 'admin'}}, 'username totalGames totalWins avgRating isOnline', (err, users) => {
     if (err)
       console.error(err);
     else
@@ -32,7 +32,7 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/online-only', (req, res) => {
-  User.find({'isOnline': 'online'}, 'username', (err, users) => {
+  User.find({'isOnline': 'online', username : {$ne: 'admin'}}, 'username', (err, users) => {
     if (err)
       console.error(err);
     else

@@ -3,10 +3,10 @@
   <div class="row">
     <div class="col-md-6 mx-auto pt-4">
       <ol class="breadcrumb">
-        <li class="pr-3">Sort By:</li>
-        <li class="breadcrumb-item active"><a href="/leaderboard">Most Games</a></li>
-        <li class="breadcrumb-item active"><a href="/leaderboard">Most Wins</a></li>
-        <li class="breadcrumb-item active"><a href="/leaderboard">Player's Rating</a></li>
+        <li class="breadcrumb-item pr-3 pt-1">Sort By:</li>
+        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByGames()">Most Games</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByWins()">Most Wins</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByRating()">Player's Rating</button></li>
       </ol>
     </div>
   </div>
@@ -19,8 +19,9 @@
         <tr class="table-info">
           <th scope="col">#</th>
           <th scope="col">username</th>
-          <th scope="col">games(<em>wins</em>)</th>
-          <th scope="col">player's rating</th>
+          <th scope="col">games<span *ngIf="sortMethod==1"> ↑</span></th>
+          <th scope="col">wins<span *ngIf="sortMethod==2"> ↑</span></th>
+          <th scope="col">rating<span *ngIf="sortMethod==3"> ↑</span></th>
           <th scope="col">status</th>
         </tr>
         </thead>
@@ -28,7 +29,8 @@
         <tr class="table-light" *ngFor="let user of users; index as i;">
           <th scope="row">{{i + 1}}</th>
           <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
-          <td><strong>{{user.totalGames}}</strong>({{user.totalWins}})</td>
+          <td>{{user.totalGames}}</td>
+          <td>{{user.totalWins}}</td>
           <td>★{{user.avgRating}}</td>
           <td><span *ngIf="user.isOnline=='online'" class="badge badge-success badge-pill">online</span>
             <span *ngIf="user.isOnline=='offline'" class="badge badge-danger badge-pill">offline</span></td>

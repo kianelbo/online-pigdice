@@ -31,7 +31,9 @@ export class StartGameComponent implements OnInit {
       this.authService.getOnlineUsers().subscribe(
         res => {
           const removeIndex = res.map(function(p) { return p.username; }).indexOf(selfUsername);
-          res.splice(removeIndex, 1);
+          if (removeIndex > -1) {
+            res.splice(removeIndex, 1);
+          }
           this.onlineUsers = res;
           this.onlineUsers.forEach((u) =>
             this.friendshipService.getRelation(selfUsername, u.username).subscribe(
