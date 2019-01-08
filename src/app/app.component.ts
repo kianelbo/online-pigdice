@@ -1,7 +1,6 @@
-import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, ComponentRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { MatchMakerComponent } from './match-maker/match-maker.component';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +9,15 @@ import { MatchMakerComponent } from './match-maker/match-maker.component';
 })
 export class AppComponent implements OnInit {
   myProfile: String;
-  componentRef: any;
-  @ViewChild('queueModalContainer', { read: ViewContainerRef }) entry: ViewContainerRef;
 
   constructor(private authService: AuthService,
-              private router: Router,
-              private resolver: ComponentFactoryResolver) {}
+              private router: Router) {}
 
   ngOnInit(): void {
-    this.myProfile = '/users/' + this.authService.getSelfUsername();
-  }
-
-  createMatchMakerModal(mode, gameName) {
-    this.entry.clear();
-    const factory = this.resolver.resolveComponentFactory(MatchMakerComponent);
-    this.componentRef = this.entry.createComponent(factory);
-    this.componentRef.instance.selfRef = this.componentRef;
-    this.componentRef.instance.mode = mode;
-    this.componentRef.instance.gameName = gameName;
+    if (this.authService.loggedIn()) {
+      this.myProfile = '/users/' + this.authService.getSelfUsername();
+    } else {
+      localStorage.setItem('me', 'guest' + Math.floor(Math.random() * 1000));
+    }
   }
 }

@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatchMakingService } from '../services/match-making.service';
-import {AuthService} from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-match-maker',
@@ -8,31 +9,56 @@ import {AuthService} from '../services/auth.service';
   styleUrls: ['./match-maker.component.css']
 })
 export class MatchMakerComponent implements OnInit {
-  @Input() selfRef: any;
-  @Input() mode: string;
-  @Input() gameName: string;
   myUsername: String;
+  upcomingMatch = {};
 
-  constructor(private matchMakingService: MatchMakingService,
-              private authService: AuthService) { }
-
-  ngOnInit() {
+  constructor(private router: Router,
+              private matchMakingService: MatchMakingService,
+              private authService: AuthService) {
+    this.matchMakingService.opponentFound().subscribe(data => {
+      localStorage.setItem('state', 'decide');
+      this.upcomingMatch = data;
+    });
     if (this.authService.loggedIn()) {
-      this.myUsername = this.authService.getSelfUsername();
-    } else {
-      this.myUsername = 'guest' + Math.floor(Math.random() * 1000);
-    }
-    this.matchMakingService.enqueue(this.myUsername, this.gameName).subscribe(
-      res => {
-        console.log(res);
-        if (res === 'oops') {
-          this.mode = 'not-found';
-          setTimeout(() => this.selfRef.destroy(), 2500);
-        } else {
-          this.mode = 'accept';
-          console.log(res);
+      this.matchMakingService.challengedCheck().subscribe(data => {
+        if (data.room.split(' ')[1] === this.myUsername) {
+          localStorage.setItem('state', 'decide');
+          this.upcomingMatch = data;
+          matchMakingService.requestReceived(data);
         }
-      }, err => console.error(err));
+      });
+    }
+    this.matchMakingService.matchToBeStarted().subscribe(data => {
+      localStorage.setItem('room', String(data.room));
+      localStorage.setItem('state', 'none');
+      this.router.navigate(['/play']);
+    });
+    this.matchMakingService.canceled().subscribe(data => {
+      localStorage.setItem('state', 'canceled');
+    });
+    this.matchMakingService.notFound().subscribe(data => {
+      localStorage.setItem('state', 'notFound');
+    });
   }
 
+  ngOnInit() {
+    this.myUsername = this.authService.getSelfUsername();
+  }
+
+  accept() {
+    this.matchMakingService.accept(this.upcomingMatch);
+    localStorage.setItem('state', 'waiting');
+  }
+
+  decline() {
+    this.matchMakingService.decline(this.upcomingMatch);
+  }
+
+  dismiss() {
+    localStorage.setItem('state', 'none');
+  }
+
+  getMode() {
+    return localStorage.getItem('state');
+  }
 }
