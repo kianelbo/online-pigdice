@@ -29,10 +29,9 @@ app.use('/users', usersRoute);
 app.use('/customs', customsRoute);
 app.use('/friendships', friendshipsRoute);
 app.use('/comments', commentsRoute);
-app.use('/match-making', matchMakingRoute.router);
 
 
-app.listen(PORT, function () {
+server = app.listen(PORT, function () {
   console.log('Server running on localhost: ' + PORT);
-  matchMakingRoute.makeMatch();
 });
+matchMakingRoute.initMatchOrganizer(server);

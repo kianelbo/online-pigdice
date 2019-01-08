@@ -1,87 +1,64 @@
-const express = require('express');
-const router = express.Router();
+const socketIO = require('socket.io');
 
-let queue = [];
-let foundMatches = [];
-let readyMatches = [];
+function initMatchOrganizer(server) {
+  let queue = [];
+  let foundMatches = [];
+  const io = socketIO.listen(server);
+  io.sockets.on('connection', (socket) => {
+    // enqueuing scenario
+    socket.on('enqueue', (data) => {
+      var gameIndex = queue.map(function(q) { return q.game; }).indexOf(data.game);
+      if (gameIndex > -1)
+        queue[gameIndex].players.push({username: data.username, socket: socket});
+      else
+        gameIndex = queue.push({game: data.game, players: [{username: data.username, socket: socket}]}) - 1;
 
-function makeMatch() {
-  setInterval(function() {
-    queue.forEach(function (game) {
-      if (game.players.length > 1) {
-        game.players.sort(() => .5 - Math.random());
-        foundMatches.unshift([game.players.shift(), game.players.shift(), 2]);
+      if (queue[gameIndex].players.length > 1) {
+        var player1 = queue[gameIndex].players.shift();
+        var player2 = queue[gameIndex].players.shift();
+        var room = player1.username + ' ' + player2.username + ' ' + data.game;
+        var toConfirmData = {player1: player1.username, player2: player2.username, game: data.game, room: room};
+        player1.socket.join(room);
+        player2.socket.join(room);
+        foundMatches.unshift({room: room, checks: 0});
+        io.in(room).emit('foundOpponent', toConfirmData);
       }
-    })
-  }, 1000);
+    });
+    socket.on('dequeue', (data) => {
+      var gameIndex = queue.map(function(q) { return q.game; }).indexOf(data.game);
+      var qIndex = queue[gameIndex].players.map(function(p) { return p.username; }).indexOf(data.username);
+      queue[gameIndex].players.splice(qIndex, 1);
+      return socket.emit('notFound', data);
+    });
+    // requesting scenario
+    socket.on('requestSent', (data) => {
+      socket.broadcast.emit('challenged', data);
+      socket.join(data.room);
+      foundMatches.unshift({room: data.room, checks: 1});
+    });
+    socket.on('requestReceived', (data) => {
+      socket.join(data.room);
+    });
+    // confirming stage
+    socket.on('accept', (data) => {
+      var matchIndex = foundMatches.map(function(m) { return m.room; }).indexOf(data.room);
+      foundMatches[matchIndex].checks++;
+      if (foundMatches[matchIndex].checks === 2) {
+        io.in(data.room).emit('starting', data);
+        foundMatches.splice(matchIndex, 1);
+      }
+    });
+    socket.on('decline', (data) => {
+      var matchIndex = foundMatches.map(function(m) { return m.room; }).indexOf(data.room);
+      io.in(data.room).emit('canceled', data);
+      foundMatches.splice(matchIndex, 1);
+
+      io.in(data.room).clients((err, socketIDs) => {
+        if (err) throw err;
+        socketIDs.forEach(s => io.sockets.sockets[s].leave(data.room));
+      });
+    });
+  })
 }
 
-router.post('/enqueue', (req, res) => {
-  var gameIndex = queue.map(function(q) { return q.game; }).indexOf(req.body.game);
-  if (gameIndex > -1)
-    queue[gameIndex].players.push(req.body.username);
-  else
-    queue.push({game: req.body.game, players: [req.body.username]});
-
-  var failureTimer = setTimeout(function () {
-    gameIndex = queue.map(function(g) { return g.game; }).indexOf(req.body.game);
-    var playerIndex = queue[gameIndex].players.indexOf(req.body.username);
-    queue[gameIndex].players.splice(playerIndex, 1);
-    clearInterval(searchInterval);
-    return res.json('oops');
-  }, 10000);
-
-  var searchInterval = setInterval(function() {
-    for (var i = 0; i < foundMatches.length; i++) {
-      if (foundMatches[i].includes(req.body.username)) {
-        var opponent = (foundMatches[i][0] === req.body.username) ? foundMatches[i][1] : foundMatches[i][0];
-        foundMatches[i][2]--;
-        if (foundMatches[i][2] === 0) {
-          foundMatches[i].push(req.body.game);
-          readyMatches.unshift(foundMatches[i]);
-          foundMatches.splice(i, 1);
-        }
-        clearTimeout(failureTimer);
-        clearInterval(searchInterval);
-        return res.send({game: req.body.game, opponent: opponent})
-      }
-    }
-  }, 2000);
-});
-
-router.post('/accept', (req, res) => {
-  var index;
-  for (var i = 0; i < readyMatches.length; i++)
-    if (readyMatches[i].includes(req.body.username)) index = i;
-
-  readyMatches[index][2]++;
-
-  var declineTimer = setTimeout(function () {
-    readyMatches.splice(index, 1);
-    return res.send('declined');
-  }, 30000);
-
-  while (readyMatches[index][2] !== 2 || readyMatches[index][2] < 0);
-  if (readyMatches[index][2] === 2) {
-    res.send('accepted');
-  }
-  if (readyMatches[index][2] < 0) {
-    res.send('declined');
-  }
-  clearTimeout(declineTimer);
-  readyMatches.splice(index, 1);
-});
-
-router.post('/decline', (req, res) => {
-  var index;
-  for (var i = 0; i < readyMatches.length; i++)
-    if (readyMatches[i].includes(req.body.username)) index = i;
-
-  readyMatches[index][2] -= 99;
-
-
-});
-
-
-module.exports.router = router;
-module.exports.makeMatch = makeMatch;
+module.exports.initMatchOrganizer = initMatchOrganizer;
