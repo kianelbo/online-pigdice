@@ -46,6 +46,11 @@ function initMatchOrganizer(server) {
       if (foundMatches[matchIndex].checks === 2) {
         io.in(data.room).emit('starting', data);
         foundMatches.splice(matchIndex, 1);
+
+        io.in(data.room).clients((err, socketIDs) => {
+          if (err) throw err;
+          socketIDs.forEach(s => io.sockets.sockets[s].leave(data.room));
+        });
       }
     });
     socket.on('decline', (data) => {
@@ -57,6 +62,21 @@ function initMatchOrganizer(server) {
         if (err) throw err;
         socketIDs.forEach(s => io.sockets.sockets[s].leave(data.room));
       });
+    });
+
+    // in game events
+    socket.on('started', (data) => {
+      socket.join(data.room);
+    });
+    socket.on('roll', (data) => {
+      var diceArray = Array.from({length: data.n}, () => Math.floor(Math.random() * 6) + 1);
+      io.in(data.room).emit('receiveDices', {diceArray: diceArray});
+    });
+    socket.on('hold', (data) => {
+      io.in(data.room).emit('changeTurns');
+    });
+    socket.on('finished', (data) => {
+      socket.leave(data.room);
     });
   })
 }

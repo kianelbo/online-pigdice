@@ -1,41 +1,60 @@
 <div class="game-window shadow-lg p-3 mb-5 bg-white rounded">
 
-  <div class="panel" id="left-panel">
+  <div class="panel" [class.panel-me]="I==0" [class.has-turn]="turn==0" id="left-panel">
     <div class="global-score-div">
-      <h2 class="player-name">PLAYER 1</h2>
+      <h2 class="player-name">{{player1}}</h2>
       <span id="left-dot" class="red-dot">●</span>
-      <h1 class="score-big">66</h1>
+      <h1 class="score-big">{{globalScore[0]}}</h1>
     </div>
     <div class="current-score-div">
       <h5>current</h5>
-      <h2 class="score-small">6</h2>
+      <h2 class="score-small">{{currentScore[0]}}</h2>
     </div>
   </div>
 
-  <div class="panel" id="right-panel">
+  <div class="panel" [class.panel-me]="I==1" [class.has-turn]="turn==1" id="right-panel">
     <div class="global-score-div">
-      <h2 class="player-name">PLAYER 2</h2>
+      <h2 class="player-name">{{player2}}</h2>
       <span id="right-dot" class="red-dot">●</span>
-      <h1 class="score-big">44</h1>
+      <h1 class="score-big">{{globalScore[1]}}</h1>
     </div>
     <div class="current-score-div">
       <h5>current</h5>
-      <h2 class="score-small">4</h2>
+      <h2 class="score-small">{{currentScore[1]}}</h2>
     </div>
   </div>
 
-  <span class="rules-bar">
-    <span *ngIf="limit!=0">rolls: {{limit}}</span> <span *ngIf="limit==0">unlimited</span>
-    Goal: <span id="goal-span">{{goal}}</span>
-    Black Dices: <span id="black-dices-span"><img *ngFor="let d of blackDices" class="mini-dice"
+  <span class="rules-bar" *ngIf="rules != null">
+    rolls: <span *ngIf="rules.limit<10000">{{rules.limit}}</span> <span *ngIf="rules.limit>10000">∞</span>
+    Goal: <span id="goal-span">{{rules.winScore}}</span>
+    Black Dices: <span id="black-dices-span"><img *ngFor="let d of rules.blackDices" class="mini-dice"
                                                   src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
   </span>
 
-  <div class="dices-div">
-    <img *ngFor="let i of diceCountArray" class="dice" src="assets/img/dice3.png" alt="a dice"/>
+  <div class="dices-div" *ngIf="rules != null">
+    <img *ngFor="let d of dicesValue" class="dice" src="assets/img/dice{{d}}.png" alt="a dice"/>
   </div>
-  <button id="roll-btn" class="transparent-btn"><img src="assets/img/roll.svg" alt="roll"/> ROLL DICE</button>
+  <button id="roll-btn" class="base-btn {{(I==turn && !reachedLimit()) ? 'btn-has-turn' : 'btn-gray'}}" (click)="roll()"
+          [disabled]="I!=turn || reachedLimit()"><img src="assets/img/roll.svg" alt="roll"/> ROLL DICE
+    <span *ngIf="rules.limit<10000">({{rules.limit - rolledTimes}})</span>
+  </button>
   <br>
-  <button id="hold-btn" class="transparent-btn"><img src="assets/img/hold.svg" alt="hold"/> HOLD</button>
+  <button id="hold-btn" class="base-btn {{I==turn ? 'btn-has-turn' : 'btn-gray'}}" (click)="hold()"
+          [disabled]="I!=turn"><img src="assets/img/hold.svg" alt="hold"/> HOLD
+  </button>
 
+</div>
+
+
+<div class="modal fade" id="endModal" tabindex="-1" role="dialog" aria-labelledby="endModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content col-md-4 mx-auto text-center">
+      <div class="modal-body">
+        <h5 class="modal-title" id="endModalLabel">{{(globalScore[0] > globalScore[1]) ? player1 : player2}} has won!</h5><br>
+        <button type="button" (click)="finish()" class="btn btn-outline-primary" data-dismiss="modal"
+                aria-label="Close">continue
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

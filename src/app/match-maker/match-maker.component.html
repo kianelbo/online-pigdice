@@ -1,29 +1,29 @@
 <div class="card bg-light mb-3 text-center">
-  <div class="card-body" *ngIf="getMode()=='enqueued'">
+  <div class="card-body" *ngIf="getMode()==='enqueued'">
     <h6 class="card-title">Finding Game...</h6>
     <div class="spinner-grow" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <div class="card-body" *ngIf="getMode()=='waiting'">
+  <div class="card-body" *ngIf="getMode()==='waiting'">
     <h6 class="card-title">Waiting...</h6>
     <div class="spinner-border text-info" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
-  <div class="card-body" *ngIf="getMode()=='decide'">
+  <div class="card-body" *ngIf="getMode()==='decide'">
     <h6 class="card-title">Game's Ready!</h6>
     <div class="btn-group-vertical">
       <button class="btn btn-success" (click)="accept()">Accept</button>
       <button class="btn btn-danger" (click)="decline()">Decline</button>
     </div>
   </div>
-  <div class="card-body" *ngIf="getMode()=='notFound'">
+  <div class="card-body" *ngIf="getMode()==='notFound'">
     <h6>No match available :(</h6>
     <p>Try again later</p>
     <button class="btn btn-outline-primary" (click)="dismiss()">OK</button>
   </div>
-  <div class="card-body" *ngIf="getMode()=='canceled'">
+  <div class="card-body" *ngIf="getMode()==='canceled'">
     <h6>Match's canceled</h6>
     <button class="btn btn-outline-primary" (click)="dismiss()">OK</button>
   </div>

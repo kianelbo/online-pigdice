@@ -20,7 +20,36 @@ router.get('/all', (req, res) => {
       console.error(err);
     else
       res.send(games);
-  })
+  });
+});
+
+router.post('/start', (req, res) => {
+  Custom.findOne({name: req.body.name}, (err, game) => {
+    if (err)
+      console.error(err);
+
+    game.nowPlaying++;
+    game.totalPlayed++;
+    game.save((err, updatedGame) => {
+      if (err)
+        console.error(err);
+      res.send(updatedGame.rules);
+    });
+  });
+});
+
+router.post('/finish', (req, res) => {
+  Custom.findOne({name: req.body.name}, (err, game) => {
+    if (err)
+      console.error(err);
+
+    game.nowPlaying--;
+    game.save((err, updatedGame) => {
+      if (err)
+        console.error(err);
+      res.sendStatus(200);
+    });
+  });
 });
 
 module.exports = router;

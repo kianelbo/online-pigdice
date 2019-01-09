@@ -7,7 +7,7 @@ const usersRoute = require('./routes/users');
 const customsRoute = require('./routes/customs');
 const friendshipsRoute = require('./routes/friendships');
 const commentsRoute = require('./routes/comments');
-const matchMakingRoute = require('./routes/match-making');
+const matchRoute = require('./routes/matches');
 
 
 const config = require('../config/configs');
@@ -34,4 +34,4 @@ app.use('/comments', commentsRoute);
 server = app.listen(PORT, function () {
   console.log('Server running on localhost: ' + PORT);
 });
-matchMakingRoute.initMatchOrganizer(server);
+matchRoute.initMatchOrganizer(server);
