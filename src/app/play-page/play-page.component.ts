@@ -40,7 +40,10 @@ export class PlayPageComponent implements OnInit {
       this.dicesValue = data.diceArray;
       if (this.dicesValue.some(r => this.rules.blackDices.includes(r))) {
         this.currentScore[this.turn] = 0;
-        this.hold();
+        console.log('hold called');
+        this.rolledTimes = 0;
+        this.currentScore[this.turn] = 0;
+        this.turn = (this.turn === 0) ? 1 : 0;
       } else {
         this.dicesValue.forEach(d => this.currentScore[this.turn] += d);
       }
@@ -48,6 +51,7 @@ export class PlayPageComponent implements OnInit {
     // hold event
     this.playingService.changeTurns().subscribe(
       () => {
+        console.log('beginning of hold event');
         this.globalScore[this.turn] += this.currentScore[this.turn];
         this.currentScore[this.turn] = 0;
         if (this.globalScore[this.turn] >= this.rules.winScore) {
@@ -55,6 +59,7 @@ export class PlayPageComponent implements OnInit {
         } else {
           this.turn = (this.turn === 0) ? 1 : 0;
         }
+        console.log('end of hold event');
       }, err => console.error(err));
   }
 

@@ -10,7 +10,8 @@
 .panel {
   position: relative;
   float: left;
-  height: 100%;
+  top: 5%;
+  height: 95%;
   width: 50%;
 }
 
@@ -23,8 +24,7 @@
 }
 
 .has-turn {
-  border: 5px solid crimson;
-  border-radius: 1%;
+  border: 2px inset;
 }
 
 .has-turn .red-dot {
@@ -34,7 +34,7 @@
 .rules-bar {
   position: absolute;
   left: 50%;
-  top: 10%;
+  top: 5%;
   transform: translate(-50%, -50%);
   white-space: nowrap;
   width: 100%;
@@ -133,10 +133,17 @@
 .red-dot {
   display: none;
   position: absolute;
-  color: red;
-  font-size: 28px;
-  top: 20%;
-  left: 75%;
+  color: crimson;
+  font-size: 72px;
+  top: -8%;
+}
+
+#left-dot {
+  left: 2%;
+}
+
+#right-dot {
+  left: 90%;
 }
 
 .global-score-div {

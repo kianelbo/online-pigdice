@@ -1,9 +1,17 @@
 <div class="game-window shadow-lg p-3 mb-5 bg-white rounded">
 
-  <div class="panel" [class.panel-me]="I==0" [class.has-turn]="turn==0" id="left-panel">
+  <span class="rules-bar" *ngIf="rules != null">
+    rolls: <span *ngIf="rules.limit<10000">{{rules.limit}}</span> <span *ngIf="rules.limit>10000">∞</span>
+    Goal: <span id="goal-span">{{rules.winScore}}</span>
+    Black Dices: <span id="black-dices-span"><img *ngFor="let d of rules.blackDices" class="mini-dice"
+                                                  src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
+  </span>
+
+
+  <div class="panel" [ngClass]="{'panel-me': I==0, 'has-turn': turn==0}" id="left-panel">
+    <span id="left-dot" class="red-dot">●</span>
     <div class="global-score-div">
       <h2 class="player-name">{{player1}}</h2>
-      <span id="left-dot" class="red-dot">●</span>
       <h1 class="score-big">{{globalScore[0]}}</h1>
     </div>
     <div class="current-score-div">
@@ -12,10 +20,10 @@
     </div>
   </div>
 
-  <div class="panel" [class.panel-me]="I==1" [class.has-turn]="turn==1" id="right-panel">
+  <div class="panel" [ngClass]="{'panel-me': I==1, 'has-turn': turn==1}" id="right-panel">
+    <span id="right-dot" class="red-dot">●</span>
     <div class="global-score-div">
       <h2 class="player-name">{{player2}}</h2>
-      <span id="right-dot" class="red-dot">●</span>
       <h1 class="score-big">{{globalScore[1]}}</h1>
     </div>
     <div class="current-score-div">
@@ -24,12 +32,6 @@
     </div>
   </div>
 
-  <span class="rules-bar" *ngIf="rules != null">
-    rolls: <span *ngIf="rules.limit<10000">{{rules.limit}}</span> <span *ngIf="rules.limit>10000">∞</span>
-    Goal: <span id="goal-span">{{rules.winScore}}</span>
-    Black Dices: <span id="black-dices-span"><img *ngFor="let d of rules.blackDices" class="mini-dice"
-                                                  src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
-  </span>
 
   <div class="dices-div" *ngIf="rules != null">
     <img *ngFor="let d of dicesValue" class="dice" src="assets/img/dice{{d}}.png" alt="a dice"/>
@@ -46,11 +48,13 @@
 </div>
 
 
-<div class="modal fade" id="endModal" tabindex="-1" role="dialog" aria-labelledby="endModalLabel" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="endModal" tabindex="-1" role="dialog" aria-labelledby="endModalLabel" aria-hidden="true"
+     data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content col-md-4 mx-auto text-center">
       <div class="modal-body">
-        <h5 class="modal-title" id="endModalLabel">{{(globalScore[0] > globalScore[1]) ? player1 : player2}} has won!</h5><br>
+        <h5 class="modal-title" id="endModalLabel">{{(globalScore[0] > globalScore[1]) ? player1 : player2}} has
+          won!</h5><br>
         <button type="button" (click)="finish()" class="btn btn-outline-primary" data-dismiss="modal"
                 aria-label="Close">continue
         </button>
