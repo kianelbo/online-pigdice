@@ -54,4 +54,12 @@ export class GameoverComponent implements OnInit {
     button.classList.remove('btn-secondary');
     button.classList.add('btn-outline-success');
   }
+
+  onGameRated(value: Number) {
+    this.gameComment['rating'] = value;
+  }
+
+  onPlayerRated(value: Number) {
+    this.playerComment['rating'] = value;
+  }
 }

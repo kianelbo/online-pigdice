@@ -29,6 +29,7 @@ import { MatchMakingService } from './services/match-making.service';
 import { PlayingService } from './services/playing.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { StarRatingComponent } from './star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AdminGuard } from './guards/admin.guard';
     PlayPageComponent,
     UnauthorizedComponent,
     NotFoundComponent,
-    MatchMakerComponent
+    MatchMakerComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

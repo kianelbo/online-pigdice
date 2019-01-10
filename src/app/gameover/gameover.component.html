@@ -19,10 +19,7 @@
         <div class="card-header">Review the Game!</div>
         <div class="card-body">
           <fieldset>
-            <div class="form-group">
-              <label for="gameRatingInput">star rating:</label>
-              <input type="text" class="form-control" id="gameRatingInput" [(ngModel)]="gameComment.rating">
-            </div>
+            <app-star-rating [subject]="'game'" (gameRated)="onGameRated($event)"></app-star-rating>
             <div class="form-group">
               <textarea class="form-control" id="gameCommentInput" rows="3" placeholder="add a comment!"
                         [disabled]="!gameComment.rating" [(ngModel)]="gameComment.text"></textarea>
@@ -48,10 +45,7 @@
         <div class="card-header">Review Your Opponent!</div>
         <div class="card-body">
           <fieldset>
-            <div class="form-group">
-              <label for="playerRatingInput">star rating:</label>
-              <input type="text" class="form-control" id="playerRatingInput" [(ngModel)]="playerComment.rating">
-            </div>
+            <app-star-rating [subject]="'player'" (playerRated)="onPlayerRated($event)"></app-star-rating>
             <div class="form-group">
               <textarea class="form-control" id="playerCommentInput" rows="3" placeholder="add a comment!"
                         [disabled]="!playerComment.rating" [(ngModel)]="playerComment.text"></textarea>
