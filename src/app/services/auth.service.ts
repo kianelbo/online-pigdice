@@ -60,11 +60,7 @@ export class AuthService {
   }
 
   isOnline(username) {
-    this.http.get<any>(this._checkOnlineURL + username).subscribe(
-      res => {
-        console.log(res);
-        return res;
-      }, err => console.error(err));
+    return this.http.get<any>(this._checkOnlineURL + username);
   }
 
   updatePersonal(newSettings) {

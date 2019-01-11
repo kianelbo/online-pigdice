@@ -5,23 +5,30 @@
     <div class="col-md-6">
       <div class="card border-primary mb-3">
         <div class="card-header">
-          <img class="rounded-circle img-thumbnail" alt="profile picture" width="200" height="200"
-               src="assets/img/pokerface.jpg">
-          <button *ngIf="relation == 'notFriend'" (click)="requestFriend()" class="btn btn-primary float-right">friend request</button>
-          <button *ngIf="relation == 'isFriend'" (click)="unfriend(username)" class="btn btn-outline-success float-right">friend</button>
-          <button *ngIf="relation == 'pending'" (click)="unfriend(username)" class="btn btn-secondary float-right">requested</button>
-          <button *ngIf="relation == 'myself'" class="btn btn-info float-right" routerLink="/editprofile">edit profile</button>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">@{{username}}
-            <span *ngIf="personal.online=='online'" class="badge badge-success badge-pill float-right">online</span>
-            <span *ngIf="personal.online=='offline'" class="badge badge-danger badge-pill float-right">offline</span>
-          </h4>
-          <p class="card-text">Name: {{personal.name}}
-            <span *ngIf="personal.gender=='male'" class="badge badge-dark badge-pill float-right">♂</span>
-            <span *ngIf="personal.gender!='male'" class="badge badge-dark badge-pill float-right">♀</span>
-          </p>
-          <p class="card-text">Birth date: {{personal.birthDate}}</p>
+          <div class="row">
+            <!-- profile picture -->
+            <div class="col-md-5">
+              <img class="rounded-circle img-thumbnail" alt="profile picture" width="180" height="180" src="assets/img/pokerface.jpg">
+            </div>
+            <!-- personal info -->
+            <div class="col-md-7">
+              <h4 class="card-title">@{{username}}
+                <span *ngIf="personal.isOnline=='online'" class="badge badge-success badge-pill float-right">online</span>
+                <span *ngIf="personal.isOnline=='offline'" class="badge badge-danger badge-pill float-right">offline</span>
+              </h4>
+              <p class="card-text">Name: {{personal.name}}
+                <span *ngIf="personal.gender=='male'" class="badge badge-dark badge-pill float-right">♂</span>
+                <span *ngIf="personal.gender!='male'" class="badge badge-dark badge-pill float-right">♀</span>
+              </p>
+              <p class="card-text">Birth date: {{personal.birthDate}}</p>
+              <p class="card-text">email: {{personal.email}}</p>
+
+              <button *ngIf="relation == 'notFriend'" (click)="requestFriend()" class="btn btn-primary float-right">friend request</button>
+              <button *ngIf="relation == 'isFriend'" (click)="unfriend(username)" class="btn btn-outline-success float-right">friend</button>
+              <button *ngIf="relation == 'pending'" (click)="unfriend(username)" class="btn btn-secondary float-right">requested</button>
+              <button *ngIf="relation == 'myself'" routerLink="/editprofile" class="btn btn-info float-right">✎ edit profile</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

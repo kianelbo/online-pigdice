@@ -4,9 +4,9 @@
     <div class="col-md-6 mx-auto pt-4">
       <ol class="breadcrumb">
         <li class="breadcrumb-item pr-3 pt-1">Sort By:</li>
-        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByGames()">Most Games</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByWins()">Most Wins</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" (click)="sortByRating()">Player's Rating</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==1" (click)="sortByGames()">Most Games</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==2" (click)="sortByWins()">Most Wins</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==3" (click)="sortByRating()">Player's Rating</button></li>
       </ol>
     </div>
   </div>

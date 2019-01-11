@@ -18,7 +18,7 @@
           </ul>
           <ul *ngIf="!isGuest" class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
-              <a target="_blank" routerLink="/users/{{user.username}}" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</a>
+              <a routerLink="/users/{{user.username}}" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</a>
               <span class="badge badge-success badge-pill">online</span>
             </li>
           </ul>

@@ -1,17 +1,26 @@
 <div class="row mt-4">
   <!-- game select -->
   <div class="col-md-8">
-    <div class="row">
-      <div class="col-sm-4 mb-3" *ngFor="let game of games;">
-        <div class="card text-center" [class.bg-light]="selectedGame==game">
-          <div class="card-body">
-            <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.avgRating}}</strong></h5>
-            <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
-            <p class="card-text">created by <a target="_blank" routerLink="/users/{{game.creator}}">{{game.creator}}</a>
-              <br>on {{game.createDate | date:'shortDate'}}</p>
-            <a href="" data-toggle="modal" data-target="#commentsModal"
-               (click)="updateComments(game.comments)">comments</a>
-            <button class="btn btn-success" (click)="selectGame(game)">select</button>
+    <div class="card bg-light mb-3">
+      <div class="card-body">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item pr-3 pt-1">Sort By:</li>
+          <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==1" (click)="sortByTotalPlayed()">Total Played</button></li>
+          <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==2" (click)="sortByNowPlaying()">Now Playing</button></li>
+          <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==3" (click)="sortByRating()">Average Rating</button></li>
+        </ol>
+        <div class="row">
+          <div class="col-sm-4 mb-3" *ngFor="let game of games;">
+            <div class="card text-center" [class.bg-secondary]="selectedGame==game">
+              <div class="card-body">
+                <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.avgRating}}</strong></h5>
+                <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
+                <p class="card-text">created by <a routerLink="/users/{{game.creator}}">{{game.creator}}</a>
+                  <br>on {{game.createDate | date:'shortDate'}}</p>
+                <a href="" data-toggle="modal" data-target="#commentsModal" (click)="updateComments(game.comments)">comments</a>
+                <button class="btn btn-success" (click)="selectGame(game)">select</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -55,9 +64,11 @@
       </div>
       <div class="modal-body">
         <div class="alert alert-dismissible alert-secondary" *ngIf="comments.length == 0">No comments on this game yet!</div>
-        <div class="alert alert-dismissible alert-info" *ngFor="let comment of comments">
-          <strong>{{comment.commenter}}:</strong> {{comment.text}} <strong
-          class="text-warning">★{{comment.rating}}</strong>
+        <div class="alert alert-info" *ngFor="let comment of comments">
+          <blockquote class="blockquote">
+            <p class="mb-0">{{comment.text}}</p>
+            <footer class="blockquote-footer"><cite title="Source Title">{{comment.commenter}}</cite> ★{{comment.rating}}</footer>
+          </blockquote>
         </div>
       </div>
     </div>

@@ -14,6 +14,7 @@ export class StartGameComponent implements OnInit {
   onlineUsers = [];
   comments = [];
   selectedGame = {};
+  sortMethod = 3;
 
   constructor(private customGameService: CustomGameService,
               private authService: AuthService,
@@ -23,6 +24,7 @@ export class StartGameComponent implements OnInit {
   ngOnInit() {
     this.customGameService.getAllGames().subscribe(res => {
       this.games = res;
+      this.sortByRating();
       this.selectedGame = this.games[0];
     }, err => console.error(err));
 
@@ -59,6 +61,21 @@ export class StartGameComponent implements OnInit {
       case 5: return '\u2684';
       case 6: return '\u2685';
     }
+  }
+
+  sortByTotalPlayed() {
+    this.games.sort((a, b) => (a.totalPlayed < b.totalPlayed) ? 1 : ((b.totalPlayed < a.totalPlayed) ? -1 : 0));
+    this.sortMethod = 1;
+  }
+
+  sortByNowPlaying() {
+    this.games.sort((a, b) => (a.nowPlaying < b.nowPlaying) ? 1 : ((b.nowPlaying < a.nowPlaying) ? -1 : 0));
+    this.sortMethod = 2;
+  }
+
+  sortByRating() {
+    this.games.sort((a, b) => (a.avgRating < b.avgRating) ? 1 : ((b.avgRating < a.avgRating) ? -1 : 0));
+    this.sortMethod = 3;
   }
 
   isEnqueued() {

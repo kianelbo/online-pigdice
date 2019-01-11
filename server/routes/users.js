@@ -97,9 +97,9 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/personal-settings/:username' , (req, res) => {
-  User.findOne({username: req.params.username}, 'username isOnline name birthDate gender', (err, user) => {
+  User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email', (err, user) => {
     if (err) return console.error(err);
-    res.json(user);
+    res.send(user);
   })
 });
 
@@ -110,10 +110,12 @@ router.post('/personal-settings' , (req, res) => {
     let newData = req.body.newData;
     if (newData.name)
       user.name = newData.name;
-    if (newData.birthdate)
-      user.birthdate = newData.birthdate;
+    if (newData.birthDate)
+      user.birthDate = newData.birthDate;
     if (newData.gender)
       user.gender = newData.gender;
+    if (newData.email)
+      user.email = newData.email;
 
     user.save((err, updatedUser) => {
       if (err) return console.log(err);

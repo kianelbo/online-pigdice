@@ -41,20 +41,21 @@ export class ProfilePageComponent implements OnInit {
         res.birthDate = this.datePipe.transform(res.birthDate, 'yyyy-MM-dd');
         this.personal = res;
       }, err => console.error(err));
-    // TODO: birthDate not working
+
     // list of friends and request
-    if (this.relation) {
+    if (this.relation === 'myself') {
       this.friendshipService.getFriendsPending(this.username).subscribe(
         res => res.forEach((f) => {
-          this.friends.push({username: f, pending: true, isOnline: this.authService.isOnline(f)});
-          console.log(this.friends);
-        }),
-        err => console.error(err));
+          this.authService.isOnline(f).subscribe(
+            isOnline => this.friends.push({username: f, pending: true, isOnline: isOnline}), err => console.error(err));
+        }), err => console.error(err));
     }
-    // TODO: isOnline of friends is actually undefined
+
     this.friendshipService.getFriendsList(this.username).subscribe(
-      res => res.forEach((f) => this.friends.push({username: f, pending: false, isOnline: this.authService.isOnline(f)})),
-      err => console.error(err));
+      res => res.forEach((f) => {
+        this.authService.isOnline(f).subscribe(
+          isOnline => this.friends.push({username: f, pending: false, isOnline: isOnline}), err => console.error(err));
+      }), err => console.error(err));
   }
 
   unfriend(user) {

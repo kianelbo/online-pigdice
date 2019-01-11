@@ -29,7 +29,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['/index']);
+    this.router.navigate(['/users/' + this.authService.getSelfUsername()]);
   }
 
   updatePersonal() {

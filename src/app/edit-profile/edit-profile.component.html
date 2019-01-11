@@ -29,20 +29,13 @@
                 <input type="date" [(ngModel)]="newPersonalData.birthDate" name="birthDate" class="form-control"
                        id="dateInput" value="{{curPersonalData.birthDate}}">
               </div>
-              <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
-            </fieldset>
-          </div>
-        </div>
-
-        <div class="card border-primary mb-3">
-          <div class="card-body">
-            <fieldset>
-              <!-- profile picture -->
+              <!-- email -->
               <div class="form-group">
-                <label for="pictureInput">profile picture:</label>
-                <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
+                <label for="emailInput">email:</label>
+                <input type="email" [(ngModel)]="newPersonalData.email" class="form-control" id="emailInput"
+                       value="{{curPersonalData.email}}">
               </div>
-              <button type="submit" class="btn btn-success float-right">Save</button>
+              <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
             </fieldset>
           </div>
         </div>
@@ -53,11 +46,6 @@
         <div class="card border-primary mb-3">
           <div class="card-body">
             <fieldset>
-              <!-- email -->
-              <div class="form-group">
-                <label for="emailInput">email:</label>
-                <input type="email" class="form-control" id="emailInput">
-              </div>
               <!-- username -->
               <div class="form-group">
                 <label for="usernameInput">username:</label>
@@ -67,6 +55,19 @@
               <div class="form-group">
                 <label for="passwordInput">password:</label>
                 <input type="password" class="form-control" id="passwordInput">
+              </div>
+              <button type="submit" class="btn btn-success float-right">Save</button>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- profile picture -->
+        <div class="card border-primary mb-3">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group">
+                <label for="pictureInput">profile picture:</label>
+                <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
               </div>
               <button type="submit" class="btn btn-success float-right">Save</button>
             </fieldset>
