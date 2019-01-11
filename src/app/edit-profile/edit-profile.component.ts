@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  _genders = ['male', 'female'];
+  genders = ['male', 'female'];
   newPersonalData = {};
   curPersonalData = {};
   currentUsername: String;
@@ -22,7 +22,7 @@ export class EditProfileComponent implements OnInit {
     this.currentUsername = this.authService.getSelfUsername();
     this.authService.getPersonal().subscribe(
       res => {
-        res.birthdate = this.datePipe.transform(res.birthdate, 'yyyy-MM-dd');
+        res.birthDate = this.datePipe.transform(res.birthDate, 'yyyy-MM-dd');
         return this.curPersonalData = res;
       },
       err => console.error(err));

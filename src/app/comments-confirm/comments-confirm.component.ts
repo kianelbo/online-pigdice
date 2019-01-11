@@ -13,8 +13,8 @@ export class CommentsConfirmComponent implements OnInit {
   constructor(private commentService: CommentService) { }
 
   ngOnInit() {
-    this.commentService.getAllComments('game').subscribe(res => this.gameComments = res, err => console.error(err));
-    this.commentService.getAllComments('user').subscribe(res => this.userComments = res, err => console.error(err));
+    this.commentService.getUnconfirmedList('game').subscribe(res => this.gameComments = res, err => console.error(err));
+    this.commentService.getUnconfirmedList('user').subscribe(res => this.userComments = res, err => console.error(err));
   }
 
   confirmComment(id, category) {

@@ -18,7 +18,7 @@
               <!-- gender -->
               <fieldset class="form-group">
                 <span class="pr-4">gender: </span>
-                <div class="form-check form-check-inline" *ngFor="let g of _genders">
+                <div class="form-check form-check-inline" *ngFor="let g of genders">
                   <input type="radio" class="form-check-input" name="genderRadios" value="{{g}}"
                          (change)="genderHandler($event)" [checked]="curPersonalData.gender==g">{{g}}
                 </div>
@@ -26,8 +26,8 @@
               <!-- birth date -->
               <div class="form-group">
                 <label for="dateInput">birth date:</label>
-                <input type="date" [(ngModel)]="newPersonalData.birthdate" name="birthdate" class="form-control"
-                       id="dateInput" value="{{curPersonalData.birthdate}}">
+                <input type="date" [(ngModel)]="newPersonalData.birthDate" name="birthDate" class="form-control"
+                       id="dateInput" value="{{curPersonalData.birthDate}}">
               </div>
               <button type="submit" (click)="updatePersonal()" class="btn btn-success float-right">Save</button>
             </fieldset>

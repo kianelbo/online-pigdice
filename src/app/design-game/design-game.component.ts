@@ -21,12 +21,10 @@ export class DesignGameComponent implements OnInit {
     const gameData = {
       name: this.gameFormData['name'],
       creator: localStorage.getItem('me'),
-      rules: {
-        winScore: this.gameFormData['winScore'],
-        diceCount: this.gameFormData['diceCount'],
-        blackDices: blackDices,
-        limit: this.gameFormData['limit']
-      }
+      winScore: this.gameFormData['winScore'],
+      diceCount: this.gameFormData['diceCount'],
+      blackDices: blackDices,
+      limit: this.gameFormData['limit']
     };
     console.log(gameData);
     this.customGameService.createCustom(gameData).subscribe(

@@ -8,8 +8,7 @@
             <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.avgRating}}</strong></h5>
             <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
             <p class="card-text">created by <a target="_blank" routerLink="/users/{{game.creator}}">{{game.creator}}</a>
-              <br>
-              on {{game.createDate | date:'shortDate'}}</p>
+              <br>on {{game.createDate | date:'shortDate'}}</p>
             <a href="" data-toggle="modal" data-target="#commentsModal"
                (click)="updateComments(game.comments)">comments</a>
             <button class="btn btn-success" (click)="selectGame(game)">select</button>
@@ -24,11 +23,12 @@
     <div class="card border-primary text-center">
       <div class="card-body">
         <div class="alert alert-dismissible alert-info" id="rules-panel">
-          <strong>Goal: </strong>{{selectedGame.rules.winScore}}
-          <strong>roll limit: </strong><span>{{selectedGame.rules.limit == 0 ? '∞' : selectedGame.rules.limit}}</span>
-          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.rules.blackDices">{{diceSymbol(d)}}</span>
-          <strong>#🎲: </strong>{{selectedGame.rules.diceCount}}
+          <strong>Goal: </strong>{{selectedGame.winScore}}
+          <strong>roll limit: </strong><span>{{selectedGame.limit == 0 ? '∞' : selectedGame.limit}}</span>
+          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.blackDices">{{diceSymbol(d)}}</span>
+          <strong>#🎲: </strong>{{selectedGame.diceCount}}
         </div>
+
         <button class="btn btn-primary" (click)="findRandom()" [disabled]="isEnqueued()">Random Opponent</button>
 
         <div class="list-group" *ngIf="authService.loggedIn()">
@@ -54,9 +54,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-dismissible alert-secondary" *ngIf="comments.length == 0">No comments on this game
-          yet!
-        </div>
+        <div class="alert alert-dismissible alert-secondary" *ngIf="comments.length == 0">No comments on this game yet!</div>
         <div class="alert alert-dismissible alert-info" *ngFor="let comment of comments">
           <strong>{{comment.commenter}}:</strong> {{comment.text}} <strong
           class="text-warning">★{{comment.rating}}</strong>

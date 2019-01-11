@@ -3,10 +3,10 @@
     <!-- final game result -->
     <div class="col-md-8 mx-auto text-center">
       <div class="card border-primary mb-3">
-        <div class="card-header">Game Over!</div>
+        <div class="card-header">{{resultMessage}}</div>
         <div class="card-body">
-          <h2 class="card-title"><strong>{{myself}}</strong> - <strong>{{opponent}}</strong></h2>
-          <h1 class="card-title"><strong>120</strong> : <strong>80</strong></h1>
+          <h2 class="card-title"><strong>{{player1}}</strong> - <strong>{{player2}}</strong></h2>
+          <h1 class="card-title"><strong>{{result}}</strong></h1>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
     <!-- middle buttons -->
     <div class="col-md-4 mx-auto text-center d-flex align-items-center">
       <div class="container">
-        <button class="btn btn-primary btn-lg">PLAY AGAIN</button>
+        <button class="btn btn-primary btn-lg" (click)="toStartPage()">PLAY AGAIN</button>
         <br>
         <hr>
         <button class="btn btn-secondary btn-lg" id="feedback-btn" [disabled]="!playerComment.rating && !gameComment.rating"
@@ -40,7 +40,7 @@
       </div>
     </div>
     <!-- comment on player -->
-    <div class="col-md-4 mx-auto">
+    <div class="col-md-4 mx-auto" id="player-comment-div">
       <div class="card border-warning mb-3">
         <div class="card-header">Review Your Opponent!</div>
         <div class="card-body">

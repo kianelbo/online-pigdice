@@ -1,3 +1,6 @@
+const Match = require('../models/matches');
+const User = require('../models/users');
+
 const socketIO = require('socket.io');
 
 function initMatchOrganizer(server) {
@@ -43,14 +46,18 @@ function initMatchOrganizer(server) {
     socket.on('accept', (data) => {
       var matchIndex = foundMatches.map(function(m) { return m.room; }).indexOf(data.room);
       foundMatches[matchIndex].checks++;
-      if (foundMatches[matchIndex].checks === 2) {
-        io.in(data.room).emit('starting', data);
-        foundMatches.splice(matchIndex, 1);
 
-        io.in(data.room).clients((err, socketIDs) => {
-          if (err) throw err;
-          socketIDs.forEach(s => io.sockets.sockets[s].leave(data.room));
+      if (foundMatches[matchIndex].checks === 2) {  // both users accept the match
+        let match = new Match({game: data.game});
+        match.save((err, savedMatch) => {
+          data['matchId'] = savedMatch._id;
+          io.in(data.room).emit('starting', data);
+          io.in(data.room).clients((err, socketIDs) => {
+            if (err) throw err;
+            socketIDs.forEach(s => io.sockets.sockets[s].leave(data.room));
+          });
         });
+        foundMatches.splice(matchIndex, 1);
       }
     });
     socket.on('decline', (data) => {
@@ -76,6 +83,33 @@ function initMatchOrganizer(server) {
       io.in(data.room).emit('changeTurns');
     });
     socket.on('finished', (data) => {
+      Match.findOne({_id: data.matchId}, (err, match) => {
+        if (err) return console.error(err);
+
+        match.result = data.result;
+        var username;
+        if (data.winnerName) {
+          match.winnerName = data.winnerName;
+          username = data.winnerName;
+          var winFlag = true;
+        }
+        if (data.loserName) {
+          match.loserName = data.loserName;
+          username = data.loserName;
+        }
+        match.save((err, savedMatch) => {
+          if (err) return console.error(err);
+          if (!username.startsWith('guest'))
+            User.findOne({username: username}, (err, user) => {
+              user.totalGames++;
+              if (winFlag) user.totalWins++;
+              user.matches.push(savedMatch);
+              user.save((err, savedUser) => {
+                if (err) console.error(err);
+              })
+            });
+        });
+      });
       socket.leave(data.room);
     });
   })

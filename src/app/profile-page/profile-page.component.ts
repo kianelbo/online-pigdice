@@ -38,16 +38,20 @@ export class ProfilePageComponent implements OnInit {
     // get personal information and reformat the date
     this.authService.getPersonal(this.username).subscribe(
       res => {
-        res.birthdate = this.datePipe.transform(res.birthdate, 'yyyy-MM-dd');
+        res.birthDate = this.datePipe.transform(res.birthDate, 'yyyy-MM-dd');
         this.personal = res;
       }, err => console.error(err));
-
+    // TODO: birthDate not working
     // list of friends and request
     if (this.relation) {
       this.friendshipService.getFriendsPending(this.username).subscribe(
-        res => res.forEach((f) => this.friends.push({username: f, pending: true, isOnline: this.authService.isOnline(f)})),
+        res => res.forEach((f) => {
+          this.friends.push({username: f, pending: true, isOnline: this.authService.isOnline(f)});
+          console.log(this.friends);
+        }),
         err => console.error(err));
     }
+    // TODO: isOnline of friends is actually undefined
     this.friendshipService.getFriendsList(this.username).subscribe(
       res => res.forEach((f) => this.friends.push({username: f, pending: false, isOnline: this.authService.isOnline(f)})),
       err => console.error(err));

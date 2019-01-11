@@ -18,7 +18,7 @@
             <div *ngIf="userComments.length == 0"><br><p>No comments to display!</p></div>
             <div class="card" *ngFor="let uc of userComments">
               <div class="card-body">
-                <h5 class="card-title">{{uc.commenter}} on {{uc.subject}}</h5>
+                <h5 class="card-title">{{uc.commenter}}</h5>
                 <p class="card-text">{{uc.text}}</p>
                 <button class="btn btn-success" (click)="confirmComment(uc._id, 'user')">Confirm</button>
                 <button class="btn btn-danger" (click)="deleteComment(uc._id, 'user')">Remove</button>
@@ -30,7 +30,7 @@
             <div *ngIf="gameComments.length == 0"><br><p>No comments to display!</p></div>
             <div class="card" *ngFor="let gc of gameComments">
               <div class="card-body">
-                <h5 class="card-title">{{gc.commenter}} on {{gc.subject}}</h5>
+                <h5 class="card-title">{{gc.commenter}}</h5>
                 <p class="card-text">{{gc.text}}</p>
                 <button class="btn btn-success" (click)="confirmComment(gc._id, 'game')">Confirm</button>
                 <button class="btn btn-danger" (click)="deleteComment(gc._id, 'game')">Remove</button>

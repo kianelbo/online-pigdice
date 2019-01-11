@@ -70,7 +70,7 @@ export class MatchMakingService {
   }
 
   matchToBeStarted() {
-    return new Observable<{ player1: String, player2: String, game: String, room: String }>(observer => {
+    return new Observable<{ player1: String, player2: String, game: String, room: String, matchId: any }>(observer => {
       this.socket.on('starting', (data) => {
         observer.next(data);
       });

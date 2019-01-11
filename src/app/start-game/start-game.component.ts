@@ -35,12 +35,10 @@ export class StartGameComponent implements OnInit {
             res.splice(removeIndex, 1);
           }
           this.onlineUsers = res;
-          this.onlineUsers.forEach((u) =>
-            this.friendshipService.getRelation(selfUsername, u.username).subscribe(
+          this.onlineUsers.forEach((u) => this.friendshipService.getRelation(selfUsername, u.username).subscribe(
               rel => u['isFriend'] = (rel === 'isFriend'),
               err => console.error(err)));
-        },
-        err => console.error(err));
+        }, err => console.error(err));
     }
   }
 

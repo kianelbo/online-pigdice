@@ -31,6 +31,7 @@ export class MatchMakerComponent implements OnInit {
     this.matchMakingService.matchToBeStarted().subscribe(data => {
       localStorage.setItem('room', String(data.room));
       localStorage.setItem('state', 'none');
+      localStorage.setItem('lastMatchId', data.matchId);
       this.router.navigate(['/play']);
     });
     this.matchMakingService.canceled().subscribe(data => {

@@ -23,27 +23,23 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/all', (req, res) => {
-  User.find({username : {$ne: 'admin'}}, 'username totalGames totalWins avgRating isOnline', (err, users) => {
-    if (err)
-      console.error(err);
-    else
+  User.find({username: {$ne: 'admin'}}).populate('createdGames').select('username totalGames totalWins avgRating isOnline createdGames').
+  exec(function (err, users) {
+      if (err) return console.error(err);
       res.send(users);
   });
 });
 
 router.get('/online-only', (req, res) => {
-  User.find({'isOnline': 'online', username : {$ne: 'admin'}}, 'username', (err, users) => {
-    if (err)
-      console.error(err);
-    else
-      res.send(users);
+  User.find({'isOnline': 'online', username: {$ne: 'admin'}}, 'username', (err, users) => {
+    if (err) console.error(err);
+    else res.send(users);
   });
 });
 
 router.get('/check-online/:username', (req, res) => {
   User.find({username: req.params.username}, 'isOnline', (err, result) => {
-    if (err)
-      return console.error(err);
+    if (err) return console.error(err);
     if (result.length > 0)
       res.send(result[0].isOnline === 'online');
   })
@@ -62,24 +58,19 @@ router.post('/register', (req, res) => {
   let user = new User(req.body);
   user.isOnline = 'online';
   user.save((err, registeredUser) => {
-    if (err)
-      console.log(err);
-    else {
-      let payload = {subject: registeredUser._id};
-      let token = jwt.sign(payload, config.secret);
-      res.status(200).send({token: token, username: user.username});
-    }
+    if (err) return console.log(err);
+
+    let payload = {subject: registeredUser._id};
+    let token = jwt.sign(payload, config.secret);
+    res.status(200).send({token: token, username: user.username});
   });
 });
 
 router.post('/login', (req, res) => {
-  let userData = req.body;
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err) return console.error(err);
 
-  User.findOne({username: userData.username}, (err, user) => {
-    if (err)
-      return console.error(err);
-
-    if (!user || user.password !== userData.password)
+    if (!user || user.password !== req.body.password)
       res.sendStatus(401);
     else {
       user.isOnline = 'online';
@@ -95,8 +86,7 @@ router.post('/login', (req, res) => {
 
 router.post('/logout', (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
-    if (err)
-      return console.error(err);
+    if (err) return console.error(err);
 
     user.isOnline = 'offline';
     user.save((err, updatedUser) => {
@@ -107,18 +97,15 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/personal-settings/:username' , (req, res) => {
-  User.findOne({username: req.params.username}, 'username isOnline name birthdate gender', (err, user) => {
-    if (err)
-      return console.error(err);
-
+  User.findOne({username: req.params.username}, 'username isOnline name birthDate gender', (err, user) => {
+    if (err) return console.error(err);
     res.json(user);
   })
 });
 
 router.post('/personal-settings' , (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
-    if (err)
-      return console.error(err);
+    if (err) return console.error(err);
 
     let newData = req.body.newData;
     if (newData.name)
@@ -129,10 +116,8 @@ router.post('/personal-settings' , (req, res) => {
       user.gender = newData.gender;
 
     user.save((err, updatedUser) => {
-      if (err)
-        console.log(err);
-      else
-        res.json(updatedUser);
+      if (err) return console.log(err);
+      res.json(updatedUser);
     });
   })
 });

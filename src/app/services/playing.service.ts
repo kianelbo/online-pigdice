@@ -14,8 +14,16 @@ export class PlayingService {
     this.socket.emit('started', {room: localStorage.getItem('room')});
   }
 
-  onFinished() {
-    this.socket.emit('finished', {room: localStorage.getItem('room')});
+  onFinished(isWinner, username, result) {
+    const data = {room: localStorage.getItem('room'), matchId: localStorage.getItem('lastMatchId')};
+    username = username.startsWith('guest') ? 'guest' : username;
+    if (isWinner) {
+      data['winnerName'] = username;
+    } else {
+      data['loserName'] = username;
+    }
+    data['result'] = result;
+    this.socket.emit('finished', data);
   }
 
   roll(n) {

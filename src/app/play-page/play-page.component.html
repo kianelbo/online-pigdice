@@ -1,9 +1,9 @@
 <div class="game-window shadow-lg p-3 mb-5 bg-white rounded">
 
-  <span class="rules-bar" *ngIf="rules != null">
-    rolls: <span *ngIf="rules.limit<10000">{{rules.limit}}</span> <span *ngIf="rules.limit>10000">∞</span>
-    Goal: <span id="goal-span">{{rules.winScore}}</span>
-    Black Dices: <span id="black-dices-span"><img *ngFor="let d of rules.blackDices" class="mini-dice"
+  <span class="rules-bar">
+    rolls: <span *ngIf="limit<10000">{{limit}}</span> <span *ngIf="limit>10000">∞</span>
+    Goal: <span id="goal-span">{{winScore}}</span>
+    Black Dices: <span id="black-dices-span"><img *ngFor="let d of blackDices" class="mini-dice"
                                                   src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
   </span>
 
@@ -33,12 +33,12 @@
   </div>
 
 
-  <div class="dices-div" *ngIf="rules != null">
+  <div class="dices-div">
     <img *ngFor="let d of dicesValue" class="dice" src="assets/img/dice{{d}}.png" alt="a dice"/>
   </div>
   <button id="roll-btn" class="base-btn {{(I==turn && !reachedLimit()) ? 'btn-has-turn' : 'btn-gray'}}" (click)="roll()"
           [disabled]="I!=turn || reachedLimit()"><img src="assets/img/roll.svg" alt="roll"/> ROLL DICE
-    <span *ngIf="rules.limit<10000">({{rules.limit - rolledTimes}})</span>
+    <span *ngIf="limit<10000">({{limit - rolledTimes}})</span>
   </button>
   <br>
   <button id="hold-btn" class="base-btn {{I==turn ? 'btn-has-turn' : 'btn-gray'}}" (click)="hold()"
