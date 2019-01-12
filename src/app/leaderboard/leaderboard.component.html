@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <tr class="table-light" *ngFor="let user of users; index as i;">
-          <th scope="row">{{i + 1}}</th>
+          <th scope="row">{{rowIndex(i)}}</th>
           <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
           <td>{{user.totalGames}}</td>
           <td>{{user.totalWins}}</td>

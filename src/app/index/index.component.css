@@ -5,3 +5,12 @@
 .black-normal {
   color: black;
 }
+
+h1 {
+  border-left: dashed gray;
+  border-right: dashed gray;
+}
+
+small {
+  font-size: small;
+}

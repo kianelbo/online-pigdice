@@ -33,4 +33,13 @@ export class LeaderboardComponent implements OnInit {
     this.users.sort((a, b) => (a.avgRating < b.avgRating) ? 1 : ((b.avgRating < a.avgRating) ? -1 : 0));
     this.sortMethod = 3;
   }
+
+  rowIndex(i) {
+    switch (i) {
+      case 0: return '🥇';
+      case 1: return '🥈';
+      case 2: return '🥉';
+      default: return ('0' + parseInt(i + 1, 10)).slice(-2);
+    }
+  }
 }

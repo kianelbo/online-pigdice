@@ -1,47 +1,104 @@
 <div class="container">
-  <!-- top row : slider -->
   <div class="row">
-
-  </div>
-
-  <!-- bottom row -->
-  <div class="row">
-    <!-- left column : online users -->
-    <div class="col-md-6">
-      <div class="card border-primary mb-3">
-        <div class="card-header">Online Users</div>
-        <div class="card-body">
-          <ul *ngIf="isGuest" class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
-              {{user.username}} <span class="badge badge-success badge-pill">online</span>
-            </li>
-          </ul>
-          <ul *ngIf="!isGuest" class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
-              <a routerLink="/users/{{user.username}}" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</a>
-              <span class="badge badge-success badge-pill">online</span>
-            </li>
-          </ul>
+    <div class="col-md-8 mx-auto">
+      <!-- top row : slider -->
+      <div class="row mt-4">
+        <div class="col-md-12">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card bg-light mb-3">
+                  <div class="card-body text-center">
+                    <h4 class="card-title text-primary">⭐Most Populars⭐</h4><br>
+                    <div class="row">
+                      <div class="col-md-4"><h2 class="text-dark">★{{gamesPopular[1].avgRating}}<br>{{gamesPopular[1].name}}</h2></div>
+                      <div class="col-md-4"><h1 class="text-dark">★{{gamesPopular[0].avgRating}}<br>{{gamesPopular[0].name}}</h1></div>
+                      <div class="col-md-4"><h3 class="text-dark">★{{gamesPopular[2].avgRating}}<br>{{gamesPopular[2].name}}</h3></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card bg-light mb-3">
+                  <div class="card-body text-center">
+                    <h4 class="card-title text-primary">⭕Now Playing⭕</h4><br>
+                    <div class="row">
+                      <div class="col-md-4"><h2 class="text-dark">✔{{gamesOnline[1].nowPlaying}}<br>{{gamesOnline[1].name}}</h2></div>
+                      <div class="col-md-4"><h1 class="text-dark">✔{{gamesOnline[0].nowPlaying}}<br>{{gamesOnline[0].name}}</h1></div>
+                      <div class="col-md-4"><h3 class="text-dark">✔{{gamesOnline[2].nowPlaying}}<br>{{gamesOnline[2].name}}</h3></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card bg-light mb-3">
+                  <div class="card-body text-center">
+                    <h4 class="card-title text-primary">🔥New Games🔥</h4><br>
+                    <div class="row">
+                      <div class="col-md-4"><h2 class="text-dark"><small>📆{{gamesNew[1].createDate | date : "shortDate"}}</small><br>{{gamesNew[1].name}}</h2></div>
+                      <div class="col-md-4"><h1 class="text-dark"><small>📆{{gamesNew[0].createDate | date : "shortDate"}}</small><br>{{gamesNew[0].name}}</h1></div>
+                      <div class="col-md-4"><h3 class="text-dark"><small>📆{{gamesNew[2].createDate | date : "shortDate"}}</small><br>{{gamesNew[2].name}}</h3></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- right column : profile / play -->
-    <div class="col-md-6">
-      <div class="card bg-light mb-3">
-        <div class="card-body">
-          <h4 class="card-title text-center">Welcome {{selfUsername}} !</h4>
-          <div class="col-12 text-center">
-            <a class="btn btn-success" routerLink="/start">Play Now!</a>
+
+      <!-- bottom row : online users and play / profile -->
+      <div class="row">
+        <!-- left column : online users -->
+        <div class="col-md-6">
+          <div class="card border-primary mb-3">
+            <div class="card-header text-info">Online Users</div>
+            <div class="card-body">
+              <ul *ngIf="isGuest" class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let user of onlineUsers">
+                  {{user.username}} <span class="badge badge-success badge-pill">online</span>
+                </li>
+              </ul>
+              <ul *ngIf="!isGuest" class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    *ngFor="let user of onlineUsers">
+                  <a routerLink="/users/{{user.username}}"
+                     [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</a>
+                  <span class="badge badge-success badge-pill">online</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div *ngIf="isGuest">
-            <h6 class="card-subtitle mb-2 text-muted text-center pt-3">or</h6>
-            <p class="card-text">Have an account?! <a routerLink="/login" class="card-link">Login</a></p>
-            <p class="card-text">Don't have an account?! <a routerLink="/register" class="card-link">Register</a></p>
-          </div>
-          <div *ngIf="!isGuest" class="text-center">
-            <br><a routerLink="/users/{{selfUsername}}">my profile</a>
-            <br><a routerLink="/users">view leaderboard</a>
-            <br><a routerLink="/design">design a game!</a>
+        </div>
+        <!-- right column : profile / play -->
+        <div class="col-md-6">
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <h3 class="card-title text-primary text-center">Welcome {{selfUsername}} !</h3>
+              <div class="col-12 text-center">
+                <a class="btn btn-success" routerLink="/start">Play Now!</a>
+              </div>
+              <div *ngIf="isGuest" class="text-center">
+                <h6 class="card-subtitle mb-2 text-muted text-center pt-3">or</h6>
+                <p class="card-text">Have an account?! <a routerLink="/login" class="card-link">Login</a></p>
+                <p class="card-text">Don't have an account?! <a routerLink="/register" class="card-link">Register</a></p>
+              </div>
+              <div class="card border-info mb-3 text-center mt-3" *ngIf="!isGuest">
+                <div class="card-header text-primary">Match Summary</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6"><h5>total (wins)</h5>🏆{{playStats.totalGames}} ({{playStats.totalWins}})</div>
+                    <div class="col-md-6"><h5>rating</h5>⭐{{playStats.avgRating}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

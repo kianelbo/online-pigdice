@@ -35,7 +35,7 @@
           <strong>Goal: </strong>{{selectedGame.winScore}}
           <strong>roll limit: </strong><span>{{selectedGame.limit == 0 ? '∞' : selectedGame.limit}}</span>
           <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.blackDices">{{diceSymbol(d)}}</span>
-          <strong>#🎲: </strong>{{selectedGame.diceCount}}
+          <strong>#dices: </strong>{{selectedGame.diceCount}}
         </div>
 
         <button class="btn btn-primary" (click)="findRandom()" [disabled]="isEnqueued()">Random Opponent</button>

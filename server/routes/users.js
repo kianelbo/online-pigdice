@@ -103,6 +103,14 @@ router.get('/personal-settings/:username' , (req, res) => {
   })
 });
 
+router.get('/play-stats/:username' , (req, res) => {
+  User.findOne({username: req.params.username}).populate('Match').select('username totalGames totalWins avgRating matches').
+  exec(function (err, user) {
+    if (err) return console.error(err);
+    res.send(user);
+  });
+});
+
 router.post('/personal-settings' , (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.error(err);
