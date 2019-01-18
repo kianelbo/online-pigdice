@@ -36,7 +36,7 @@ export class GameoverComponent implements OnInit {
     this.myself = this.authService.getSelfUsername();
     this.opponent = (this.player1 === this.myself) ? this.player2 : this.player1;
     // prevent commenting on guests
-    if (this.opponent.startsWith('guest')) {
+    if (this.opponent.startsWith('guest') || this.opponent.startsWith('AI')) {
       $('#player-comment-div :input').attr('disabled', true);
     }
   }

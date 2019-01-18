@@ -35,6 +35,10 @@ export class MatchMakingService {
     this.socket.emit('requestSent', {room: room});
   }
 
+  versusAI(player1, game) {
+    localStorage.setItem('room', player1 + ' AI ' + game);
+  }
+
   accept(data) {
     this.socket.emit('accept', data);
   }

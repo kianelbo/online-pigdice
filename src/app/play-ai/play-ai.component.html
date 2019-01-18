@@ -1,0 +1,62 @@
+<div class="game-window shadow-lg p-3 mb-5 bg-white rounded">
+
+  <span class="rules-bar">
+    rolls: <span *ngIf="limit<10000">{{limit}}</span> <span *ngIf="limit>10000">∞</span>
+    Goal: <span id="goal-span">{{winScore}}</span>
+    Black Dices: <i *ngFor="let d of blackDices" class="{{customGameService.diceSymbol(d)}}"></i>
+  </span>
+
+
+  <div class="panel panel-me" [class.has-turn]="turn==0" id="left-panel">
+    <span id="left-dot" class="red-dot">●</span>
+    <div class="global-score-div">
+      <h2 class="player-name">{{player1}}</h2>
+      <h1 class="score-big">{{globalScore[0]}}</h1>
+    </div>
+    <div class="current-score-div">
+      <h5>current</h5>
+      <h2 class="score-small">{{currentScore[0]}}</h2>
+    </div>
+  </div>
+
+  <div class="panel" [class.has-turn]="turn==1" id="right-panel">
+    <span id="right-dot" class="red-dot">●</span>
+    <div class="global-score-div">
+      <h2 class="player-name">{{player2}}</h2>
+      <h1 class="score-big">{{globalScore[1]}}</h1>
+    </div>
+    <div class="current-score-div">
+      <h5>current</h5>
+      <h2 class="score-small">{{currentScore[1]}}</h2>
+    </div>
+  </div>
+
+
+  <div class="dices-div">
+    <img *ngFor="let d of dicesValue" class="dice" src="assets/img/dice{{d}}.png" alt="a dice"/>
+  </div>
+  <button id="roll-btn" class="base-btn {{(turn==0 && rolledTimes!==limit && canRoll) ? 'btn-has-turn' : 'btn-gray'}}" (click)="rollPlayer()"
+          [disabled]="turn==1 || rolledTimes===limit || !canRoll"><img src="assets/img/roll.svg" alt="roll"/> ROLL DICE
+    <span *ngIf="limit<10000">({{limit - rolledTimes}})</span>
+  </button>
+  <br>
+  <button id="hold-btn" class="base-btn {{turn==0 ? 'btn-has-turn' : 'btn-gray'}}" (click)="holdPlayer()"
+          [disabled]="turn==1"><img src="assets/img/hold.svg" alt="hold"/> HOLD
+  </button>
+
+</div>
+
+
+<div class="modal fade" id="endModal" tabindex="-1" role="dialog" aria-labelledby="endModalLabel" aria-hidden="true"
+     data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content col-md-4 mx-auto text-center">
+      <div class="modal-body">
+        <h5 class="modal-title" id="endModalLabel">You {{(globalScore[0] > globalScore[1]) ? 'won' : 'lost'}}!</h5><br>
+        <button type="button" (click)="finish()" class="btn btn-outline-primary" data-dismiss="modal"
+                aria-label="Close">continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

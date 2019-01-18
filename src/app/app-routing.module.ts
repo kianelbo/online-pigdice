@@ -12,6 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { StartGameComponent } from './start-game/start-game.component';
 import { GameoverComponent } from './gameover/gameover.component';
 import { PlayPageComponent } from './play-page/play-page.component';
+import { PlayAiComponent } from './play-ai/play-ai.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'start', component: StartGameComponent },
   { path: 'gameover', component: GameoverComponent },
   { path: 'play', component: PlayPageComponent },
+  { path: 'play-ai', component: PlayAiComponent },
   { path: 'unauthorized', component: UnauthorizedComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found'}

@@ -23,6 +23,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import { PlayStatsComponent } from './play-stats/play-stats.component';
 import { DesignStatsComponent } from './design-stats/design-stats.component';
+import { PlayAiComponent } from './play-ai/play-ai.component';
 
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -52,7 +53,8 @@ import { AdminGuard } from './guards/admin.guard';
     MatchMakerComponent,
     StarRatingComponent,
     PlayStatsComponent,
-    DesignStatsComponent
+    DesignStatsComponent,
+    PlayAiComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CustomGameService } from '../services/custom-game.service';
 import { AuthService } from '../services/auth.service';
 import { FriendshipService } from '../services/friendship.service';
@@ -16,7 +17,8 @@ export class StartGameComponent implements OnInit {
   selectedGame = {};
   sortMethod = 3;
 
-  constructor(private customGameService: CustomGameService,
+  constructor(private router: Router,
+              private customGameService: CustomGameService,
               private authService: AuthService,
               private friendshipService: FriendshipService,
               private matchMakingService: MatchMakingService) { }
@@ -69,6 +71,11 @@ export class StartGameComponent implements OnInit {
 
   isEnqueued() {
     return localStorage.getItem('state') === 'enqueued';
+  }
+
+  versusAI() {
+    this.matchMakingService.versusAI(this.authService.getSelfUsername(), this.selectedGame['name']);
+    this.router.navigate(['/play-ai']);
   }
 
   findRandom() {

@@ -38,7 +38,8 @@
           <strong>#dices: </strong>{{selectedGame.diceCount}}
         </div>
 
-        <button class="btn btn-primary" (click)="findRandom()" [disabled]="isEnqueued()">Random Opponent</button>
+        <button class="btn btn-primary" (click)="versusAI()" [disabled]="isEnqueued()">Versus AI</button><br>
+        <button class="btn btn-primary mt-1" (click)="findRandom()" [disabled]="isEnqueued()">Random Opponent</button>
 
         <div class="list-group" *ngIf="authService.loggedIn()">
           <h6 class="text-muted pt-3">or play against:</h6>
