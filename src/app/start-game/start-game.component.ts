@@ -52,17 +52,6 @@ export class StartGameComponent implements OnInit {
     this.selectedGame = game;
   }
 
-  diceSymbol(i) {
-    switch (i) {
-      case 1: return '\u2680';
-      case 2: return '\u2681';
-      case 3: return '\u2682';
-      case 4: return '\u2683';
-      case 5: return '\u2684';
-      case 6: return '\u2685';
-    }
-  }
-
   sortByTotalPlayed() {
     this.games.sort((a, b) => (a.totalPlayed < b.totalPlayed) ? 1 : ((b.totalPlayed < a.totalPlayed) ? -1 : 0));
     this.sortMethod = 1;

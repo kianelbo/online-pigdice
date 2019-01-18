@@ -27,4 +27,15 @@ export class CustomGameService {
   finish(name) {
     return this.http.post<any>(this._finishURL, {name: name}).subscribe();
   }
+
+  diceSymbol(i) {
+    switch (i) {
+      case 1: return 'fas fa-dice-one';
+      case 2: return 'fas fa-dice-two';
+      case 3: return 'fas fa-dice-three';
+      case 4: return 'fas fa-dice-four';
+      case 5: return 'fas fa-dice-five';
+      case 6: return 'fas fa-dice-six';
+    }
+  }
 }

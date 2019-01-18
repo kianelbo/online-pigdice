@@ -34,7 +34,7 @@
         <div class="alert alert-dismissible alert-info" id="rules-panel">
           <strong>goal: </strong>{{selectedGame.winScore}}
           <strong>roll limit: </strong><span>{{selectedGame.limit == 0 ? '∞' : selectedGame.limit}}</span>
-          <br><strong>🛇dices: </strong><span *ngFor="let d of selectedGame.blackDices">{{diceSymbol(d)}}</span>
+          <br><strong>🛇dices: </strong><i *ngFor="let d of selectedGame.blackDices" class="{{customGameService.diceSymbol(d)}}"></i>
           <strong>#dices: </strong>{{selectedGame.diceCount}}
         </div>
 

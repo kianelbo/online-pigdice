@@ -3,8 +3,7 @@
   <span class="rules-bar">
     rolls: <span *ngIf="limit<10000">{{limit}}</span> <span *ngIf="limit>10000">∞</span>
     Goal: <span id="goal-span">{{winScore}}</span>
-    Black Dices: <span id="black-dices-span"><img *ngFor="let d of blackDices" class="mini-dice"
-                                                  src="assets/img/dice{{d}}.png" alt="{{d}}"/></span>
+    Black Dices: <i *ngFor="let d of blackDices" class="{{customGameService.diceSymbol(d)}}"></i>
   </span>
 
 
