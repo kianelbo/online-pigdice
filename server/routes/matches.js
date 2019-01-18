@@ -103,7 +103,7 @@ function initMatchOrganizer(server) {
             User.findOne({username: username}, (err, user) => {
               user.totalGames++;
               if (winFlag) user.totalWins++;
-              user.matches.push(savedMatch);
+              user.matches.unshift(savedMatch);
               user.save((err, savedUser) => {
                 if (err) console.error(err);
               })

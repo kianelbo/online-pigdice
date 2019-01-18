@@ -32,9 +32,9 @@
     <div class="card border-primary text-center">
       <div class="card-body">
         <div class="alert alert-dismissible alert-info" id="rules-panel">
-          <strong>Goal: </strong>{{selectedGame.winScore}}
+          <strong>goal: </strong>{{selectedGame.winScore}}
           <strong>roll limit: </strong><span>{{selectedGame.limit == 0 ? '∞' : selectedGame.limit}}</span>
-          <br><strong>black dices: </strong><span *ngFor="let d of selectedGame.blackDices">{{diceSymbol(d)}}</span>
+          <br><strong>🛇dices: </strong><span *ngFor="let d of selectedGame.blackDices">{{diceSymbol(d)}}</span>
           <strong>#dices: </strong>{{selectedGame.diceCount}}
         </div>
 

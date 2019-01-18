@@ -103,11 +103,19 @@ router.get('/personal-settings/:username' , (req, res) => {
   })
 });
 
-router.get('/play-stats/:username' , (req, res) => {
-  User.findOne({username: req.params.username}).populate('Match').select('username totalGames totalWins avgRating matches').
-  exec(function (err, user) {
+router.get('/play-stats/:username', (req, res) => {
+  User.findOne({username: req.params.username}).populate({path: 'matches', populate: {path: 'comments'}})
+    .select('username totalGames totalWins avgRating matches').exec(function (err, user) {
     if (err) return console.error(err);
     res.send(user);
+  });
+});
+
+router.get('/design-stats/:username', (req, res) => {
+  User.findOne({username: req.params.username}).populate({path: 'createdGames', populate: {path: 'comments'}})
+    .select('createdGames').exec(function (err, user) {
+    if (err) return console.error(err);
+    res.send(user.createdGames);
   });
 });
 

@@ -20,6 +20,9 @@ import { PlayPageComponent } from './play-page/play-page.component';
 import { MatchMakerComponent } from './match-maker/match-maker.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+import { PlayStatsComponent } from './play-stats/play-stats.component';
+import { DesignStatsComponent } from './design-stats/design-stats.component';
 
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
@@ -29,7 +32,6 @@ import { MatchMakingService } from './services/match-making.service';
 import { PlayingService } from './services/playing.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
-import { StarRatingComponent } from './star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { StarRatingComponent } from './star-rating/star-rating.component';
     UnauthorizedComponent,
     NotFoundComponent,
     MatchMakerComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    PlayStatsComponent,
+    DesignStatsComponent
   ],
   imports: [
     BrowserModule,

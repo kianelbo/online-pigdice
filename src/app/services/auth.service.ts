@@ -14,6 +14,7 @@ export class AuthService {
   private _getOnlinesURL = 'http://localhost:3000/users/online-only';
   private _checkOnlineURL = 'http://localhost:3000/users/check-online/';
   private _playStatsURL = 'http://localhost:3000/users/play-stats/';
+  private _designStatsURL = 'http://localhost:3000/users/design-stats/';
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -75,5 +76,9 @@ export class AuthService {
 
   getPlayStats(username: String = this.getSelfUsername()) {
     return this.http.get<any>(this._playStatsURL + username);
+  }
+
+  getDesignStats(username: String = this.getSelfUsername()) {
+    return this.http.get<any>(this._designStatsURL + username);
   }
 }

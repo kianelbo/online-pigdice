@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card border-info">
+        <div class="card-header"><h5>Game Design Statistics</h5></div>
+        <div class="card-body">
+          <div class="row">
+            <!-- summary -->
+            <div class="col-md-6">
+              <table class="table">
+                <thead>
+                <tr class="table-light text-dark">
+                  <th scope="col" colspan="2">Summary</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light text-info">
+                  <th scope="col">Total games:</th>
+                  <td>{{totalGamesDesigned}}</td>
+                </tr>
+                <tr class="table-light text-success">
+                  <th scope="col">Total played:</th>
+                  <td>{{gTotalPlayed}}</td>
+                </tr>
+                <tr class="table-light text-warning">
+                  <th scope="col">Avg. ratings:</th>
+                  <td>{{gAvgRating}}★</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- games' records -->
+            <div class="col-md-6">
+              <div id="gamesIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item" *ngFor="let game of designStats; index as i;" [class.active]="i===0">
+                    <div class="card bg-light">
+                      <div class="card-body text-center pb-0">
+                        <h4 class="card-title text-primary">{{game.name}} <strong class="text-warning">{{game.avgRating}}★</strong></h4>
+                        <h5 class="text-dark">Total Played: {{game.totalPlayed}}</h5>
+                        <h5 class="text-dark">Now Playing: {{game.nowPlaying}}</h5>
+                        <h6 class="card-title text-info">created on: {{game.createDate | date : "shortDate"}}</h6>
+                        <a class="btn btn-link" href="" data-toggle="modal" data-target="#gameCommentsModal" (click)="selectGame(i)">comments</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#gamesIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#gamesIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- comments modal -->
+<div class="modal fade" id="gameCommentsModal" tabindex="-1" role="dialog" aria-labelledby="gameCommentsModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-dismissible alert-secondary" *ngIf="selectedGameComments.length == 0">No confirmed comments</div>
+        <div class="alert alert-info" *ngFor="let comment of selectedGameComments">
+          <blockquote class="blockquote">
+            <p class="mb-0">{{comment.text}}</p>
+            <footer class="blockquote-footer"><cite title="Source Title">{{comment.commenter}}</cite> ★{{comment.rating}}</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card border-info">
+        <div class="card-header"><h5>Play Statistics</h5></div>
+        <div class="card-body">
+          <div class="row">
+            <!-- summary -->
+            <div class="col-md-6">
+              <table class="table">
+                <thead>
+                  <tr class="table-light text-dark">
+                    <th scope="col" colspan="2">Summary</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-light text-info">
+                    <th scope="col">Total games:</th>
+                    <td>{{playStats.totalGames}}</td>
+                  </tr>
+                  <tr class="table-light text-success">
+                    <th scope="col">Total wins:</th>
+                    <td>{{playStats.totalWins}}</td>
+                  </tr>
+                  <tr class="table-light text-warning">
+                    <th scope="col">Player's rating:</th>
+                    <td>{{playStats.avgRating}}★</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- matches' records -->
+            <div class="col-md-6">
+              <div id="matchesIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item" *ngFor="let match of playStats.matches; index as i;" [class.active]="i===0">
+                    <div class="card bg-light">
+                      <div class="card-body text-center pb-0">
+                        <h4 class="card-title {{match.isWinner ? 'text-success' : 'text-danger'}}">{{match.playersStr}}</h4>
+                        <h5 class="card-title {{match.isWinner ? 'text-success' : 'text-danger'}}">{{match.result}}</h5>
+                        <h6 class="card-title text-info">{{match.date | date : "short"}}</h6>
+                        <h6 class="text-info">game: {{match.game}}</h6>
+                        <a class="btn btn-link float-left" href="" data-toggle="modal" data-target="#matchCommentsModal" (click)="selectMatch(i)">comments</a>
+                        <h4 class="float-right text-primary">{{i + 1}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#matchesIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#matchesIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- comments modal -->
+<div class="modal fade" id="matchCommentsModal" tabindex="-1" role="dialog" aria-labelledby="matchCommentsModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel">Comments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-dismissible alert-secondary" *ngIf="selectedMatchComments.length == 0">No confirmed comments</div>
+        <div class="alert alert-info" *ngFor="let comment of selectedMatchComments">
+          <blockquote class="blockquote">
+            <p class="mb-0">{{comment.text}}</p>
+            <footer class="blockquote-footer"><cite title="Source Title">{{comment.commenter}} on {{comment.category==='game'?'game':'opponent'}}</cite> ★{{comment.rating}}</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

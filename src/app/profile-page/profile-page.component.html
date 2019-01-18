@@ -55,53 +55,12 @@
 
   <div class="row pt-3">
     <!-- bottom left : play details -->
-    <div class="col-md-4">
-      <div class="card border-info mb-3">
-        <div class="card-header"><h5>Play Statistics</h5></div>
-        <div class="card-body">
-          <table class="table">
-            <tr class="table-light">
-              <th scope="col">Total games:</th>
-              <td>17</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="col">Total wins:</th>
-              <td>10</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="col">Player's rating:</th>
-              <td>4.2</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- bottom center : that fucking slider -->
-    <div class="col-md-4" style="background-color: blueviolet">
-      <h3>Matches</h3>
-      that fucking slider -__-
+    <div class="col-md-6">
+      <app-play-stats></app-play-stats>
     </div>
     <!-- bottom right : design details -->
-    <div class="col-md-4">
-      <div class="card border-info mb-3">
-        <div class="card-header"><h5>Games Designed</h5></div>
-        <div class="card-body">
-          <table class="table">
-            <tr class="table-light">
-              <th scope="col">Games created:</th>
-              <td>2</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="col">Total play times:</th>
-              <td>6</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="col">Rating:</th>
-              <td>4.4</td>
-            </tr>
-          </table>
-        </div>
-      </div>
+    <div class="col-md-6">
+      <app-design-stats></app-design-stats>
     </div>
   </div>
 
