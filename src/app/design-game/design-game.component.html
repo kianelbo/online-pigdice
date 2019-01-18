@@ -8,34 +8,39 @@
           <!-- name -->
           <div class="form-group">
             <label for="nameInput">Name:</label>
-            <input [(ngModel)]="gameFormData.name" name="name" type="text" class="form-control" id="nameInput">
+            <input [(ngModel)]="gameFormData.name" name="name" type="text" class="form-control" id="nameInput" required
+                   pattern="[a-zA-Z0-9]*" #name="ngModel">
             <small id="nameHelp" class="form-text text-muted">The custom game's name</small>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+              <div *ngIf="name.errors.required">Name is required.</div>
+              <div *ngIf="name.errors.pattern">Only Digits and letters are valid.</div>
+            </div>
           </div>
           <!-- winning score -->
           <div class="form-group">
             <label for="winScoreInput">Winning score:</label>
-            <input [(ngModel)]="gameFormData.winScore" name="winScore" type="number" class="form-control" id="winScoreInput" min="10" value="100">
+            <input [(ngModel)]="gameFormData.winScore" name="winScore" type="number" class="form-control"
+                   id="winScoreInput" min="10" value="100" required pattern="[1-9][0-9]+" #winScore="ngModel">
             <small id="winScoreHelp" class="form-text text-muted">The player wins when he/she reaches this score.</small>
+            <div *ngIf="winScore.invalid && (winScore.dirty || winScore.touched)" class="alert alert-danger">
+              <div *ngIf="winScore.errors.required">Win Score is required.</div>
+              <div *ngIf="winScore.errors.pattern">Value must be greater than 9.</div>
+            </div>
           </div>
           <!-- black dices -->
           <div class="form-group">
-            <label for="blackDicesInput">Black dices:</label>
-            <input [(ngModel)]="gameFormData.blackDices" name="blackDices" type="text" class="form-control" id="blackDicesInput">
-            <!--<select [(ngModel)]="gameFormData.blackDices"  name="blackDices" multiple="" class="form-control" id="blackDicesInput">-->
-            <!--<option selected>1</option>-->
-            <!--<option>2</option>-->
-            <!--<option>3</option>-->
-            <!--<option>4</option>-->
-            <!--<option>5</option>-->
-            <!--<option>6</option>-->
-            <!--</select>-->
+            <label class="mr-2">Black dices: </label>
+            <div class="form-check form-check-inline mr-4" *ngFor="let i of [1, 2, 3, 4, 5, 6]">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox{{i}}" value="{{i}}" [checked]="i==1" (change)="blackDicesHandler($event)">
+              <label class="form-check-label" for="inlineCheckbox{{i}}"><i class="{{customGameService.diceSymbol(i)}}"></i></label>
+            </div>
             <small id="blackDicesHelp" class="form-text text-muted">Dices which ends your turn.</small>
           </div>
           <!-- number of dices -->
           <div class="form-group">
             <label for="diceCount">Number of dices:</label>
             <select [(ngModel)]="gameFormData.diceCount" name="diceCount" class="form-control" id="diceCount">
-              <option>1</option>
+              <option selected>1</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
@@ -45,7 +50,12 @@
           <!-- roll limit -->
           <div class="form-group">
             <label for="limitInput">Roll limit:</label>
-            <input [(ngModel)]="gameFormData.limit" name="limit" type="number" class="form-control" id="limitInput" placeholder="leave empty for unlimited rolls">
+            <input [(ngModel)]="gameFormData.limit" name="limit" type="number" min="0" class="form-control" required
+                   pattern="[0-9]+" id="limitInput" placeholder="enter 0 for unlimited rolls" #limit = "ngModel">
+            <div *ngIf="limit.invalid && (limit.dirty || limit.touched)" class="alert alert-danger">
+              <div *ngIf="limit.errors.required">Limit is required.</div>
+              <div *ngIf="limit.errors.pattern">Value cannot be negative.</div>
+            </div>
             <small id="limitHelp" class="form-text text-muted">How many times a player can roll the dice per turn.</small>
           </div>
           <button type="submit" (click)="onSubmit()" class="btn btn-success">Save</button>

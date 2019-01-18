@@ -9,6 +9,7 @@ import { CustomGameService } from '../services/custom-game.service';
 })
 export class DesignGameComponent implements OnInit {
   gameFormData = {};
+  blackDices = ['1'];
 
   constructor(private router: Router,
               private customGameService: CustomGameService) { }
@@ -17,16 +18,14 @@ export class DesignGameComponent implements OnInit {
   }
 
   onSubmit() {
-    const blackDices = this.gameFormData['blackDices'].split(' ').map(Number);
     const gameData = {
       name: this.gameFormData['name'],
       creator: localStorage.getItem('me'),
       winScore: this.gameFormData['winScore'],
       diceCount: this.gameFormData['diceCount'],
-      blackDices: blackDices,
+      blackDices: this.blackDices,
       limit: this.gameFormData['limit']
     };
-    console.log(gameData);
     this.customGameService.createCustom(gameData).subscribe(
       res => {
         console.log('custom game created');
@@ -38,5 +37,14 @@ export class DesignGameComponent implements OnInit {
 
   onCancel() {
     this.router.navigate(['/index']);
+  }
+
+  blackDicesHandler(event) {
+    if (event.target.checked) {
+      this.blackDices.push(event.target.value);
+    } else {
+      this.blackDices.splice(this.blackDices.indexOf(event.target.value, 0), 1);
+    }
+    console.log(this.blackDices);
   }
 }
