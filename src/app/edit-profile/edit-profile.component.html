@@ -49,14 +49,14 @@
               <!-- username -->
               <div class="form-group">
                 <label for="usernameInput">username:</label>
-                <input type="text" class="form-control" id="usernameInput">
+                <input [(ngModel)]="newAccountData.username" type="text" name="username" class="form-control" id="usernameInput" value="{{curPersonalData.username}}">
               </div>
               <!-- password -->
               <div class="form-group">
                 <label for="passwordInput">password:</label>
-                <input type="password" class="form-control" id="passwordInput">
+                <input [(ngModel)]="newAccountData.password" type="password" name="password" class="form-control" id="passwordInput" value="">
               </div>
-              <button type="submit" class="btn btn-success float-right">Save</button>
+              <button type="submit" (click)="updateAccount()" class="btn btn-success float-right">Save</button>
             </fieldset>
           </div>
         </div>

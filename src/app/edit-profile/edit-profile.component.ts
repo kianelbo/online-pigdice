@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 export class EditProfileComponent implements OnInit {
   genders = ['male', 'female'];
   newPersonalData = {};
+  newAccountData = {};
   curPersonalData = {};
   currentUsername: String;
 
@@ -35,6 +36,15 @@ export class EditProfileComponent implements OnInit {
   updatePersonal() {
     this.authService.updatePersonal(this.newPersonalData).subscribe(
       res => this.router.navigate(['/users/' + this.authService.getSelfUsername()]),
+      err => console.error(err));
+  }
+
+  updateAccount() {
+    this.authService.updateAccount(this.newAccountData).subscribe(
+      res => {
+        window.location.reload();
+        this.router.navigate(['/index']);
+      },
       err => console.error(err));
   }
 

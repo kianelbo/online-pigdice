@@ -140,4 +140,21 @@ router.post('/personal-settings' , (req, res) => {
   })
 });
 
+router.post('/account-settings' , (req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err) return console.error(err);
+
+    let newData = req.body.newData;
+    if (newData.username)
+      user.username = newData.username;
+    if (newData.password)
+      user.password = newData.password;
+
+    user.save((err, updatedUser) => {
+      if (err) return console.log(err);
+      res.json(updatedUser);
+    });
+  })
+});
+
 module.exports = router;
