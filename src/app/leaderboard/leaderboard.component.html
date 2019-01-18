@@ -1,17 +1,30 @@
 <div class="container">
   <!-- sort panel -->
   <div class="row">
-    <div class="col-md-10 mx-auto pt-4">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item pr-3 pt-1">Sort By:</li>
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==1" (click)="sortByGames()">Most Games</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==2" (click)="sortByWins()">Most Wins</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==3" (click)="sortByRating()">Player's Rating</button></li>
-
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==4" (click)="sortByDesignedGames()">Most Designed Games</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==5" (click)="sortByGamesRatings()">Most Popular games</button></li>
-        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==6" (click)="sortByGamesTotalPlayed()">Most Played</button></li>
-      </ol>
+    <div class="col-md-5 mx-auto pt-4">
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link disabled">Sort By:</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Match Stats</a>
+              <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+                <a class="dropdown-item" [routerLink]="" (click)="sortByGames()">Most Games</a>
+                <a class="dropdown-item" [routerLink]="" (click)="sortByWins()">Most Wins</a>
+                <a class="dropdown-item" [routerLink]="" (click)="sortByRating()">Player's Rating</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Design Stats</a>
+              <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+                <a class="dropdown-item" [routerLink]="" (click)="sortByDesignedGames()">Most Games</a>
+                <a class="dropdown-item" [routerLink]="" (click)="sortByGamesRatings()">Most Popular</a>
+                <a class="dropdown-item" [routerLink]="" (click)="sortByGamesTotalPlayed()">Most Played</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -27,13 +40,13 @@
         <tr class="table-info">
           <th scope="col">#</th>
           <th scope="col">username</th>
-          <th scope="col">games<span *ngIf="sortMethod==1"> ↑</span></th>
-          <th scope="col">wins<span *ngIf="sortMethod==2"> ↑</span></th>
-          <th scope="col">rating<span *ngIf="sortMethod==3"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==1">games<span *ngIf="sortMethod==1"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==2">wins<span *ngIf="sortMethod==2"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==3">rating<span *ngIf="sortMethod==3"> ↑</span></th>
           <th scope="col">status</th>
-          <th scope="col">designed games<span *ngIf="sortMethod==4"> ↑</span></th>
-          <th scope="col">ratings<span *ngIf="sortMethod==5"> ↑</span></th>
-          <th scope="col">total played<span *ngIf="sortMethod==6"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==4">designed games<span *ngIf="sortMethod==4"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==5">ratings<span *ngIf="sortMethod==5"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==6">total played<span *ngIf="sortMethod==6"> ↑</span></th>
         </tr>
         </thead>
         <tbody>
@@ -42,11 +55,11 @@
           <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
           <td>{{user.totalGames}}</td>
           <td>{{user.totalWins}}</td>
-          <td class="text-warning">★{{user.avgRating}}</td>
+          <td class="text-warning">{{user.avgRating?'★'+user.avgRating:'no ratings'}}</td>
           <td><span *ngIf="user.isOnline=='online'" class="badge badge-success badge-pill">online</span>
             <span *ngIf="user.isOnline=='offline'" class="badge badge-danger badge-pill">offline</span></td>
           <td>{{user.designedGames}}</td>
-          <td class="text-warning">{{user.gamesRatings}}</td>
+          <td class="text-warning">{{user.gamesRatings?'★'+user.gamesRatings:'no ratings'}}</td>
           <td>{{user.gamesTotalPlayed}}</td>
         </tr>
         </tbody>
