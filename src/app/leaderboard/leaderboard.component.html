@@ -1,21 +1,29 @@
 <div class="container">
   <!-- sort panel -->
   <div class="row">
-    <div class="col-md-6 mx-auto pt-4">
+    <div class="col-md-10 mx-auto pt-4">
       <ol class="breadcrumb">
         <li class="breadcrumb-item pr-3 pt-1">Sort By:</li>
         <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==1" (click)="sortByGames()">Most Games</button></li>
         <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==2" (click)="sortByWins()">Most Wins</button></li>
         <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==3" (click)="sortByRating()">Player's Rating</button></li>
+
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==4" (click)="sortByDesignedGames()">Most Designed Games</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==5" (click)="sortByGamesRatings()">Most Popular games</button></li>
+        <li class="breadcrumb-item"><button class="btn btn-link" [class.text-dark]="sortMethod==6" (click)="sortByGamesTotalPlayed()">Most Played</button></li>
       </ol>
     </div>
   </div>
 
   <!-- the list -->
   <div class="row">
-    <div class="col-md-6 mx-auto pt-4">
-      <table class="table table-hover">
+    <div class="col-md-10 mx-auto pt-4">
+      <table class="table table-hover text-center">
         <thead>
+        <tr>
+          <th class="table-primary" scope="col" colspan="6">Play Stats</th>
+          <th class="table-secondary" scope="col" colspan="3">Design Stats</th>
+        </tr>
         <tr class="table-info">
           <th scope="col">#</th>
           <th scope="col">username</th>
@@ -23,6 +31,9 @@
           <th scope="col">wins<span *ngIf="sortMethod==2"> ↑</span></th>
           <th scope="col">rating<span *ngIf="sortMethod==3"> ↑</span></th>
           <th scope="col">status</th>
+          <th scope="col">designed games<span *ngIf="sortMethod==4"> ↑</span></th>
+          <th scope="col">ratings<span *ngIf="sortMethod==5"> ↑</span></th>
+          <th scope="col">total played<span *ngIf="sortMethod==6"> ↑</span></th>
         </tr>
         </thead>
         <tbody>
@@ -31,9 +42,12 @@
           <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
           <td>{{user.totalGames}}</td>
           <td>{{user.totalWins}}</td>
-          <td>★{{user.avgRating}}</td>
+          <td class="text-warning">★{{user.avgRating}}</td>
           <td><span *ngIf="user.isOnline=='online'" class="badge badge-success badge-pill">online</span>
             <span *ngIf="user.isOnline=='offline'" class="badge badge-danger badge-pill">offline</span></td>
+          <td>{{user.designedGames}}</td>
+          <td class="text-warning">{{user.gamesRatings}}</td>
+          <td>{{user.gamesTotalPlayed}}</td>
         </tr>
         </tbody>
       </table>
