@@ -42,7 +42,7 @@
     <!-- comment on player -->
     <div class="col-md-4 mx-auto" id="player-comment-div">
       <div class="card border-warning mb-3">
-        <div class="card-header" *ngIf="!this.opponent.startsWith('guest')">Comment on Your Opponent!</div>
+        <div class="card-header" *ngIf="!this.opponent.startsWith('guest') && !this.opponent.startsWith('AI')">Comment on Your Opponent!</div>
         <div class="card-header" *ngIf="this.opponent.startsWith('guest')">Comment on guests is unavailable!</div>
         <div class="card-header" *ngIf="this.opponent.startsWith('AI')">Comment on AI is unavailable!</div>
         <div class="card-body">

@@ -25,14 +25,16 @@ export class IndexComponent implements OnInit {
     // online users and check if they're friend or not
     this.isGuest = !this.authService.loggedIn();
     this.selfUsername = (this.isGuest ? 'guest' : this.authService.getSelfUsername());
-    this.authService.getOnlineUsers().subscribe(res => {
-      this.onlineUsers = res;
-      if (!this.isGuest) {
-        this.onlineUsers.forEach((u) => this.friendshipService.getRelation(this.selfUsername, u.username).subscribe(
-          rel => u['isFriend'] = (rel === 'isFriend'),
-          err => console.error(err)));
-      }
-    }, err => console.error(err));
+    setInterval(() => {
+      this.authService.getOnlineUsers().subscribe(res => {
+        this.onlineUsers = res;
+        if (!this.isGuest) {
+          this.onlineUsers.forEach((u) => this.friendshipService.getRelation(this.selfUsername, u.username).subscribe(
+            rel => u['isFriend'] = (rel === 'isFriend'),
+            err => console.error(err)));
+        }
+      }, err => console.error(err));
+    }, 1000);
 
     // custom games data for the top slider
     this.customGameService.getAllGames().subscribe(res => {
