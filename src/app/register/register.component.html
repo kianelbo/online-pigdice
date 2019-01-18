@@ -25,7 +25,11 @@
             <label>Name</label>
             <input [(ngModel)]="registerUserData.name" name="name" type="text" class="form-control rounded-0" required>
           </div>
-          <button (click)="registerUser()" type="button" class="btn btn-primary float-right">register</button>
+          <div class="alert alert-dismissible alert-danger float-left" *ngIf="registerFailed">
+            <button type="button" class="close" data-dismiss="alert" (click)="registerFailed=false">&times;</button>
+            Username exists or invalid inputs.
+          </div>
+          <button (click)="registerUser()" type="button" class="btn btn-primary float-right" [disabled]="registerFailed">register</button>
         </form>
       </div>
 

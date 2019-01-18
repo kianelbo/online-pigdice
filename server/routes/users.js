@@ -55,14 +55,21 @@ router.get('/check-online/:username', (req, res) => {
 // });
 
 router.post('/register', (req, res) => {
-  let user = new User(req.body);
-  user.isOnline = 'online';
-  user.save((err, registeredUser) => {
-    if (err) return console.log(err);
+  User.find({username: req.body.username}, (err, result) => {
+    if (err)
+      return console.error(err);
+    if (result.length > 0)
+      return res.sendStatus(400);
 
-    let payload = {subject: registeredUser._id};
-    let token = jwt.sign(payload, config.secret);
-    res.status(200).send({token: token, username: user.username});
+    let user = new User(req.body);
+    user.isOnline = 'online';
+    user.save((err, registeredUser) => {
+      if (err) return console.log(err);
+
+      let payload = {subject: registeredUser._id};
+      let token = jwt.sign(payload, config.secret);
+      res.send({token: token, username: user.username});
+    });
   });
 });
 

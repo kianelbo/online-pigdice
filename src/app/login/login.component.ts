@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginUserData = {};
+  loginFailed = false;
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -25,6 +26,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/index']);
         window.location.reload();
       },
-      err => console.error(err));
+      err => {
+        this.loginFailed = true;
+        console.error(err);
+      });
   }
 }

@@ -16,7 +16,11 @@
             <label>Password</label>
             <input [(ngModel)]="loginUserData.password" name="password" type="password" class="form-control rounded-0" required>
           </div>
-          <button (click)="loginUser()" type="button" class="btn btn-success float-right">login</button>
+          <div class="alert alert-dismissible alert-danger float-left" *ngIf="loginFailed">
+            <button type="button" class="close" data-dismiss="alert" (click)="loginFailed=false">&times;</button>
+            Invalid username or password
+          </div>
+          <button (click)="loginUser()" type="button" class="btn btn-success float-right" [disabled]="loginFailed">login</button>
         </form>
       </div>
 

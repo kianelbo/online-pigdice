@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerUserData = {};
+  registerFailed = false;
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -27,6 +28,9 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/index']);
         window.location.reload();
       },
-      err => console.error(err));
+      err => {
+        this.registerFailed = true;
+        return console.error(err);
+      });
   }
 }
