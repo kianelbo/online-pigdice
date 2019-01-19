@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const verifyToken = require('../middlewares/verify');
+
 const Comment = require('../models/comments');
 const Custom = require('../models/customs');
 const Match = require('../models/matches');
 const User = require('../models/users');
 
 
-router.get('/unconfirmed-list/:category', (req, res) => {
+router.get('/unconfirmed-list/:category', verifyToken, (req, res) => {
   Comment.find({category: req.params.category, confirmed: false}, (err, comments) => {
     if (err) return console.error(err);
     res.send(comments);
@@ -48,14 +50,14 @@ router.post('/rate/:category', (req, res) => {
   }
 });
 
-router.post('/delete', (req, res) => {
+router.post('/delete', verifyToken, (req, res) => {
   Comment.deleteOne({_id: req.body._id}, (err, result) => {
     if (err) return console.error(err);
     res.send('comment removed');
   });
 });
 
-router.post('/confirm', (req, res) => {
+router.post('/confirm', verifyToken, (req, res) => {
   Comment.findOne({_id: req.body._id}, (err, comment) => {
     if (err) console.error(err);
 

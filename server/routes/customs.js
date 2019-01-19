@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const verifyToken = require('../middlewares/verify');
+
 const Custom = require('../models/customs');
 const User = require('../models/users');
 
 
-router.post('/create', (req, res) => {
+router.post('/create', verifyToken, (req, res) => {
   let custom = new Custom(req.body);
   custom.save((err, createdCustom) => {
     if (err) return console.error(err);

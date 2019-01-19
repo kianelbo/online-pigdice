@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const verifyToken = require('../middlewares/verify');
+
 const Friendship = require('../models/friendships');
 
 
-router.post('/request', (req, res) => {
+router.post('/request', verifyToken, (req, res) => {
   let friendship = new Friendship(req.body);
   friendship.save((err, friendRequest) => {
     if (err) console.log(err);
@@ -12,7 +14,7 @@ router.post('/request', (req, res) => {
   });
 });
 
-router.post('/confirm', (req, res) => {
+router.post('/confirm', verifyToken, (req, res) => {
   console.log("fuck");
   console.log(req.body.toUser);
   console.log(req.body.fromUser);
@@ -29,7 +31,7 @@ router.post('/confirm', (req, res) => {
   })
 });
 
-router.post('/unfriend', (req, res) => {
+router.post('/unfriend', verifyToken, (req, res) => {
   Friendship.remove({
     $or: [{toUser: req.body.user1, fromUser: req.body.user2}, {toUser: req.body.user2, fromUser: req.body.user1}]},
     (err, result) => {
@@ -39,7 +41,7 @@ router.post('/unfriend', (req, res) => {
   });
 });
 
-router.get('/pending/:username', (req, res) => {
+router.get('/pending/:username', verifyToken, (req, res) => {
   Friendship.find({toUser: req.params.username, pending: true}, 'fromUser', (err, users) => {
     if (err)
       return console.error(err);
@@ -51,7 +53,7 @@ router.get('/pending/:username', (req, res) => {
   })
 });
 
-router.get('/list/:username', (req, res) => {
+router.get('/list/:username', verifyToken, (req, res) => {
   let completeList = [];
   Friendship.find({toUser: req.params.username, pending: false}, 'fromUser', (err, users) => {
     if (err)
@@ -68,7 +70,7 @@ router.get('/list/:username', (req, res) => {
   });
 });
 
-router.post('/check', (req, res) => {
+router.post('/check', verifyToken, (req, res) => {
   Friendship.findOne({
       $or: [{toUser: req.body.user1, fromUser: req.body.user2}, {toUser: req.body.user2, fromUser: req.body.user1}]
     }, (err, user) => {

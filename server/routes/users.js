@@ -1,28 +1,14 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+
 const config = require('../../config/backend');
+const verifyToken = require('../middlewares/verify');
 
 const User = require('../models/users');
 
 
-function verifyToken(req, res, next) {
-  if (!req.headers.authorization)
-    return res.sendStatus(401);
-
-  let token = req.headers.authorization.split(' ')[1];
-  if (token === 'null')
-    return res.sendStatus(401);
-
-  let payload = jwt.verify(token, config.secret);
-  if (!payload)
-    return res.sendStatus(401);
-
-  req.userId = payload.subject;
-  next();
-}
-
-router.get('/all', (req, res) => {
+router.get('/all', verifyToken, (req, res) => {
   User.find({username: {$ne: 'admin'}}).populate('createdGames').
   select('username totalGames totalWins avgRating isOnline createdGames picture').exec(function (err, users) {
     if (err) return console.error(err);
@@ -91,7 +77,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.post('/logout', (req, res) => {
+router.post('/logout', verifyToken, (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.error(err);
 
@@ -103,14 +89,14 @@ router.post('/logout', (req, res) => {
   });
 });
 
-router.get('/personal-settings/:username', (req, res) => {
+router.get('/personal-settings/:username', verifyToken, (req, res) => {
   User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email picture', (err, user) => {
     if (err) return console.error(err);
     res.send(user);
   })
 });
 
-router.get('/play-stats/:username', (req, res) => {
+router.get('/play-stats/:username', verifyToken, (req, res) => {
   User.findOne({username: req.params.username}).populate({path: 'matches', populate: {path: 'comments'}})
     .select('username totalGames totalWins avgRating matches').exec(function (err, user) {
     if (err) return console.error(err);
@@ -118,7 +104,7 @@ router.get('/play-stats/:username', (req, res) => {
   });
 });
 
-router.get('/design-stats/:username', (req, res) => {
+router.get('/design-stats/:username', verifyToken, (req, res) => {
   User.findOne({username: req.params.username}).populate({path: 'createdGames', populate: {path: 'comments'}})
     .select('createdGames').exec(function (err, user) {
     if (err) return console.error(err);
@@ -126,7 +112,7 @@ router.get('/design-stats/:username', (req, res) => {
   });
 });
 
-router.post('/personal-settings' , (req, res) => {
+router.post('/personal-settings', verifyToken, (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.error(err);
 
@@ -147,7 +133,7 @@ router.post('/personal-settings' , (req, res) => {
   })
 });
 
-router.post('/account-settings' , (req, res) => {
+router.post('/account-settings', verifyToken, (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.error(err);
 
@@ -164,7 +150,7 @@ router.post('/account-settings' , (req, res) => {
   })
 });
 
-router.post('/upload-picture', (req, res) => {
+router.post('/upload-picture', verifyToken, (req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     if (err) return console.error(err);
 
