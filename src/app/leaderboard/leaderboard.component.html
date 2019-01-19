@@ -30,7 +30,7 @@
 
   <!-- the list -->
   <div class="row">
-    <div class="col-md-10 mx-auto pt-4">
+    <div class="col-md-12 mx-auto pt-4">
       <table class="table table-hover text-center">
         <thead>
         <tr>
@@ -44,7 +44,7 @@
           <th scope="col" [class.text-dark]="sortMethod==2">wins<span *ngIf="sortMethod==2"> ↑</span></th>
           <th scope="col" [class.text-dark]="sortMethod==3">rating<span *ngIf="sortMethod==3"> ↑</span></th>
           <th scope="col">status</th>
-          <th scope="col" [class.text-dark]="sortMethod==4">designed games<span *ngIf="sortMethod==4"> ↑</span></th>
+          <th scope="col" [class.text-dark]="sortMethod==4">games<span *ngIf="sortMethod==4"> ↑</span></th>
           <th scope="col" [class.text-dark]="sortMethod==5">ratings<span *ngIf="sortMethod==5"> ↑</span></th>
           <th scope="col" [class.text-dark]="sortMethod==6">total played<span *ngIf="sortMethod==6"> ↑</span></th>
         </tr>
@@ -52,7 +52,7 @@
         <tbody>
         <tr class="table-light" *ngFor="let user of users; index as i;">
           <th scope="row">{{rowIndex(i)}}</th>
-          <td><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
+          <td><img class="rounded-circle img-thumbnail" alt="profile picture" [src]="user.picture"><a routerLink="/users/{{user.username}}">{{user.username}}</a></td>
           <td>{{user.totalGames}}</td>
           <td>{{user.totalWins}}</td>
           <td class="text-warning">{{user.avgRating?'★'+user.avgRating:'no ratings'}}</td>

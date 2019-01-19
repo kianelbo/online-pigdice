@@ -68,10 +68,10 @@
               <div class="form-group">
                 <h6>profile picture:</h6>
                 <input type="file" (change)="selectPicture($event)" class="form-control-file" id="pictureInput"
-                       aria-describedby="fileHelp" style="display: none;">
+                       aria-describedby="fileHelp" accept="image/*" style="display: none;">
                 <img id="preview" [src]="curPersonalData.picture" alt="current picture"/>
 
-                <button type="button" (click)="uploadPicture()" class="btn btn-success float-right">Save</button>
+                <button type="button" (click)="uploadPicture()" class="btn btn-success float-right" [disabled]="!picture">Save</button>
                 <button type="button" class="btn btn-info float-right" onclick="document.getElementById('pictureInput').click();">Browse</button>
 
               </div>

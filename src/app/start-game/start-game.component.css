@@ -19,3 +19,9 @@ i {
   color: black;
   margin-right: 1px;
 }
+
+img {
+  width: 40px;
+  height: 40px;
+  margin-right: 5%;
+}

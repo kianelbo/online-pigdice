@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import configs from '../../../config/cloudinary';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +21,7 @@ export class AuthService {
   private _designStatsURL = 'http://localhost:3000/users/design-stats/';
 
   constructor(private http: HttpClient,
-              private router: Router) { }
+              private router: Router) {}
 
   registerUser(user) {
     return this.http.post<any>(this._registerURL, user);
@@ -92,8 +94,8 @@ export class AuthService {
   uploadPicture(username, file) {
     const fd = new FormData();
     fd.append('file', file);
-    fd.append('upload_preset', 'dofpiykt');
-    this.http.post<any>('https://api.cloudinary.com/v1_1/dlhqufq3f/upload', fd).subscribe(res =>
+    fd.append('upload_preset', configs.upload_preset);
+    this.http.post<any>(configs.uploadURL, fd).subscribe(res =>
       this.http.post<any>(this._uploadPictureURL, {username: username, url: res['secure_url']}).subscribe(() =>
         this.router.navigate(['/users/' + this.getSelfUsername()])
       ));

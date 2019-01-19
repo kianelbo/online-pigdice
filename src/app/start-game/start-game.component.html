@@ -44,7 +44,9 @@
         <div class="list-group" *ngIf="authService.loggedIn()">
           <h6 class="text-muted pt-3">or play against:</h6>
           <button class="btn list-group-item list-group-item-action" *ngFor="let user of onlineUsers"
-                  (click)="requestPlayer(user.username)" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</button>
+                  (click)="requestPlayer(user.username)" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">
+            <img class="rounded-circle img-thumbnail" alt="profile picture" [src]="user.picture">{{user.username}}
+          </button>
         </div>
       </div>
     </div>

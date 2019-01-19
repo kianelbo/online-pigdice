@@ -10,7 +10,7 @@ const commentsRoute = require('./routes/comments');
 const matchRoute = require('./routes/matches');
 
 
-const config = require('../config/configs');
+const config = require('../config/backend');
 mongoose.connect(config.database, {useNewUrlParser: true}, err => {
   if (err)
     console.error('ERROR! ' + err);

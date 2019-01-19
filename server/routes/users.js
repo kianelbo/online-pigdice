@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-const config = require('../../config/configs');
+const config = require('../../config/backend');
 
 const User = require('../models/users');
 
@@ -23,15 +23,15 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/all', (req, res) => {
-  User.find({username: {$ne: 'admin'}}).populate('createdGames').select('username totalGames totalWins avgRating isOnline createdGames').
-  exec(function (err, users) {
-      if (err) return console.error(err);
-      res.send(users);
+  User.find({username: {$ne: 'admin'}}).populate('createdGames').
+  select('username totalGames totalWins avgRating isOnline createdGames picture').exec(function (err, users) {
+    if (err) return console.error(err);
+    res.send(users);
   });
 });
 
 router.get('/online-only', (req, res) => {
-  User.find({'isOnline': 'online', username: {$ne: 'admin'}}, 'username', (err, users) => {
+  User.find({'isOnline': 'online', username: {$ne: 'admin'}}, 'username picture', (err, users) => {
     if (err) console.error(err);
     else res.send(users);
   });
@@ -103,7 +103,7 @@ router.post('/logout', (req, res) => {
   });
 });
 
-router.get('/personal-settings/:username' , (req, res) => {
+router.get('/personal-settings/:username', (req, res) => {
   User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email picture', (err, user) => {
     if (err) return console.error(err);
     res.send(user);

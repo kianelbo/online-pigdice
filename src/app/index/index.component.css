@@ -14,3 +14,8 @@ h1 {
 small {
   font-size: small;
 }
+
+img {
+  width: 40px;
+  height: 40px;
+}
