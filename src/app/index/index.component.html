@@ -59,19 +59,11 @@
           <div class="card border-primary mb-3">
             <div class="card-header text-info">Online Users</div>
             <div class="card-body">
-              <ul *ngIf="isGuest" class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center"
-                    *ngFor="let user of onlineUsers">
-                  <img class="rounded-circle img-thumbnail" alt="profile picture" [src]="user.picture">
-                  {{user.username}} <span class="badge badge-success badge-pill">online</span>
-                </li>
-              </ul>
-              <ul *ngIf="!isGuest" class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center"
-                    *ngFor="let user of onlineUsers">
-                  <img class="rounded-circle img-thumbnail" alt="profile picture" [src]="user.picture">
-                  <a routerLink="/users/{{user.username}}"
-                     [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">{{user.username}}</a>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of onlineUsers">
+                  <a [routerLink]="isGuest?'':'/users/'+user.username" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">
+                    <img class="rounded-circle img-thumbnail" alt="profile picture" [src]="user.picture"> {{user.username}}
+                  </a>
                   <span class="badge badge-success badge-pill">online</span>
                 </li>
               </ul>

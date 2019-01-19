@@ -66,7 +66,7 @@ export class LeaderboardComponent implements OnInit {
       case 0: return '🥇';
       case 1: return '🥈';
       case 2: return '🥉';
-      default: return ('0' + parseInt(i + 1, 10)).slice(-2);
+      default: return i + 1;
     }
   }
 }

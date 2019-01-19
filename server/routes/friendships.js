@@ -15,9 +15,6 @@ router.post('/request', verifyToken, (req, res) => {
 });
 
 router.post('/confirm', verifyToken, (req, res) => {
-  console.log("fuck");
-  console.log(req.body.toUser);
-  console.log(req.body.fromUser);
   Friendship.findOne({toUser: req.body.toUser, fromUser: req.body.fromUser}, (err, friendship) => {
     if (err)
       return console.error(err);
