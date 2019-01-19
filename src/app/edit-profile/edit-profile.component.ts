@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { DatePipe } from '@angular/common';
 
+declare var $: any;
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -14,6 +16,7 @@ export class EditProfileComponent implements OnInit {
   newAccountData = {};
   curPersonalData = {};
   currentUsername: String;
+  picture: File;
 
   constructor(private router: Router,
               private datePipe: DatePipe,
@@ -35,7 +38,7 @@ export class EditProfileComponent implements OnInit {
 
   updatePersonal() {
     this.authService.updatePersonal(this.newPersonalData).subscribe(
-      res => this.router.navigate(['/users/' + this.authService.getSelfUsername()]),
+      res => this.router.navigate(['/users/' + this.currentUsername]),
       err => console.error(err));
   }
 
@@ -50,5 +53,18 @@ export class EditProfileComponent implements OnInit {
 
   genderHandler(event: any) {
     this.newPersonalData['gender'] = event.target.value;
+  }
+
+  selectPicture(event) {
+    this.picture = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $('#preview').attr('src', e.target['result']);
+    };
+    reader.readAsDataURL(this.picture);
+  }
+
+  uploadPicture() {
+    this.authService.uploadPicture(this.currentUsername, this.picture);
   }
 }

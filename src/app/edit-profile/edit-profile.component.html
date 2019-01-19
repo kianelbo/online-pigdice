@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6 mx-auto pt-2">
 
-        <legend>Edit your profile
+        <legend class="mt-2">Edit your profile
           <button type="button" (click)="onCancel()" class="btn btn-outline-danger float-right">Cancel</button>
         </legend>
         <div class="card border-primary mb-3">
@@ -62,14 +62,19 @@
         </div>
 
         <!-- profile picture -->
-        <div class="card border-primary mb-3">
-          <div class="card-body">
+        <div class="card border-primary">
+          <div class="card-body pb-0">
             <fieldset>
               <div class="form-group">
-                <label for="pictureInput">profile picture:</label>
-                <input type="file" class="form-control-file" id="pictureInput" aria-describedby="fileHelp">
+                <h6>profile picture:</h6>
+                <input type="file" (change)="selectPicture($event)" class="form-control-file" id="pictureInput"
+                       aria-describedby="fileHelp" style="display: none;">
+                <img id="preview" [src]="curPersonalData.picture" alt="current picture"/>
+
+                <button type="button" (click)="uploadPicture()" class="btn btn-success float-right">Save</button>
+                <button type="button" class="btn btn-info float-right" onclick="document.getElementById('pictureInput').click();">Browse</button>
+
               </div>
-              <button type="submit" class="btn btn-success float-right">Save</button>
             </fieldset>
           </div>
         </div>

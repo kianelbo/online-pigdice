@@ -10,6 +10,9 @@ export class TokenInterceptorService implements HttpInterceptor {
   constructor(private injector: Injector) { }
 
   intercept(req, next) {
+    if (req.url.startsWith('https://api.cloudinary.com')) {
+      return next.handle(req);
+    }
     const authService = this.injector.get(AuthService);
     const tokenizedReq = req.clone({
       setHeaders: {

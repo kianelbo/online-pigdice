@@ -7,8 +7,8 @@
         <div class="card-header">
           <div class="row">
             <!-- profile picture -->
-            <div class="col-md-5">
-              <img class="rounded-circle img-thumbnail" alt="profile picture" width="180" height="180" src="assets/img/pokerface.jpg">
+            <div class="col-md-5" *ngIf="personal.picture">
+              <img class="rounded-circle img-thumbnail" alt="profile picture" width="180" height="180" [src]="personal.picture">
             </div>
             <!-- personal info -->
             <div class="col-md-7">

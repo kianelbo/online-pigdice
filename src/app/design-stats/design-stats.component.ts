@@ -19,7 +19,6 @@ export class DesignStatsComponent implements OnInit {
   ngOnInit() {
     this.myself = this.authService.getSelfUsername();
     this.authService.getDesignStats().subscribe(res => {
-      console.log(res);
       this.designStats = res;
       this.totalGamesDesigned = this.designStats.length;
       this.designStats.forEach(g => {

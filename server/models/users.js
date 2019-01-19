@@ -8,6 +8,7 @@ const UserSchema = Schema({
   name: String,
   gender: {type: String, default: 'male'},
   birthDate: {type: Date, default: Date.now},
+  picture: {type: String, default: 'https://res.cloudinary.com/dlhqufq3f/image/upload/v1547892453/pokerface.jpg'},
   isOnline: {type: String, default: 'online'},
   totalGames: {type: Number, default: 0},
   totalWins: {type: Number, default: 0},

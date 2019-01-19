@@ -104,7 +104,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/personal-settings/:username' , (req, res) => {
-  User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email', (err, user) => {
+  User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email picture', (err, user) => {
     if (err) return console.error(err);
     res.send(user);
   })
@@ -162,6 +162,18 @@ router.post('/account-settings' , (req, res) => {
       res.json(updatedUser);
     });
   })
+});
+
+router.post('/upload-picture', (req, res) => {
+  User.findOne({username: req.body.username}, (err, user) => {
+    if (err) return console.error(err);
+
+    user.picture = req.body.url;
+    user.save((err, updatedUser) => {
+      if (err) return console.log(err);
+      res.json(updatedUser.picture);
+    });
+  });
 });
 
 module.exports = router;

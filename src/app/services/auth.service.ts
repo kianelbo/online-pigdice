@@ -11,6 +11,7 @@ export class AuthService {
   private _logoutURL = 'http://localhost:3000/users/logout';
   private _personalURL = 'http://localhost:3000/users/personal-settings/';
   private _accountURL = 'http://localhost:3000/users/account-settings/';
+  private _uploadPictureURL = 'http://localhost:3000/users/upload-picture';
   private _getAllURL = 'http://localhost:3000/users/all';
   private _getOnlinesURL = 'http://localhost:3000/users/online-only';
   private _checkOnlineURL = 'http://localhost:3000/users/check-online/';
@@ -86,5 +87,15 @@ export class AuthService {
 
   getDesignStats(username: String = this.getSelfUsername()) {
     return this.http.get<any>(this._designStatsURL + username);
+  }
+
+  uploadPicture(username, file) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', 'dofpiykt');
+    this.http.post<any>('https://api.cloudinary.com/v1_1/dlhqufq3f/upload', fd).subscribe(res =>
+      this.http.post<any>(this._uploadPictureURL, {username: username, url: res['secure_url']}).subscribe(() =>
+        this.router.navigate(['/users/' + this.getSelfUsername()])
+      ));
   }
 }
