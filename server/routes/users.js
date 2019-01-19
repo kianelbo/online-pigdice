@@ -31,15 +31,6 @@ router.get('/check-online/:username', (req, res) => {
   })
 });
 
-// router.get('/exists/:username', (req, res) => {
-//   User.find({username: req.params.username}, (err, result) => {
-//     if (err)
-//       return console.error(err);
-//     if (result.length > 0)
-//       res.json(true);
-//   })
-// });
-
 router.post('/register', (req, res) => {
   User.find({username: req.body.username}, (err, result) => {
     if (err)
@@ -50,7 +41,7 @@ router.post('/register', (req, res) => {
     let user = new User(req.body);
     user.isOnline = 'online';
     user.save((err, registeredUser) => {
-      if (err) return console.log(err);
+      if (err) return console.error(err);
 
       let payload = {subject: registeredUser._id};
       let token = jwt.sign(payload, config.secret);
@@ -92,7 +83,8 @@ router.post('/logout', verifyToken, (req, res) => {
 router.get('/personal-settings/:username', verifyToken, (req, res) => {
   User.findOne({username: req.params.username}, 'username isOnline name birthDate gender email picture', (err, user) => {
     if (err) return console.error(err);
-    res.send(user);
+    if (user) res.send(user);
+    else res.sendStatus(404);
   })
 });
 
@@ -127,7 +119,7 @@ router.post('/personal-settings', verifyToken, (req, res) => {
       user.email = newData.email;
 
     user.save((err, updatedUser) => {
-      if (err) return console.log(err);
+      if (err) return console.error(err);
       res.json(updatedUser);
     });
   })
@@ -144,7 +136,7 @@ router.post('/account-settings', verifyToken, (req, res) => {
       user.password = newData.password;
 
     user.save((err, updatedUser) => {
-      if (err) return console.log(err);
+      if (err) return console.error(err);
       res.json(updatedUser);
     });
   })
@@ -156,7 +148,7 @@ router.post('/upload-picture', verifyToken, (req, res) => {
 
     user.picture = req.body.url;
     user.save((err, updatedUser) => {
-      if (err) return console.log(err);
+      if (err) return console.error(err);
       res.json(updatedUser.picture);
     });
   });

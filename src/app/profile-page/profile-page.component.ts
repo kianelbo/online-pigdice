@@ -40,7 +40,7 @@ export class ProfilePageComponent implements OnInit {
       res => {
         res.birthDate = this.datePipe.transform(res.birthDate, 'yyyy-MM-dd');
         this.personal = res;
-      }, err => console.error(err));
+      }, err => this.router.navigate(['/not-found']));
 
     // list of friends and request
     if (this.relation === 'myself') {
