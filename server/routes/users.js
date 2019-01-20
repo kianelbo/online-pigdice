@@ -41,7 +41,7 @@ router.post('/register', (req, res) => {
     let user = new User(req.body);
     user.isOnline = 'online';
     user.save((err, registeredUser) => {
-      if (err) return console.error(err);
+      if (err) return res.sendStatus(400);
 
       let payload = {subject: registeredUser._id};
       let token = jwt.sign(payload, config.secret);

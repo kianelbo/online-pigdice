@@ -20,7 +20,7 @@
             <button type="button" class="close" data-dismiss="alert" (click)="loginFailed=false">&times;</button>
             Invalid username or password
           </div>
-          <button (click)="loginUser()" type="button" class="btn btn-success float-right" [disabled]="loginFailed">login</button>
+          <button (click)="loginUser()" type="submit" class="btn btn-success float-right" [disabled]="loginFailed">login</button>
         </form>
       </div>
 

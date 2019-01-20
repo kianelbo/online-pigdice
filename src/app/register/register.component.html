@@ -1,4 +1,4 @@
-<div class="row pt-5">
+<div class="row pt-3">
   <div class="col-md-6 mx-auto">
     <!-- form card login -->
     <div class="card rounded-0">
@@ -8,28 +8,42 @@
       </div>
 
       <div class="card-body">
-        <form class="form">
+        <form class="form" #form="ngForm">
           <div class="form-group">
             <label>Email</label>
-            <input [(ngModel)]="registerUserData.email" name="email" type="email" class="form-control rounded-0" required>
+            <input [(ngModel)]="registerUserData.email" name="email" type="email" class="form-control rounded-0" required email #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              <div *ngIf="email.errors.required">Email is required.</div>
+              <div *ngIf="email.errors.email">Invalid email address.</div>
+            </div>
           </div>
           <div class="form-group">
             <label>Username</label>
-            <input [(ngModel)]="registerUserData.username" name="username" type="text" class="form-control rounded-0" required>
+            <input [(ngModel)]="registerUserData.username" name="username" type="text" class="form-control rounded-0" required #username="ngModel">
+            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+              <div *ngIf="username.errors.required">Username is required.</div>
+            </div>
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input [(ngModel)]="registerUserData.password" name="password" type="password" class="form-control rounded-0" required>
+            <input [(ngModel)]="registerUserData.password" name="password" type="password" class="form-control rounded-0" required minlength="6" #password="ngModel">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+              <div *ngIf="password.errors.required">Password is required.</div>
+              <div *ngIf="password.errors.minlength">Must be greater than 5 characters.</div>
+            </div>
           </div>
           <div class="form-group">
             <label>Name</label>
-            <input [(ngModel)]="registerUserData.name" name="name" type="text" class="form-control rounded-0" required>
+            <input [(ngModel)]="registerUserData.name" name="name" type="text" class="form-control rounded-0" required #name="ngModel">
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+              <div *ngIf="name.errors.required">Name is required.</div>
+            </div>
           </div>
           <div class="alert alert-dismissible alert-danger float-left" *ngIf="registerFailed">
             <button type="button" class="close" data-dismiss="alert" (click)="registerFailed=false">&times;</button>
             Username exists or invalid inputs.
           </div>
-          <button (click)="registerUser()" type="button" class="btn btn-primary float-right" [disabled]="registerFailed">register</button>
+          <button (click)="registerUser()" type="submit" class="btn btn-primary float-right" [disabled]="registerFailed || form.invalid">register</button>
         </form>
       </div>
 
