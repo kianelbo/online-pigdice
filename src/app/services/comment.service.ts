@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CommentService {
-  private _newURL = 'http://localhost:3000/comments/new';
-  private _unconfirmedListURL = 'http://localhost:3000/comments/unconfirmed-list/';
-  private _rateURL = 'http://localhost:3000/comments/rate/';
-  private _confirmURL = 'http://localhost:3000/comments/confirm/';
-  private _deleteURL = 'http://localhost:3000/comments/delete/';
+  private _newURL = 'comments/new';
+  private _unconfirmedListURL = 'comments/unconfirmed-list/';
+  private _rateURL = 'comments/rate/';
+  private _confirmURL = 'comments/confirm/';
+  private _deleteURL = 'comments/delete/';
 
   constructor(private  http: HttpClient) { }
 

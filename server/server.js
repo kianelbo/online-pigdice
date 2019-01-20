@@ -17,7 +17,7 @@ mongoose.connect(config.database, {useNewUrlParser: true}, err => {
   else console.log('connected to database');
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
@@ -39,6 +39,6 @@ app.get('*', (req, res) => {
 });
 
 server = app.listen(PORT, function () {
-  console.log('Server running on localhost: ' + PORT);
+  console.log('Server running on localhost:' + PORT);
 });
 matchRoute.initMatchOrganizer(server);

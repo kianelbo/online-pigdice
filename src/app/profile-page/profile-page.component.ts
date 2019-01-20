@@ -15,7 +15,7 @@ export class ProfilePageComponent implements OnInit {
   selfUsername: String;
   selfID: String;
   relation: String;
-  personal = {picture: '', isOnline: false, name: '', gender: '', birthDate: '', email: ''};
+  personal = {picture: '', isOnline: 'offline', name: '', gender: '', birthDate: '', email: ''};
   friends = [];
 
   constructor(private route: ActivatedRoute,

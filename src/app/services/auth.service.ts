@@ -8,18 +8,18 @@ import configs from '../../../config/cloudinary';
   providedIn: 'root'
 })
 export class AuthService {
-  private _registerURL = 'http://localhost:3000/users/register';
-  private _loginURL = 'http://localhost:3000/users/login';
-  private _logoutURL = 'http://localhost:3000/users/logout';
-  private _personalURL = 'http://localhost:3000/users/personal-settings/';
-  private _accountURL = 'http://localhost:3000/users/account-settings/';
-  private _uploadPictureURL = 'http://localhost:3000/users/upload-picture';
-  private _getAllURL = 'http://localhost:3000/users/all';
-  private _getOnlinesURL = 'http://localhost:3000/users/online-only';
-  private _checkOnlineURL = 'http://localhost:3000/users/check-online/';
-  private _playStatsURL = 'http://localhost:3000/users/play-stats/';
-  private _designStatsURL = 'http://localhost:3000/users/design-stats/';
-  private _idURL = 'http://localhost:3000/users/id/';
+  private _registerURL = 'users/register';
+  private _loginURL = 'users/login';
+  private _logoutURL = 'users/logout';
+  private _personalURL = 'users/personal-settings/';
+  private _accountURL = 'users/account-settings/';
+  private _uploadPictureURL = 'users/upload-picture';
+  private _getAllURL = 'users/all';
+  private _getOnlinesURL = 'users/online-only';
+  private _checkOnlineURL = 'users/check-online/';
+  private _playStatsURL = 'users/play-stats/';
+  private _designStatsURL = 'users/design-stats/';
+  private _idURL = 'users/id/';
 
   constructor(private http: HttpClient,
               private router: Router) {}

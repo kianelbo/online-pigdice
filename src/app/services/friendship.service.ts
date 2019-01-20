@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FriendshipService {
-  private _listURL = 'http://localhost:3000/friendships/list/';
-  private _pendingURL = 'http://localhost:3000/friendships/pending/';
-  private _checkURL = 'http://localhost:3000/friendships/check';
-  private _unfriendURL = 'http://localhost:3000/friendships/unfriend';
-  private _confirmURL = 'http://localhost:3000/friendships/confirm';
-  private _requestURL = 'http://localhost:3000/friendships/request';
+  private _listURL = 'friendships/list/';
+  private _pendingURL = 'friendships/pending/';
+  private _checkURL = 'friendships/check';
+  private _unfriendURL = 'friendships/unfriend';
+  private _confirmURL = 'friendships/confirm';
+  private _requestURL = 'friendships/request';
 
   constructor(private http: HttpClient) { }
 

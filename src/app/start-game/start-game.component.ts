@@ -14,7 +14,7 @@ export class StartGameComponent implements OnInit {
   games = [];
   onlineUsers = [];
   comments = [];
-  selectedGame = {winScore: '', limit: '', blackDices: [], diceCount: ''};
+  selectedGame = {winScore: '', limit: 0, blackDices: [], diceCount: ''};
   sortMethod = 3;
   loggedIn = false;
 

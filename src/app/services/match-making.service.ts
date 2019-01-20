@@ -6,7 +6,7 @@ import * as io from 'socket.io-client';
   providedIn: 'root'
 })
 export class MatchMakingService {
-  private socket = io('http://localhost:3000');
+  private socket = io('');
 
   constructor() { }
 
