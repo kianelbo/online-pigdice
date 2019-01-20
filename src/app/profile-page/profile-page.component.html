@@ -24,8 +24,8 @@
               <p class="card-text">email: {{personal.email}}</p>
 
               <button *ngIf="relation == 'notFriend'" (click)="requestFriend()" class="btn btn-primary float-right">friend request</button>
-              <button *ngIf="relation == 'isFriend'" (click)="unfriend(username)" class="btn btn-outline-success float-right">friend</button>
-              <button *ngIf="relation == 'pending'" (click)="unfriend(username)" class="btn btn-secondary float-right">requested</button>
+              <button *ngIf="relation == 'isFriend'" (click)="unfriend(id)" class="btn btn-outline-success float-right">friend</button>
+              <button *ngIf="relation == 'pending'" (click)="unfriend(id)" class="btn btn-secondary float-right">requested</button>
               <button *ngIf="relation == 'myself'" routerLink="/editprofile" class="btn btn-info float-right">✎ edit profile</button>
             </div>
           </div>
@@ -43,8 +43,8 @@
               <span *ngIf="friend.isOnline" class="badge badge-success badge-pill">online</span>
               <span *ngIf="!friend.isOnline" class="badge badge-danger badge-pill">offline</span>
               <span *ngIf="friend.pending" id="decision-span">
-            <button class="btn btn-success" (click)="confirmFriend(friend.username)">accept</button>
-            <button class="btn btn-danger" (click)="unfriend(friend.username)">decline</button>
+            <button class="btn btn-success" (click)="confirmFriend(friend._id)">accept</button>
+            <button class="btn btn-danger" (click)="unfriend(friend._id)">decline</button>
           </span>
             </li>
           </ul>

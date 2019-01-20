@@ -45,8 +45,10 @@ export class EditProfileComponent implements OnInit {
   updateAccount() {
     this.authService.updateAccount(this.newAccountData).subscribe(
       res => {
-        window.location.reload();
+        localStorage.setItem('me', res.username);
+        localStorage.setItem('myID', res._id);
         this.router.navigate(['/index']);
+        window.location.reload();
       },
       err => console.error(err));
   }

@@ -17,7 +17,7 @@ router.get('/all', verifyToken, (req, res) => {
 });
 
 router.get('/online-only', (req, res) => {
-  User.find({'isOnline': 'online', username: {$ne: 'admin'}}, 'username picture', (err, users) => {
+  User.find({'isOnline': 'online', username: {$ne: 'admin'}}, '_id username picture', (err, users) => {
     if (err) console.error(err);
     else res.send(users);
   });
@@ -45,7 +45,7 @@ router.post('/register', (req, res) => {
 
       let payload = {subject: registeredUser._id};
       let token = jwt.sign(payload, config.secret);
-      res.send({token: token, username: user.username});
+      res.send({token: token, username: user.username, _id: user._id});
     });
   });
 });
@@ -63,7 +63,7 @@ router.post('/login', (req, res) => {
       });
       let payload = {subject: user._id};
       let token = jwt.sign(payload, config.secret);
-      res.status(200).send({token: token, username: user.username});
+      res.status(200).send({token: token, username: user.username, _id: user._id});
     }
   });
 });
@@ -137,7 +137,7 @@ router.post('/account-settings', verifyToken, (req, res) => {
 
     user.save((err, updatedUser) => {
       if (err) return console.error(err);
-      res.json(updatedUser);
+      res.send({_id: updatedUser._id, username: updatedUser.username});
     });
   })
 });
@@ -151,6 +151,13 @@ router.post('/upload-picture', verifyToken, (req, res) => {
       if (err) return console.error(err);
       res.json(updatedUser.picture);
     });
+  });
+});
+
+router.get('/id/:username', verifyToken, (req, res) => {
+  User.findOne({username: req.params.username}, '_id', (err, user) => {
+    if (err) return console.error(err);
+    res.send(user._id)
   });
 });
 

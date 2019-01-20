@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const FriendshipSchema = Schema({
-  fromUser: String,
-  toUser: String,
+  fromUser: {type: Schema.Types.ObjectId, ref: 'User'},
+  toUser: {type: Schema.Types.ObjectId, ref: 'User'},
   pending: {type: Boolean, default: true}
 });
 

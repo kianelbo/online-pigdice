@@ -19,6 +19,7 @@ export class AuthService {
   private _checkOnlineURL = 'http://localhost:3000/users/check-online/';
   private _playStatsURL = 'http://localhost:3000/users/play-stats/';
   private _designStatsURL = 'http://localhost:3000/users/design-stats/';
+  private _idURL = 'http://localhost:3000/users/id/';
 
   constructor(private http: HttpClient,
               private router: Router) {}
@@ -43,18 +44,27 @@ export class AuthService {
     return localStorage.getItem('me');
   }
 
+  getSelfID() {
+    return localStorage.getItem('myID');
+  }
+
   logoutUser() {
     this.http.post<any>(this._logoutURL, {username: this.getSelfUsername()}).subscribe(
       res => console.log(res),
       err => console.error(err));
     localStorage.removeItem('token');
     localStorage.removeItem('me');
+    localStorage.removeItem('myID');
     this.router.navigate(['/index']);
     window.location.reload();
   }
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getID(username) {
+    return this.http.get<any>(this._idURL + username);
   }
 
   getAllUsers() {

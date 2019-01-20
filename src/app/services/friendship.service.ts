@@ -14,12 +14,12 @@ export class FriendshipService {
 
   constructor(private http: HttpClient) { }
 
-  getFriendsList(username) {
-    return this.http.get<any>(this._listURL + username);
+  getFriendsList(userId) {
+    return this.http.get<any>(this._listURL + userId);
   }
 
-  getFriendsPending(username) {
-    return this.http.get<any>(this._pendingURL + username);
+  getFriendsPending(userId) {
+    return this.http.get<any>(this._pendingURL + userId);
   }
 
   getRelation(user1, user2) {

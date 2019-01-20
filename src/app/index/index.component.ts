@@ -45,7 +45,7 @@ export class IndexComponent implements OnInit {
     this.authService.getOnlineUsers().subscribe(res => {
       this.onlineUsers = res;
       if (!this.isGuest) {
-        this.onlineUsers.forEach((u) => this.friendshipService.getRelation(this.selfUsername, u.username).subscribe(
+        this.onlineUsers.forEach((u) => this.friendshipService.getRelation(this.authService.getSelfID(), u._id).subscribe(
           rel => u['isFriend'] = (rel === 'isFriend'),
           err => console.error(err)));
       }
