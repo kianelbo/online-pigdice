@@ -12,7 +12,7 @@ router.post('/create', verifyToken, (req, res) => {
   custom.save((err, createdCustom) => {
     if (err) return console.error(err);
 
-    User.findOne({username: req.body.creator}, (err, user) => {
+    User.findOne({_id: req.body.creator}, (err, user) => {
       user.createdGames.push(createdCustom);
       user.save((err, savedUser) => res.send(createdCustom));
     });
@@ -20,7 +20,7 @@ router.post('/create', verifyToken, (req, res) => {
 });
 
 router.get('/all', (req, res) => {
-  Custom.find({}).populate('comments').exec(function (err, games) {
+  Custom.find({}).populate('comments').populate({path: 'creator', select: 'username'}).exec(function (err, games) {
       if (err) return console.error(err);
       res.send(games);
   });

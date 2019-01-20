@@ -5,7 +5,7 @@ const CustomSchema = Schema({
   name: {type: String, required: true},
   totalPlayed: {type: Number, default: 0},
   nowPlaying: {type: Number, default: 0},
-  creator: {type: String, required: true},
+  creator: {type: Schema.Types.ObjectId, ref: 'User'},
   createDate: {type: Date, default: Date.now},
   ratedTimes: {type: Number, default: 0},
   avgRating: {type: Number, default: 0},

@@ -15,7 +15,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{game.name}} <strong class="text-warning">★{{game.avgRating}}</strong></h5>
                 <p class="card-text">total played: {{game.totalPlayed}} <br>now playing: {{game.nowPlaying}}</p>
-                <p class="card-text">created by <a routerLink="/users/{{game.creator}}">{{game.creator}}</a>
+                <p class="card-text">created by <a routerLink="/users/{{game.creator.username}}">{{game.creator.username}}</a>
                   <br>on {{game.createDate | date:'shortDate'}}</p>
                 <a href="" data-toggle="modal" data-target="#commentsModal" (click)="updateComments(game.comments)">comments</a>
                 <button class="btn btn-success" (click)="selectGame(game)">select</button>

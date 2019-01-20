@@ -20,7 +20,7 @@ export class DesignGameComponent implements OnInit {
   onSubmit() {
     const gameData = {
       name: this.gameFormData['name'],
-      creator: localStorage.getItem('me'),
+      creator: localStorage.getItem('myID'),
       winScore: this.gameFormData['winScore'],
       diceCount: this.gameFormData['diceCount'],
       blackDices: this.blackDices,
