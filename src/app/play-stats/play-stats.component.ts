@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./play-stats.component.css']
 })
 export class PlayStatsComponent implements OnInit {
-  playStats = {};
+  playStats = {totalGames: 0, totalWins: 0, avgRating: 0, matches: []};
   myself: string;
   selectedMatchComments = [];
 

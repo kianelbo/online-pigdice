@@ -25,5 +25,6 @@ Online pig dice game created with MEAN stack
 * MongoDB
 
 ### Servers:
-* database hosting: [mlab.com](https://mlab.com/)
+* database hosting: [mLab](https://mlab.com/)
 * image storage: [cloudinary](https://cloudinary.com/)
+* deploy: [Heroku](https://www.heroku.com/)

@@ -14,8 +14,9 @@ export class StartGameComponent implements OnInit {
   games = [];
   onlineUsers = [];
   comments = [];
-  selectedGame = {};
+  selectedGame = {winScore: '', limit: '', blackDices: [], diceCount: ''};
   sortMethod = 3;
+  loggedIn = false;
 
   constructor(private router: Router,
               private customGameService: CustomGameService,
@@ -24,13 +25,14 @@ export class StartGameComponent implements OnInit {
               private matchMakingService: MatchMakingService) { }
 
   ngOnInit() {
+    this.loggedIn = this.authService.loggedIn();
     this.customGameService.getAllGames().subscribe(res => {
       this.games = res;
       this.sortByRating();
       this.selectedGame = this.games[0];
     }, err => console.error(err));
 
-    if (this.authService.loggedIn()) {
+    if (this.loggedIn) {
       const selfUsername = this.authService.getSelfUsername();
       this.updateList(selfUsername);
       setInterval(() => this.updateList(selfUsername), 5000);

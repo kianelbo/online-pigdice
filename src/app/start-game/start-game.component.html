@@ -41,7 +41,7 @@
         <button class="btn btn-primary" (click)="versusAI()" [disabled]="isEnqueued()">Versus AI</button><br>
         <button class="btn btn-primary mt-1" (click)="findRandom()" [disabled]="isEnqueued()">Random Opponent</button>
 
-        <div class="list-group" *ngIf="authService.loggedIn()">
+        <div class="list-group" *ngIf="loggedIn">
           <h6 class="text-muted pt-3">or play against:</h6>
           <button class="btn list-group-item list-group-item-action" *ngFor="let user of onlineUsers"
                   (click)="requestPlayer(user.username)" [ngClass]="user.isFriend ? 'red-bold' : 'black-normal'">

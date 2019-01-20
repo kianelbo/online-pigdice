@@ -8,7 +8,7 @@ import { CustomGameService } from '../services/custom-game.service';
   styleUrls: ['./design-game.component.css']
 })
 export class DesignGameComponent implements OnInit {
-  gameFormData = {};
+  gameFormData = {name: '', winScore: '', blackDices: [], diceCount: '', limit: ''};
   blackDices = ['1'];
 
   constructor(private router: Router,
@@ -28,7 +28,6 @@ export class DesignGameComponent implements OnInit {
     };
     this.customGameService.createCustom(gameData).subscribe(
       res => {
-        console.log('custom game created');
         console.log(res);
         this.router.navigate(['/index']);
       },
@@ -45,6 +44,5 @@ export class DesignGameComponent implements OnInit {
     } else {
       this.blackDices.splice(this.blackDices.indexOf(event.target.value, 0), 1);
     }
-    console.log(this.blackDices);
   }
 }

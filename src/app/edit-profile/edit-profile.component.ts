@@ -12,9 +12,9 @@ declare var $: any;
 })
 export class EditProfileComponent implements OnInit {
   genders = ['male', 'female'];
-  newPersonalData = {};
-  newAccountData = {};
-  curPersonalData = {};
+  curPersonalData = {username: '', name: '', birthDate: '', gender: '', email: '', picture: ''};
+  newPersonalData = {name: '', birthDate: '', email: ''};
+  newAccountData = {username: '', password: ''};
   currentUsername: String;
   picture: File;
 

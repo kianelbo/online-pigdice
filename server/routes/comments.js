@@ -30,6 +30,7 @@ router.post('/rate/:category', (req, res) => {
       if (err) return console.error(err);
 
       user.avgRating = (parseInt(user.avgRating * user.ratedTimes) + parseInt(req.body.rating)) / (user.ratedTimes + 1);
+      user.avgRating = Math.round(user.avgRating * 100) / 100;
       user.ratedTimes += 1;
       user.save((err, ratedUser) => {
         if (err) return console.error(err);
@@ -41,6 +42,7 @@ router.post('/rate/:category', (req, res) => {
       if (err) return console.error(err);
 
       game.avgRating = (parseInt(game.avgRating * game.ratedTimes) + parseInt(req.body.rating)) / (game.ratedTimes + 1);
+      game.avgRating = Math.round(game.avgRating * 100) / 100;
       game.ratedTimes += 1;
       game.save((err, ratedGame) => {
         if (err) return console.error(err);

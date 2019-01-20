@@ -16,8 +16,8 @@ export class GameoverComponent implements OnInit {
   player1: String;
   player2: String;
   game: String;
-  playerComment = {};
-  gameComment = {};
+  playerComment = {text: '', rating: 0};
+  gameComment = {text: '', rating: 0};
   resultMessage: String;
   result: String;
 
@@ -42,28 +42,28 @@ export class GameoverComponent implements OnInit {
   }
 
   sendFeedback() {
-    if (this.playerComment['rating']) {
-      this.commentService.rate('user', {username: this.opponent, rating: this.playerComment['rating']});
-      if (this.playerComment['text']) {
+    if (this.playerComment.rating) {
+      this.commentService.rate('user', {username: this.opponent, rating: this.playerComment.rating});
+      if (this.playerComment.text) {
         const playerCommentData = {
           category: 'user',
           commenter: this.myself,
-          text: this.playerComment['text'],
-          rating: this.playerComment['rating'],
+          text: this.playerComment.text,
+          rating: this.playerComment.rating,
           game: localStorage.getItem('lastGameId'),
           match: localStorage.getItem('lastMatchId')
         };
         this.commentService.newComment(playerCommentData);
       }
     }
-    if (this.gameComment['rating']) {
-      this.commentService.rate('game', {name: this.game, rating: this.gameComment['rating']});
-      if (this.gameComment['text']) {
+    if (this.gameComment.rating) {
+      this.commentService.rate('game', {name: this.game, rating: this.gameComment.rating});
+      if (this.gameComment.text) {
         const gameCommentData = {
           category: 'game',
           commenter: this.myself,
-          text: this.gameComment['text'],
-          rating: this.gameComment['rating'],
+          text: this.gameComment.text,
+          rating: this.gameComment.rating,
           game: localStorage.getItem('lastGameId'),
           match: localStorage.getItem('lastMatchId')
         };
@@ -88,11 +88,11 @@ export class GameoverComponent implements OnInit {
     button.classList.add('btn-outline-success');
   }
 
-  onGameRated(value: Number) {
-    this.gameComment['rating'] = value;
+  onGameRated(value: number) {
+    this.gameComment.rating = value;
   }
 
-  onPlayerRated(value: Number) {
-    this.playerComment['rating'] = value;
+  onPlayerRated(value: number) {
+    this.playerComment.rating = value;
   }
 }
