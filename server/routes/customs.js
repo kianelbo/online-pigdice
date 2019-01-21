@@ -44,10 +44,9 @@ router.post('/finish', (req, res) => {
     if (err)
       console.error(err);
 
-    game.nowPlaying -= 0.5;
+    game.nowPlaying--;
     game.save((err, updatedGame) => {
-      if (err)
-        console.error(err);
+      if (err) return console.error(err);
       res.sendStatus(200);
     });
   });
