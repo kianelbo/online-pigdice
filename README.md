@@ -1,6 +1,7 @@
 # OnlinePigdice
 
-Online pig dice game created with MEAN stack
+Online pig dice game created with MEAN stack  
+[Live Demo](https://morning-waters-23269.herokuapp.com/index)
 
 ## Features
 * Sign up, login and authentication
