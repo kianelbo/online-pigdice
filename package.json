@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server/server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +29,9 @@
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "@angular/cli": "~7.1.4",
+    "@angular/compiler-cli": "~7.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.11.0",
