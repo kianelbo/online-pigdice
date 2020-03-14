@@ -1,7 +1,6 @@
 # OnlinePigdice
 
-Online pig dice game created with MEAN stack  
-[Live Demo](https://pigdice.herokuapp.com/index)
+Online pig dice game created with MEAN stack
 
 ## Features
 * Sign up, login and authentication
@@ -25,7 +24,6 @@ Online pig dice game created with MEAN stack
 * NodeJS (Express)
 * MongoDB
 
-### Servers:
+### Deployment:
 * database hosting: [mLab](https://mlab.com/)
 * image storage: [cloudinary](https://cloudinary.com/)
-* deploy: [Heroku](https://www.heroku.com/)
